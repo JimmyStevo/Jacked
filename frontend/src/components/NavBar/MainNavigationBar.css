@@ -1,0 +1,29 @@
+/* Navigation bar settings for the Main navigation bar */
+.main-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #353232;
+    color: #e9e9d2;
+    padding: 1rem;
+}
+
+.main-navbar-left .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e9e9d2;
+    text-decoration: none;
+}
+
+.main-navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.main-navbar-right .profile-icon,
+.main-navbar-right .num-icon,
+.main-navbar-right .exit-icon {
+    color: #e9e9d2;
+    margin-left: 1rem;
+    position: relative;
+}

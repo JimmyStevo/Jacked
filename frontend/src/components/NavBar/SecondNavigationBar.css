@@ -1,0 +1,5 @@
+/* Navigation bar settings for the secondary navigation bar */
+.second-navbar{
+    display: flex;
+    justify-content: center;
+}
