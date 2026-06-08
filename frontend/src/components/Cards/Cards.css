@@ -1,0 +1,35 @@
+.card {
+    background-color: #5f5555;
+    border-radius: 8px;
+    overflow: hidden;
+    width: flex;
+    margin: 16px;
+}
+
+.card-image-container {
+    height: 180px;
+    overflow: hidden;
+}
+
+.card-image {
+    height: flex;
+    width: flex;
+    object-fit: cover;
+}
+
+.card-content {
+    padding: 16px;
+}
+
+.card-title {
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.card-description {
+    margin: 0;
+    font-size: 0.5rem;
+    color: #ffffff;
+    line-height: 1.5;
+}

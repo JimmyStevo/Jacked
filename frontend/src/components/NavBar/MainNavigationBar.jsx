@@ -1,24 +1,30 @@
 import './MainNavigationBar.css';
+import { Link } from 'react-router-dom';
 
 const MainNavigationBar = () => {
     return(
     <nav className='main-navbar'>
         <div className='main-navbar-left'>
-            <a href='/' className='title'>
+            <Link to='/' className='title'>
                 Jacked
-            </a>
+            </Link>
         </div>
         <div className='main-navbar-right'>
-            <a href='/account' className='profile-icon'>
+            <Link to='/account' className='profile-icon'>
+                Things
                 <i className=''></i>
-            </a>
-            <a href='/settings' className='num-icon'>
+            </Link>
+            <Link to='/settings' className='num-icon'>
+                Stuff
                 <i className=''></i>
-            </a>
-            <a href='/' className='exit-icon'>
+            </Link>
+            <Link to='/' className='exit-icon'>
+                Exit
                 <i className=''></i>
-            </a>
+            </Link>
         </div>
     </nav>
     );
 };
+
+export default MainNavigationBar

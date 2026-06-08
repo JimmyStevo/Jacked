@@ -1,10 +1,12 @@
 import './Home.css'
+import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
+import MainButton from '../../components/button/MainButton';
+
 
 const Home = () => {
     return (
         <>
-        <h1>Hello Style!</h1>
-        <p>Add a little Style!</p>
+        <MainNavigationBar/>
         </>
     );
 }

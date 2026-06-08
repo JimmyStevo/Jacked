@@ -1,5 +1,26 @@
 /* Navigation bar settings for the secondary navigation bar */
 .second-navbar{
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #6d6969;
+    color: #e9e9d2;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+.second-navbar-center .nav-links {
+    list-style-type: none;
+    display: flex;
+    padding: 1rem;
+    gap: 2rem;
+}
+
+.second-navbar-center .nav-links li {
+    margin-right: 1rem;
+}
+
+.second-navbar-center .nav-links a {
+    color: #fff;
+    text-decoration: none;
 }
