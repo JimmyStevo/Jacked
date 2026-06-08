@@ -1,6 +1,6 @@
 import './Cards.css'
 
-function Cards({Title, Description, cardType}){
+function TitleCards({Title, Description, cardType}){
     return (
         <div className={cardType}>
         <div className='card-icon'>
@@ -11,14 +11,10 @@ function Cards({Title, Description, cardType}){
                 <h3 className='card-icon-title'>
                     {Title}
                 </h3>
-                <p className='card-icon-description'>
-                    {Description}
-                </p>
             </div>
         </div>
         </div>
-    )
+    )    
 }
 
-
-export default Cards
+export default TitleCards

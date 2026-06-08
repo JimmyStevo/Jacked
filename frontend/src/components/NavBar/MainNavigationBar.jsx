@@ -1,4 +1,5 @@
 import './MainNavigationBar.css';
+import MainButton from '../button/MainButton'
 import { Link } from 'react-router-dom';
 
 const MainNavigationBar = () => {
@@ -10,12 +11,12 @@ const MainNavigationBar = () => {
             </Link>
         </div>
         <div className='main-navbar-right'>
-            <Link to='/account' className='profile-icon'>
-                Things
-                <i className=''></i>
-            </Link>
             <Link to='/settings' className='num-icon'>
                 Stuff
+                <i className=''></i>
+            </Link>
+            <Link to='/account' className='profile-icon'>
+                <MainButton label="Points"/>
                 <i className=''></i>
             </Link>
             <Link to='/' className='exit-icon'>

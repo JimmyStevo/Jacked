@@ -1,9 +1,11 @@
 import './MainButton.css'
 
-function Button(){
+function Button({label}){
     return(
-        <button className='MainButton'>
-            Test
+        <button className='main-button'>
+            {label}
         </button>
     )
 }
+
+export default Button

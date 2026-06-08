@@ -1,4 +1,4 @@
-.card {
+.card-icon {
     background-color: #5f5555;
     border-radius: 8px;
     overflow: hidden;
@@ -6,30 +6,50 @@
     margin: 16px;
 }
 
-.card-image-container {
+.card-icon-image-container {
     height: 180px;
     overflow: hidden;
 }
 
-.card-image {
+.card-icon-image {
     height: flex;
     width: flex;
     object-fit: cover;
 }
 
-.card-content {
+.card-icon-content {
     padding: 16px;
 }
 
-.card-title {
+.card-icon-title {
     margin: 0 0 8px 0;
     font-size: 1rem;
     color: #ffffff;
 }
 
-.card-description {
+.card-icon-description {
     margin: 0;
     font-size: 0.5rem;
     color: #ffffff;
     line-height: 1.5;
+}
+
+.card-small {
+    width: 150px;
+    height: 150px;
+}
+
+.card-med {
+    width: 150px;
+    height: 150px;    
+}
+
+.card-large {
+    width: 150px;
+    height: 150px;
+}
+
+.card-slim {
+    width: 150px;
+    height: 50px;
 }
