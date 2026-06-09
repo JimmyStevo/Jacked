@@ -1,7 +1,26 @@
 body{
     background-color:  #b6b6b6;
     color: white;
-    padding: 40px;
+    margin: 0;
     font-family: sans-serif;
-    text-align: center;
+
+}
+
+.card-container{
+    display: flex;
+    flex-direction: row;
+    gap: 64px;
+    padding: 16px;
+    justify-content: center;
+    width: 90%;
+}
+
+.card-container-column{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+
 }
