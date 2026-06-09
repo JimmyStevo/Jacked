@@ -1,29 +1,35 @@
 import './SecondNavigationBar.css';
 import MainButton from '../button/MainButton'
 import { Link } from 'react-router-dom';
+import Cards from '../Cards/Cards';
+import TitleCards from '../Cards/TitleCards';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 const SecondNavigationBar = () => {
     return(
         <nav className='second-navbar'>
-        <div className='main-navbar-left'>
-            <Link to='/' className='title'>
-                Jacked
-            </Link>
-        </div>
-        <div className='main-navbar-right'>
-            <Link to='/settings' className='num-icon'>
-                Stuff
-                <i className=''></i>
-            </Link>
-            <Link to='/account' className='profile-icon'>
-                <MainButton label="Points"/>
-                <i className=''></i>
-            </Link>
-            <Link to='/' className='exit-icon'>
-                Exit
-                <i className=''></i>
-            </Link>
-        </div>
+            <div className='second-navbar-center'>
+                <ul className='nav-links'>
+                    <li>
+                    <Link to='/overview'> <TitleCards Title={"Overview"} icon={faChartLine}/>
+                    </Link>
+                    </li>
+                    <li>
+                    <Link to='/nutrition'> <TitleCards Title={"Nutritition"} icon={faUtensils}/>
+                    </Link>
+                    </li>
+                    <li>
+                    <Link to='/weightlogging'> <TitleCards Title={"Weight Logging"} icon={faWeightScale}/>
+                    </Link>
+                    </li>
+                    <li>
+                    <Link to='/workout'> <TitleCards Title={"Workout"} icon={faDumbbell}/>
+                    </Link>
+                    </li>
+                </ul>
+
+            </div>
         </nav>
     )
 }

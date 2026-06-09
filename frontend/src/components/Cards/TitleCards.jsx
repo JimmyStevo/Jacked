@@ -1,18 +1,11 @@
 import './Cards.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function TitleCards({Title, Description, cardType}){
+function TitleCards({Title, icon}){
     return (
-        <div className={cardType}>
-        <div className='card-icon'>
-            <div className='card-icon-image-container'>
-                {/* Putting an image for icon here */}
-            </div>
-            <div className='card-icon-content'>
-                <h3 className='card-icon-title'>
-                    {Title}
-                </h3>
-            </div>
-        </div>
+        <div className='card-icon-title'>
+            <FontAwesomeIcon icon={icon} />
+            <span>{Title}</span>
         </div>
     )    
 }
