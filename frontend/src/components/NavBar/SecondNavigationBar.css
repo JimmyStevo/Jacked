@@ -1,0 +1,27 @@
+/* Navigation bar settings for the secondary navigation bar */
+.second-navbar{
+    display: flex;
+    align-items: center;
+    background-color: #6d6969;
+    color: #e9e9d2;
+    width: fit-content;
+
+    border-radius: 12px;
+    margin: 10px auto;
+    padding: 0 1rem;
+}
+
+.second-navbar-center .nav-links {
+    list-style-type: none;
+    display: flex;
+    padding: 0.5rem;
+    gap: 3rem;
+    align-items: center;
+    justify-content: space-between;
+    height: fit-content;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+}
