@@ -18,7 +18,18 @@ const Settings = () => {
 
             {/*Fitness Goals */}
             <div className='card-container'>
-                <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}/>
+                <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}>
+
+                    <form>                   
+                        <text>
+                            Target Weight:  
+                        </text>
+                        <input type='number' placeholder='Please enter your target Weight'/>
+                    </form>
+                    <form>
+                        <input type='number' placeholder='Please enter your target Steps'/>
+                    </form>
+                </Cards>
             </div>
 
             {/* Notifications */}
@@ -28,7 +39,8 @@ const Settings = () => {
 
             {/* Preferences */}
             <div className='card-container'>
-                <Cards Title={'Preferences'} icon={faCog} Description={'Set Your Preferences'} cardType={'card-large'}/>
+                <Cards Title={'Preferences'} icon={faCog} Description={'Set Your Preferences'} cardType={'card-large'}>
+                </Cards>
             </div>
 
             {/* Privacy */}
