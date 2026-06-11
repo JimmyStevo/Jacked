@@ -22,5 +22,6 @@ body{
     justify-content: center;
     width: 100%;
     align-items: center;
-
+    background-color: #a8a8a8;
+    padding-bottom: 24px;
 }

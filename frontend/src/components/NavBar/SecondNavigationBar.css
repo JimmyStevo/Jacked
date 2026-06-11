@@ -14,11 +14,11 @@
 .second-navbar-center .nav-links {
     list-style-type: none;
     display: flex;
-    padding: 0.5rem;
+    padding-right: 3rem;
     gap: 3rem;
     align-items: center;
     justify-content: space-between;
-    height: fit-content;
+    height: 1px;
 }
 
 .nav-links a {
