@@ -1,7 +1,7 @@
 .secondary-button{
     background-color: #07bb34d8;
     border: none;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 15px 32px;
     text-align: center;
     font-family: sans-serif;
@@ -9,6 +9,7 @@
     cursor: pointer;
     border-radius: 8px;
     transition-duration: 3ms;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 6);
 }
 
 .secondary-button:hover{
@@ -17,7 +18,7 @@
     box-shadow: 0 8px 16px rgba(0, 0, 0, 6);
 }
 
-.main-button:active{
+.secondary-button:active{
     background-color: #07bb34d8;
     transform: scale(0.9);
 }

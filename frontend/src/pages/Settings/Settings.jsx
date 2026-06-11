@@ -35,7 +35,10 @@ const Settings = () => {
             <div className='card-container'>
                 <Cards Title={'Privacy'} icon={faUserSecret} Description={'Set Privacy settings'} cardType={'card-large'}/>
             </div>
-            <div SecondButton Label='Submit'/>
+            <div className='card-container'>
+                <SecondButton label='Save Changes'/> 
+                <MainButton label='Exit without Saving'/>
+            </div>
         </div>
         </>
     );

@@ -39,6 +39,8 @@
     line-height: 1.5;
 }
 
+/* Card size options for each of the pages */
+
 .card-med-large {
     width: 600px;
     height: 150px;
@@ -53,6 +55,7 @@
 .card-large {
     width: 100%;
     height: 150px;
+    padding-bottom: 10px;
 }
 
 

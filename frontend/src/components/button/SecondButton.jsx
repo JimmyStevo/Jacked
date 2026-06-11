@@ -1,6 +1,6 @@
 import './SecondButton.css'
 
-function Button({label}){
+function SecondButton({label}){
     
     return(
         <button className='secondary-button'>
@@ -9,4 +9,4 @@ function Button({label}){
     )
 }
 
-export default Button
+export default SecondButton
