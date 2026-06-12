@@ -1,7 +1,8 @@
+import { Children } from 'react';
 import './Cards.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Cards({Title, icon, Description, cardType}){
+function Cards({Title, icon, Description, cardType, children}){
     return (
         <div className={cardType}>
             <div className='card-icon'>
@@ -11,6 +12,7 @@ function Cards({Title, icon, Description, cardType}){
                     <p className='card-icon-description'>
                         {Description}
                     </p>
+                    {children}
                 </div>
             </div>
         </div>

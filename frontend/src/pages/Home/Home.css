@@ -9,7 +9,6 @@ body{
 .card-container{
     display: flex;
     flex-direction: row;
-    gap: 64px;
     padding: 16px;
     justify-content: center;
     width: 90%;
@@ -22,5 +21,6 @@ body{
     justify-content: center;
     width: 100%;
     align-items: center;
-
+    background-color: #a8a8a8;
+    padding-bottom: 24px;
 }
