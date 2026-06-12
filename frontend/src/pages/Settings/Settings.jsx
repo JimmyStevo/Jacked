@@ -22,11 +22,15 @@ const Settings = () => {
 
                     <form>                   
                         <text>
-                            Target Weight:  
+                            Target Weight
+                            :  
                         </text>
                         <input type='number' placeholder='Please enter your target Weight'/>
                     </form>
                     <form>
+                        <text>
+                            Target Steps: 
+                        </text>
                         <input type='number' placeholder='Please enter your target Steps'/>
                     </form>
                 </Cards>
