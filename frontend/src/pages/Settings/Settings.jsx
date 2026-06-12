@@ -1,4 +1,5 @@
 import './Settings.css'
+import Dropdown from '../../components/Dropdown/Dropdown';
 import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
 import MainButton from '../../components/button/MainButton';
 import SecondButton from '../../components/button/SecondButton'
@@ -19,18 +20,16 @@ const Settings = () => {
             {/*Fitness Goals */}
             <div className='card-container'>
                 <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}>
-
                     <form>                   
-                        <text>
-                            Target Weight
-                            :  
-                        </text>
+                        <p>
+                            Target Weight:  
+                        </p>
                         <input type='number' placeholder='Please enter your target Weight'/>
                     </form>
                     <form>
-                        <text>
+                        <p>
                             Target Steps: 
-                        </text>
+                        </p>
                         <input type='number' placeholder='Please enter your target Steps'/>
                     </form>
                 </Cards>
@@ -38,12 +37,24 @@ const Settings = () => {
 
             {/* Notifications */}
             <div className='card-container'>
-                <Cards Title={'Notifications'} icon={faInfoCircle} Description={'Set Your Notification Settings'} cardType={'card-large'}/>
+                <Cards Title={'Notifications'} icon={faInfoCircle} Description={'Set Your Notification Settings'} cardType={'card-large'}>
+                    <p>
+                        Stuff
+                    </p>
+                    
+                </Cards>
             </div>
 
             {/* Preferences */}
             <div className='card-container'>
                 <Cards Title={'Preferences'} icon={faCog} Description={'Set Your Preferences'} cardType={'card-large'}>
+                    <p>
+                        Unit of Measurement: 
+                        <Dropdown options={['Kg', 'Lb']}/>
+                    </p>
+                    <p>
+                        Dark Mode:
+                    </p>
                 </Cards>
             </div>
 
