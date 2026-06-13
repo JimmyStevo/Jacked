@@ -22,3 +22,7 @@
     opacity: 1;
     visibility: visible;
 }
+
+.dropdown .option {
+    background-color: aqua;
+}

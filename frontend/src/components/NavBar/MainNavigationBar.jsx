@@ -15,8 +15,12 @@ const MainNavigationBar = () => {
                 Stuff
                 <i className=''></i>
             </Link>
-            <Link to='/account' className='profile-icon'>
+            <Link to='/overview' className='settings-icon'>
                 <MainButton label="Points"/>
+                <i className=''></i>
+            </Link>
+            <Link to='/account' className='profile-icon'>
+                Account
                 <i className=''></i>
             </Link>
             <Link to='/' className='exit-icon'>
