@@ -11,11 +11,11 @@ const MainNavigationBar = () => {
             </Link>
         </div>
         <div className='main-navbar-right'>
-            <Link to='/settings' className='num-icon'>
+            <Link to='/account' className='num-icon'>
                 Stuff
                 <i className=''></i>
             </Link>
-            <Link to='/account' className='profile-icon'>
+            <Link to='/settings' className='profile-icon'>
                 <MainButton label="Points"/>
                 <i className=''></i>
             </Link>
