@@ -5,3 +5,5 @@ function AddButton(){
         <button className='add-button'></button>
     )
 }
+
+export default AddButton;

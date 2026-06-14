@@ -11,7 +11,6 @@
     font-family: sans-serif;
 }
 
-/* Account Section Styling */
 .account-section {
     width: 100%;
     background-color: #5f5555;
@@ -28,7 +27,7 @@
     font-weight: bold;
 }
 
-/* Info Card (Personal Details) */
+/* Info Card Personal Details */
 .info-card {
     background-color: #5f5555;
     border-radius: 6px;
