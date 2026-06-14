@@ -4,12 +4,12 @@ import MainButton from '../../components/button/MainButton';
 import SecondNaviationBar from '../../components/NavBar/SecondNavigationBar';
 import TertiaryNavigationBar from '../../components/NavBar/TertiaryNavigationBar';
 import { useState } from 'react';
-import Workoutlegs from './Workout';
-import WorkoutUpperBody from './Workout';
-import WorkoutLowerBody from './Workout';
-import WorkoutPull from './Workout';
-import WorkoutPush from './Workout';
-import WorkoutRest from './Workout';
+import WorkoutLegs from './WorkoutLegs';
+import WorkoutUpperBody from './WorkoutUpperBody';
+import WorkoutLowerBody from './WorkoutLowerBody';
+import WorkoutPull from './WorkoutPull';
+import WorkoutPush from './WorkoutPush';
+import WorkoutRest from './WorkoutRest';
 
 const Workout = () => {
 
@@ -19,11 +19,14 @@ const Workout = () => {
         <>
         <MainNavigationBar/>
         <SecondNaviationBar/>
-        <TertiaryNavigationBar activeTab={activeTab} setActiveTab={setActiveTab}>
-            <div className={activeTab === 'upperbody' ? 'active' : ''}
-            onClick={()=>setActiveTab('upperbody')}/>
-        </TertiaryNavigationBar>
+        <TertiaryNavigationBar activeTab={activeTab} setActiveTab={setActiveTab}/>
+
         {activeTab === 'upperbody' && <WorkoutUpperBody/>}
+        {activeTab === 'lowerbody' && <WorkoutLowerBody/>}
+        {activeTab === 'legs' && <WorkoutLegs/>}
+        {activeTab === 'push' && <WorkoutPush/>}
+        {activeTab === 'pull' && <WorkoutPull/>}
+        {activeTab === 'rest' && <WorkoutRest/>}
         </>
     );
 }

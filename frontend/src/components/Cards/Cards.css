@@ -53,7 +53,8 @@
 }
 
 .card-large {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     height: 150px;
     padding-bottom: 10px;
     text-align: left;

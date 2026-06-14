@@ -18,7 +18,7 @@ const Settings = () => {
         <div className='card-container-column'>
 
             {/*Fitness Goals */}
-            <div className='card-container'>
+            <div className='card-container-settings'>
                 <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}>
                     <form>                   
                         <p>
@@ -36,7 +36,7 @@ const Settings = () => {
             </div>
 
             {/* Notifications */}
-            <div className='card-container'>
+            <div className='card-container-settings'>
                 <Cards Title={'Notifications'} icon={faInfoCircle} Description={'Set Your Notification Settings'} cardType={'card-large'}>
                     <p>
                         Stuff
@@ -46,7 +46,7 @@ const Settings = () => {
             </div>
 
             {/* Preferences */}
-            <div className='card-container'>
+            <div className='card-container-settings'>
                 <Cards Title={'Preferences'} icon={faCog} Description={'Set Your Preferences'} cardType={'card-large'}>
                     <p>
                         Unit of Measurement: 
@@ -59,10 +59,10 @@ const Settings = () => {
             </div>
 
             {/* Privacy */}
-            <div className='card-container'>
+            <div className='card-container-settings'>
                 <Cards Title={'Privacy'} icon={faUserSecret} Description={'Set Privacy settings'} cardType={'card-large'}/>
             </div>
-            <div className='card-container'>
+            <div className='card-container-settings'>
                 <SecondButton label='Save Changes'/> 
                 <MainButton label='Exit without Saving'/>
             </div>

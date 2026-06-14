@@ -6,15 +6,27 @@ body{
 
 }
 
-.card-container{
+.card-container-home{
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     padding: 16px;
+    gap: 7rem;
     justify-content: center;
     width: 90%;
 }
 
-.card-container-column{
+.card-container-home-largergap{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+    gap: 20rem;
+    justify-content: center;
+    width: 90%;
+}
+
+.card-container-home-column{
     display: flex;
     flex-direction: column;
     gap: 50px;
