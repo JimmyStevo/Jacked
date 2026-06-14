@@ -126,12 +126,22 @@
     min-width: 130px;
     justify-content: center;
     border-radius: 8px;
+    height: 55px;
 }
 .card-icon-select:hover{
     background-color: #7a7575;
-    border-radius: 0px;
+
 }
 
 .card-icon-select.active{
-    background-color: #e9e9d2;
+    display: flex;
+    align-items: center;
+    background-color: #6d6969;
+    border: 1px solid #6d6969;
+        padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    border-radius: 8px;
+    color: #1a1a1a;
 }

@@ -66,6 +66,7 @@ const Settings = () => {
                 <SecondButton label='Save Changes'/> 
                 <MainButton label='Exit without Saving'/>
             </div>
+
         </div>
         </>
     );

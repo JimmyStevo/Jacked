@@ -1,15 +1,13 @@
-
-
 .card-container-settings{
     width: 90%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     gap: 64px;
-    padding-bottom: 70px;
     justify-content: center;
     height: fit-content;
     font-size: inherit;
     font-family: sans-serif;
     color: inherit;
+    padding: 6px;
 }

@@ -10,6 +10,7 @@ import SecondButton from '../../components/button/SecondButton';
 const WorkoutUpperBody = () => {
     return (
     <div className='card-container-workout'>
+        <div className='card-container-workout-row'>
         <Cards Title={'LOG WORKOUT'} icon={null} Description={null} cardType={'card-med-large-long'}>
             <div className='card-container-workout-row'>
                 <div className='card-container-workout-column'>
@@ -35,8 +36,24 @@ const WorkoutUpperBody = () => {
                 <SecondButton label={'LOG'}/>
                 <MainButton label={'EXIT'}/>
             </div>
-
         </Cards>
+        <Cards Title={'GOAL PROGRESS'} icon={null} Description={null} cardType={'card-med-large-long'}>        </Cards>
+        </div>
+        <div className='card-container-workout-row'>
+        <Cards Title={'WORKOUT HISTORY'} icon={null} Description={null} cardType={'card-med-large-long'}>
+            <label>Sets</label>
+            <input type='number' placeholder='Number of Sets'/>
+        </Cards>
+        </div>
+        <div className='card-container-workout-row'>
+        <Cards Title={'AI WORKOUT PLAN'} icon={null} Description={null} cardType={'card-med-large-long'}>
+            <div className='card-container-workout-column'>
+                <label>Sets</label>
+                <input type='text' placeholder='Describe what you would like help with (e.g. build muscle, lose fat etc'/>
+                <MainButton label={'GENERATE'}/>
+            </div>
+        </Cards>
+        </div>
     </div>
     )
 }

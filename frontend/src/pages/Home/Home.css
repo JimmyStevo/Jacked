@@ -13,6 +13,7 @@ body{
     gap: 7rem;
     justify-content: center;
     width: 90%;
+    height: auto;
 }
 
 .card-container-home-largergap{

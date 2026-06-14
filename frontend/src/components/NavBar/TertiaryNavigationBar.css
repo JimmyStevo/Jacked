@@ -5,7 +5,7 @@
     justify-content: center;
     background-color: #6d6969;
     color: #e9e9d2;
-    width: fit-content;
+    width: 90%;
     border-radius: 8px;
     margin: 10px auto;
 }
@@ -27,6 +27,7 @@
     font-family: 'Courier New', Courier, monospace;
     font-weight: 400;
     height: 75px;
+    gap: 32px;
 }
 
 .nav-links a {
