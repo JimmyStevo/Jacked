@@ -87,8 +87,25 @@
     background-color: #7a7575;
 }
 
-.card-slim {
-    width: 150px;
-    height: fit-content;
+/* Select Card CSS specifically for the tertiary navigation bar */
+
+.card-icon-select {
+    display: flex;
     align-items: center;
+    background-color: #6d6969;
+    border: 1px solid #6d6969;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.8em;
+    text-transform: uppercase;
+    color: #ffffff;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    min-width: 130px;
+    justify-content: center;
+}
+.card-icon-select:hover{
+    background-color: #7a7575;
 }

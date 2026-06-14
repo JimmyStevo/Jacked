@@ -7,6 +7,9 @@
     color: #e9e9d2;
     padding: 1rem;
     gap: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 200;
 }
 
 .main-navbar-left .title {
