@@ -1,5 +1,20 @@
 .card-container-workout{
-    background-color: blue;
-    width: 90%;
-    margin: 0 auto;
+    
+    height: fit-content;
+    margin: 20px 60px;
+}
+
+.card-container-workout-column{
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+}
+
+.card-container-workout-row{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: fit-content;
+
 }

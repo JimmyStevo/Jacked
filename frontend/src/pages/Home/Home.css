@@ -10,7 +10,6 @@ body{
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    padding: 16px;
     gap: 7rem;
     justify-content: center;
     width: 90%;
@@ -20,7 +19,6 @@ body{
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    padding: 16px;
     gap: 20rem;
     justify-content: center;
     width: 90%;
@@ -29,10 +27,7 @@ body{
 .card-container-home-column{
     display: flex;
     flex-direction: column;
-    gap: 50px;
     justify-content: center;
-    width: 100%;
     align-items: center;
-    background-color: #a8a8a8;
     padding-bottom: 24px;
 }
