@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Account from './pages/Account/Account';
 import FoodLogging from './pages/FoodLogging/FoodLogging';
