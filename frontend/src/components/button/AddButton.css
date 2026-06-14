@@ -1,0 +1,23 @@
+.add-button{
+    background-color: grey;
+    border-radius: 50%;
+    cursor: pointer;
+    border: none;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    line-height: 40px;
+    text-align: center;
+}
+
+.add-button:hover{
+    background-color: #494949;
+    color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 6);
+}
+
+.add-button:active{
+    background-color: #bebebe;
+    transform: scale(0.9);
+    color: black;
+}
