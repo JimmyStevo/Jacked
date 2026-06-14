@@ -109,3 +109,7 @@
 .card-icon-select:hover{
     background-color: #7a7575;
 }
+
+.card-icon-select.active{
+    background-color: #e9e9d2;
+}

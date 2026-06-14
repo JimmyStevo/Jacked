@@ -5,38 +5,31 @@ import Cards from '../Cards/Cards';
 import TitleCards from '../Cards/TitleCards';
 import SelectCards from '../Cards/SelectCards';
 
-const TertiaryNavigationBar = () => {
+const TertiaryNavigationBar = ({ activeTab, setActiveTab }) => {
     return(
         <nav className='tertiary-navbar'>
             <div className='tertiary-navbar-center'>
                 <ul className='nav-links'>
-                    <li>
-                    <Link to='/upperbody'> <SelectCards Title={"UPPER BODY"}/>
-                    </Link>
+                    <li onClick={()=> setActiveTab('upperbody')}>
+                        <SelectCards Title={"UPPER BODY"} isActive={activeTab === 'upperbody'}/>
                     </li>
-                    <li>
-                    <Link to='/upperbody'> <SelectCards Title={"LOWER BODY"}/>
-                    </Link>
+                    <li onClick={()=> setActiveTab('lowerbody')}>
+                        <SelectCards Title={"LOWER BODY"} isActive={activeTab === 'lowerbody'}/>
                     </li>
-                    <li>
-                    <Link to='/upperbody'> <SelectCards Title={"REST"}/>
-                    </Link>
+                    <li onClick={()=> setActiveTab('rest')}>
+                        <SelectCards Title={"REST"} isActive={activeTab === 'rest'}/>
                     </li>
-                    <li>
-                    <Link to='/upperbody'> <SelectCards Title={"PUSH"}/>
-                    </Link>
+                    <li onClick={()=> setActiveTab('push')}>
+                        <SelectCards Title={"PUSH"} isActive={activeTab === 'push'}/>
                     </li>
-                    <li>
-                    <Link to='/nutrition'> <SelectCards Title={"PULL"}/>
-                    </Link>
+                    <li onClick={()=> setActiveTab('pull')}>
+                        <SelectCards Title={"PULL"} isActive={activeTab === 'pull'}/>                    
                     </li>
-                    <li>
-                    <Link to='/weightlogging'> <SelectCards Title={"LEGS"}/>
-                    </Link>
+                    <li onClick={()=> setActiveTab('legs')}>
+                        <SelectCards Title={"LEGS"} isActive={activeTab === 'legs'}/>                    
                     </li>
-                    <li>
-                    <Link to='/workout'> <SelectCards Title={"REST"}/>
-                    </Link>
+                    <li onClick={()=> setActiveTab('rest')}>
+                        <SelectCards Title={"REST"} isActive={activeTab === 'rest'}/>
                     </li>
                 </ul>
 
@@ -44,5 +37,7 @@ const TertiaryNavigationBar = () => {
         </nav>
     )
 }
+
+
 
 export default TertiaryNavigationBar

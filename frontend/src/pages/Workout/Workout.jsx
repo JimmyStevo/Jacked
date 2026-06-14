@@ -4,6 +4,12 @@ import MainButton from '../../components/button/MainButton';
 import SecondNaviationBar from '../../components/NavBar/SecondNavigationBar';
 import TertiaryNavigationBar from '../../components/NavBar/TertiaryNavigationBar';
 import { useState } from 'react';
+import Workoutlegs from './Workout';
+import WorkoutUpperBody from './Workout';
+import WorkoutLowerBody from './Workout';
+import WorkoutPull from './Workout';
+import WorkoutPush from './Workout';
+import WorkoutRest from './Workout';
 
 const Workout = () => {
 
@@ -13,9 +19,11 @@ const Workout = () => {
         <>
         <MainNavigationBar/>
         <SecondNaviationBar/>
-        <div className='tertiaryNavigationBar'>
-
-        </div>
+        <TertiaryNavigationBar activeTab={activeTab} setActiveTab={setActiveTab}>
+            <div className={activeTab === 'upperbody' ? 'active' : ''}
+            onClick={()=>setActiveTab('upperbody')}/>
+        </TertiaryNavigationBar>
+        {activeTab === 'upperbody' && <WorkoutUpperBody/>}
         </>
     );
 }
