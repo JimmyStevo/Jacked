@@ -23,7 +23,7 @@ const MainNavigationBar = () => {
                 Account
                 <i className=''></i>
             </Link>
-            <Link to='/' className='exit-icon'>
+            <Link to='/login' className='exit-icon'>
                 Exit
                 <i className=''></i>
             </Link>

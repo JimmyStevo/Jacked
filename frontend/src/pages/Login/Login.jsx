@@ -7,7 +7,6 @@ const Login = () => {
     return (
         <>
         <MainNavigationBar/>
-        <SecondNaviationBar/>
         </>
     );
 }

@@ -13,7 +13,6 @@
 .card-icon-image-container {
     height: 180px;
     overflow: hidden;
-
 }
 
 .card-icon-image {
@@ -25,6 +24,7 @@
 .card-icon-content {
     padding: 5px;
     align-items: center;
+
 }
 
 .card-icon-description {
@@ -36,12 +36,10 @@
 
 /* Card size options for each of the pages */
 
-
-
 .card-med {
-    width: 300px;
-    height: fit-content;
-    min-height: 150px;
+    width: 100;
+    flex: 1;
+    min-height: 200px;
     text-align: left;
     font-size: inherit;
     color: #ffffff;
@@ -60,9 +58,9 @@
 
 .card-med-large-long {
     min-width: 600px;
-    width: fit-content;
+    width: 100%;
     height: fit-content;
-    min-height: 150px;
+    min-height: 300px;
     text-align: left;
     font-size: inherit;
     font-weight: 400;
@@ -70,12 +68,11 @@
 }
 
 .card-large {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     height: fit-content;
-    min-height: 150px;
+    min-height: 350px;
     text-align: left;
-    font-size: inherit;
     color: #ffffff;
     gap: 8px;
 }

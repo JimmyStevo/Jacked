@@ -2,20 +2,16 @@ import './Home.css'
 import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
 import SecondNaviationBar from '../../components/NavBar/SecondNavigationBar';
 import MainButton from '../../components/button/MainButton';
+import SecondButton from '../../components/button/SecondButton';
 import Cards from '../../components/Cards/Cards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad } from '@fortawesome/free-solid-svg-icons';
-
+import { Link } from 'react-router-dom';
 
 
 
 const Home = () => {
-    const cardData = [
-    {Title: "Testing 1", icon: faIdCard, Description: "This is the description #1", cardType: "card-med"},
-    {Title: "Testing 2", icon: faIdCard, Description: "This is the description #2", cardType: "card-med"},
-    {Title: "Testing 3", icon: faIdCard, Description: "This is the description #3", cardType: "card-med"},
-    {Title: "Testing 4", icon: faIdCard, Description: "This is the description #4", cardType: "card-med"}
-    ]
+
     return (
         <>
         <MainNavigationBar/>
@@ -23,27 +19,35 @@ const Home = () => {
 
         <div className='card-container-home-column'>
             <div className='card-container-home'>
-                {cardData.map((card, index) => (
-                <Cards key={index}
-                Title={card.Title}
-                Description={card.Description}
-                cardType={card.cardType}
-                icon={card.icon}
-                />))
-            }
+                <Cards Title={'GET JACKED'} icon={null} Description={'Track your fitness journey with AI-powered nutrition and workout plans. Transform your body.'} cardType={'card-med-large'}>
+                </Cards>
             </div>
             <div className='card-container-home'>
-                <Cards Title={'Todays Macros'} icon={faIdCard} Description={'This is teh place for bar metrics'} cardType={'card-large'}/>
+                <MainButton label={'START YOUR JOURNEY'}/>
+            </div>
+            <label>
+                <h1>FEATURES</h1>
+            </label>
+            <div className='card-container-home'>
+                <Cards Title={'GET JACKED'} icon={null} Description={'Track your fitness journey with AI-powered nutrition and workout plans. Transform your body.'} cardType={'card-med-large'}>
+                </Cards>
+                <Cards Title={'GET JACKED'} icon={null} Description={'Track your fitness journey with AI-powered nutrition and workout plans. Transform your body.'} cardType={'card-med-large'}>
+                </Cards>
             </div>
             <div className='card-container-home'>
-                <Cards Title={'Weight Progress'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-large'}/>
+                <Cards Title={'GET JACKED'} icon={null} Description={'Track your fitness journey with AI-powered nutrition and workout plans. Transform your body.'} cardType={'card-med-large'}>
+                </Cards>
+                <Cards Title={'GET JACKED'} icon={null} Description={'Track your fitness journey with AI-powered nutrition and workout plans. Transform your body.'} cardType={'card-med-large'}>
+                </Cards>
             </div>
-            <div className='card-container-home-largergap'>
-                <Cards Title={'Log Weight'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}/>
-                <Cards Title={'Weekly Check-in'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}/>
-            </div>
-        </div>
+            <label>
+                <h1>READY TO GET JACKED?</h1>
+            </label>
+            <Link to='/signUp'>
+                <MainButton label={'SIGN UP NOW'}/>
+            </Link>
 
+        </div>
         </>
     );
 }

@@ -24,13 +24,13 @@
 }
 
 .card-log-workout-card {
-    flex: 1;
+    flex: 1.5;
     min-width: 0;
     height: 100%;
 }
 
 .card-goal-progress-card {
-    flex: 1.5;
+    flex: 1;
     min-width: 0;
     height: 100%;
 }
