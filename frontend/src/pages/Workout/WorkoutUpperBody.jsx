@@ -11,10 +11,10 @@ const WorkoutUpperBody = () => {
     return (
     <div className='card-container-workout'>
         <div className='card-container-workout-row'>
-        <Cards Title={'LOG WORKOUT'} icon={null} Description={null} cardType={'card-med-large-long'}>
+        <Cards Title={'LOG WORKOUT'} icon={null} Description={null} cardType={'card-log-workout-card'}>
             <div className='card-container-workout-row'>
                 <div className='card-container-workout-column'>
-                    <label>EXERCISE</label>
+                    <label>Exercise</label>
                     <Dropdown options={['Shoulder Press', 'Chest Press', 'Bicep Curl', 'Terry Crews special']}/>
                 </div>
             </div>
@@ -37,18 +37,16 @@ const WorkoutUpperBody = () => {
                 <MainButton label={'EXIT'}/>
             </div>
         </Cards>
-        <Cards Title={'GOAL PROGRESS'} icon={null} Description={null} cardType={'card-med-large-long'}>        </Cards>
+        <Cards Title={'GOAL PROGRESS'} icon={null} Description={null} cardType={'card-goal-progress-card'}>        </Cards>
         </div>
         <div className='card-container-workout-row'>
-        <Cards Title={'WORKOUT HISTORY'} icon={null} Description={null} cardType={'card-med-large-long'}>
-            <label>Sets</label>
+        <Cards Title={'WORKOUT HISTORY'} icon={null} Description={null} cardType={'card-full'}>
             <input type='number' placeholder='Number of Sets'/>
         </Cards>
         </div>
         <div className='card-container-workout-row'>
-        <Cards Title={'AI WORKOUT PLAN'} icon={null} Description={null} cardType={'card-med-large-long'}>
+        <Cards Title={'AI WORKOUT PLAN'} icon={null} Description={null} cardType={'card-full'}>
             <div className='card-container-workout-column'>
-                <label>Sets</label>
                 <input type='text' placeholder='Describe what you would like help with (e.g. build muscle, lose fat etc'/>
                 <MainButton label={'GENERATE'}/>
             </div>

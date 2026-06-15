@@ -4,9 +4,10 @@
     border-radius: 8px;
     overflow: hidden;
     width: 100%;
-    height: 250px;
+    height: 100%;
+    padding: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
-    margin: 10px;
+    box-sizing: border-box;
 }
 
 .card-icon-image-container {
@@ -79,6 +80,15 @@
     gap: 8px;
 }
 
+.card-full {
+    width: 100%;
+    margin: 0 auto;
+    height: fit-content;
+    min-height: 150px;
+    text-align: left;
+    color: #ffffff;
+}
+
 
 /* Title Card CSS specifically for the second navigation bar */
 
@@ -144,4 +154,22 @@
     letter-spacing: 0.5em;
     border-radius: 8px;
     color: #1a1a1a;
+}
+
+/* Card CSS specifically for the workout page */
+
+.card-log-workout-card {
+    flex: 1;
+    height: fit-content;
+    min-height: 150px;
+    text-align: left;
+    color: #ffffff;
+}
+
+.card-goal-progress-card {
+    flex: 1.5;
+    height: fit-content;
+    min-height: 150px;
+    text-align: left;
+    color: #ffffff;
 }

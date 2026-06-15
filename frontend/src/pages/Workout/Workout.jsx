@@ -15,10 +15,15 @@ const Workout = () => {
 
     const [activeTab, setActiveTab] = useState(null)
 
+
+
     return (
         <>
         <MainNavigationBar/>
         <SecondNaviationBar/>
+
+
+
         <TertiaryNavigationBar activeTab={activeTab} setActiveTab={setActiveTab}/>
 
         {activeTab === 'upperbody' && <WorkoutUpperBody/>}
