@@ -21,8 +21,8 @@ const Home = () => {
         <MainNavigationBar/>
         <SecondNaviationBar/>
 
-        <div className='card-container-column'>
-            <div className='card-container'>
+        <div className='card-container-home-column'>
+            <div className='card-container-home'>
                 {cardData.map((card, index) => (
                 <Cards key={index}
                 Title={card.Title}
@@ -32,13 +32,13 @@ const Home = () => {
                 />))
             }
             </div>
-            <div className='card-container'>
+            <div className='card-container-home'>
                 <Cards Title={'Todays Macros'} icon={faIdCard} Description={'This is teh place for bar metrics'} cardType={'card-large'}/>
             </div>
-            <div className='card-container'>
+            <div className='card-container-home'>
                 <Cards Title={'Weight Progress'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-large'}/>
             </div>
-            <div className='card-container'>
+            <div className='card-container-home-largergap'>
                 <Cards Title={'Log Weight'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}/>
                 <Cards Title={'Weekly Check-in'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}/>
             </div>

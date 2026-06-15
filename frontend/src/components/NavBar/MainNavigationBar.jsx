@@ -7,7 +7,7 @@ const MainNavigationBar = () => {
     <nav className='main-navbar'>
         <div className='main-navbar-left'>
             <Link to='/' className='title'>
-                Jacked
+                JACKED
             </Link>
         </div>
         <div className='main-navbar-right'>

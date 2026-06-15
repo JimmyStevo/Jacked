@@ -1,20 +1,13 @@
-body{
-    background-color:  #b6b6b6;
-    color: white;
-    margin: 0;
-    font-family: sans-serif;
-
-}
-
-.card-container{
+.card-container-settings{
+    width: 90%;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     gap: 64px;
-    padding: 16px;
     justify-content: center;
-    width: 90%;
     height: fit-content;
     font-size: inherit;
     font-family: sans-serif;
     color: inherit;
+    padding: 6px;
 }

@@ -6,21 +6,29 @@ body{
 
 }
 
-.card-container{
+.card-container-home{
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
-    padding: 16px;
+    gap: 7rem;
+    justify-content: center;
+    width: 90%;
+    height: auto;
+}
+
+.card-container-home-largergap{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    gap: 20rem;
     justify-content: center;
     width: 90%;
 }
 
-.card-container-column{
+.card-container-home-column{
     display: flex;
     flex-direction: column;
-    gap: 50px;
     justify-content: center;
-    width: 100%;
     align-items: center;
-    background-color: #a8a8a8;
     padding-bottom: 24px;
 }

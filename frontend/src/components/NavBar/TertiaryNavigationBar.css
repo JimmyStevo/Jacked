@@ -1,0 +1,36 @@
+/* Navigation bar settings for the tertiary navigation bar specific to overview */
+.tertiary-navbar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #6d6969;
+    color: #e9e9d2;
+    width: 90%;
+    border-radius: 8px;
+    margin: 10px auto;
+}
+
+.tertiary-navbar-center{
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.tertiary-navbar-center .nav-links {
+    list-style-type: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+    min-width: 1000px;
+    justify-content: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 400;
+    height: 75px;
+    gap: 32px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+}
