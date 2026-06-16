@@ -37,7 +37,9 @@ const WorkoutUpperBody = () => {
                 <MainButton label={'EXIT'}/>
             </div>
         </Cards>
-        <Cards Title={'GOAL PROGRESS'} icon={null} Description={null} cardType={'card-goal-progress-card'}>        </Cards>
+        <Cards Title={'GOAL PROGRESS'} icon={null} Description={null} cardType={'card-goal-progress-card'}>        
+            
+        </Cards>
         </div>
         <div className='card-container-workout-row'>
         <Cards Title={'WORKOUT HISTORY'} icon={null} Description={null} cardType={'card-full'}>
