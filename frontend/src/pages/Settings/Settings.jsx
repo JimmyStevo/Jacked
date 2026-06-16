@@ -21,16 +21,16 @@ const Settings = () => {
             <div className='card-container-settings'>
                 <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}>
                     <form>                   
-                        <p>
+                        <h1>
                             Target Weight:  
-                        </p>
-                        <input type='number' placeholder='Please enter your target Weight'/>
+                        </h1>
+                        <input type='number' placeholder='Enter your target Weight'/>
                     </form>
                     <form>
-                        <p>
+                        <h1>
                             Target Steps: 
-                        </p>
-                        <input type='number' placeholder='Please enter your target Steps'/>
+                        </h1>
+                        <input type='number' placeholder='Enter your target Steps'/>
                     </form>
                 </Cards>
             </div>
@@ -38,9 +38,9 @@ const Settings = () => {
             {/* Notifications */}
             <div className='card-container-settings'>
                 <Cards Title={'Notifications'} icon={faInfoCircle} Description={'Set Your Notification Settings'} cardType={'card-large'}>
-                    <p>
+                    <h1>
                         Stuff
-                    </p>
+                    </h1>
                     
                 </Cards>
             </div>
@@ -48,13 +48,13 @@ const Settings = () => {
             {/* Preferences */}
             <div className='card-container-settings'>
                 <Cards Title={'Preferences'} icon={faCog} Description={'Set Your Preferences'} cardType={'card-large'}>
-                    <p>
+                    <h1>
                         Unit of Measurement: 
                         <Dropdown options={['Kg', 'Lb']}/>
-                    </p>
-                    <p>
+                    </h1>
+                    <h1>
                         Dark Mode:
-                    </p>
+                    </h1>
                 </Cards>
             </div>
 
