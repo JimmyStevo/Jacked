@@ -10,8 +10,10 @@ import WorkoutLowerBody from './WorkoutLowerBody';
 import WorkoutPull from './WorkoutPull';
 import WorkoutPush from './WorkoutPush';
 import WorkoutRest from './WorkoutRest';
+import DateBar from '../../components/NavBar/DateBar';
 
 const Workout = () => {
+
 
     const [activeTab, setActiveTab] = useState(null)
 
@@ -22,7 +24,7 @@ const Workout = () => {
         <MainNavigationBar/>
         <SecondNaviationBar/>
 
-
+        <DateBar/>
 
         <TertiaryNavigationBar activeTab={activeTab} setActiveTab={setActiveTab}/>
 

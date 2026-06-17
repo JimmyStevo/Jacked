@@ -1,0 +1,40 @@
+.DateBar{
+    background-color: white;
+}
+
+.date-navigator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    background-color: #5f5555;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+}
+
+.nav-arrow {
+    background-color: #5f5555;
+    border: 1px solid #6a6a60;
+    color: #e9e9d2;
+    font-size: 1.2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.nav-arrow:hover {
+    background-color: #6a6a60;
+    border-color: #e9e9d2;
+}
+
+.date-display {
+    color: #e9e9d2;
+    font-weight: bold;
+    font-size: 1.1rem;
+    min-width: 180px;
+    text-align: center;
+}
