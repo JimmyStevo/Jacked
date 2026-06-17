@@ -5,6 +5,7 @@ import MainButton from '../../components/button/MainButton';
 import SecondButton from '../../components/button/SecondButton';
 import Cards from '../../components/Cards/Cards';
 import ProgressBar from '../../components/ProgressBar/ProgressBar';
+import LineGraph from '../../components/Charts/LineChart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
@@ -50,7 +51,7 @@ const cardData = [
             </div>
             <div className='card-container-overview'>
                 <Cards Title={'Weight Progress'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-large'}>
- 
+                    <LineGraph/>
                 </Cards>
             </div>
             <div className='card-container-overview-largergap'>
@@ -61,6 +62,7 @@ const cardData = [
                 <Cards Title={'Weekly Check-in'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}>
                     <SecondButton label={'Start Checkin (+25 points)'}/>
                 </Cards>
+                
             </div>
         </div>
         </>

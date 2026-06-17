@@ -6,8 +6,11 @@ import TertiaryNavigationBar from '../../components/NavBar/TertiaryNavigationBar
 import Cards from '../../components/Cards/Cards';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import SecondButton from '../../components/button/SecondButton';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css'
 
 const WorkoutUpperBody = () => {
+    const percentage = 60;
     return (
     <div className='card-container-workout'>
         <div className='card-container-workout-row'>
@@ -38,7 +41,7 @@ const WorkoutUpperBody = () => {
             </div>
         </Cards>
         <Cards Title={'GOAL PROGRESS'} icon={null} Description={null} cardType={'card-goal-progress-card'}>        
-            
+            <CircularProgressbar value={percentage} text={`${percentage}%`}/>
         </Cards>
         </div>
         <div className='card-container-workout-row'>
