@@ -4,21 +4,27 @@ import SecondNaviationBar from '../../components/NavBar/SecondNavigationBar';
 import MainButton from '../../components/button/MainButton';
 import SecondButton from '../../components/button/SecondButton';
 import Cards from '../../components/Cards/Cards';
+import ProgressBar from '../../components/ProgressBar/ProgressBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 
 const Overview = () => {
+
+const [Complete, setCompleted] = useState(75);
+
+
 const cardData = [
-    {Title: "Testing 1", icon: faIdCard, Description: "This is the description #1", cardType: "card-med"},
-    {Title: "Testing 2", icon: faIdCard, Description: "This is the description #2", cardType: "card-med"},
-    {Title: "Testing 3", icon: faIdCard, Description: "This is the description #3", cardType: "card-med"},
-    {Title: "Testing 4", icon: faIdCard, Description: "This is the description #4", cardType: "card-med"}
+    {Title: "WORKOUTS", icon: faIdCard, Description: "THIS WEEK", cardType: "card-med"},
+    {Title: "CALORIES TODAY", icon: faIdCard, Description: "This is the description #2", cardType: "card-med"},
+    {Title: "PROTEIN", icon: faIdCard, Description: "This is the description #3", cardType: "card-med"},
+    {Title: "POINTS", icon: faIdCard, Description: "This is the description #4", cardType: "card-med"}
     ]
     return (
         <>
         <MainNavigationBar/>
         <SecondNaviationBar/>
-        {/* // this is a comment */}
+        {/* // DB information passed through array to be displayed on overview page */}
         <div className='card-container-overview-column'>
             <div className='card-container-overview'>
                 {cardData.map((card, index) => (
@@ -31,10 +37,21 @@ const cardData = [
             }
             </div>
             <div className='card-container-overview'>
-                <Cards Title={'Todays Macros'} icon={faIdCard} Description={'This is the place for bar metrics'} cardType={'card-med-large-long'}/>
+                <Cards Title={'Todays Macros'} icon={faIdCard} Description={'This is the place for bar metrics'} cardType={'card-med-large-long'}>
+                    <h3>CALORIES</h3>
+                    <ProgressBar progress={Complete}/>
+                    <h3>PROTIEN</h3>
+                    <ProgressBar progress={Complete}/>
+                    <h3>CARBS</h3>
+                    <ProgressBar progress={Complete}/>
+                    <h3>FAT</h3>
+                    <ProgressBar progress={Complete}/>
+                </Cards>
             </div>
             <div className='card-container-overview'>
-                <Cards Title={'Weight Progress'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-large'}/>
+                <Cards Title={'Weight Progress'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-large'}>
+ 
+                </Cards>
             </div>
             <div className='card-container-overview-largergap'>
                 <Cards Title={'Log Weight'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}>
