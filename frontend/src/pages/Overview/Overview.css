@@ -24,6 +24,7 @@ body{
     gap: 6rem;
     justify-content: center;
     width: 90%;
+
 }
 
 .card-container-overview-column{
@@ -32,4 +33,11 @@ body{
     justify-content: center;
     align-items: center;
     padding-bottom: 24px;
+}
+
+.overview-form{
+    width: 250px;
+    height: 25px;
+    padding: 6px;
+    font-family: 'Courier New', Courier, monospace;
 }

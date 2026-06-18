@@ -56,8 +56,8 @@ const cardData = [
             </div>
             <div className='card-container-overview-largergap'>
                 <Cards Title={'Log Weight'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}>
-                    <input type='text'/>
-                    <MainButton label={'Log (+5 points'}/>
+                    <input className='overview-form' type='text'/>
+                    <MainButton  label={'Log (+5 points'}/>
                 </Cards>
                 <Cards Title={'Weekly Check-in'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}>
                     <SecondButton label={'Start Checkin (+25 points)'}/>

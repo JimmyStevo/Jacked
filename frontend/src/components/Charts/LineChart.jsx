@@ -33,7 +33,7 @@ dataArray = [10, 20, 30, 10];
     const layout = {
         title: {
             text: '',
-            font: { size: 24, color: '#333'}
+            font: { size: 24, color: '#ffffff'}
         },
         autosize: true,
         margin: {t: 40, r: 20, l: 40, b: 40},

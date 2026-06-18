@@ -24,7 +24,8 @@ const Settings = () => {
                         <h1>
                             Target Weight:  
                         </h1>
-                        <input type='number' placeholder='Enter your target Weight'/>
+                            <input className='settings-input' type='number' placeholder='Enter your target Weight'/>
+
                     </form>
                     <form>
                         <h1>

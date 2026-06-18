@@ -11,3 +11,9 @@
     color: inherit;
     padding: 6px;
 }
+
+.settings-input{
+    width: 250px;
+    height: 25px;
+    font-family: 'Courier New', Courier, monospace;
+}
