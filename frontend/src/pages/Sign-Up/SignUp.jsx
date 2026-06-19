@@ -43,17 +43,36 @@ const SignUp = () => {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+    e,preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+    }
+  }
+
+  try {
+    const response = await fetch("/api/auth/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      }),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      setErrors({ email: data.message || "Registration failed." });
       return;
     }
-    // TODO: Replace with real registration logic (e.g. API call)
-    console.log("Registering user:", formData);
-    navigate("/dashboard");
-  };
+
+    navigate("/login"); // or auto-login and navigate to dashboard
+  } catch (err) {
+    setErrors({ email: "Network error. Please try again." });
+  }
+};
 
   return (
     <div className="auth-page">
@@ -160,6 +179,6 @@ const SignUp = () => {
       </div>
     </div>
   );
-};
+
 
 export default SignUp;

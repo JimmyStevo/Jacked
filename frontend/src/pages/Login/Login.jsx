@@ -18,16 +18,33 @@ const Login = () => {
     setError("");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.email || !formData.password) {
-      setError("Please fill in all fields.");
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (!formData.email || !formData.password) {
+    setError("Please fill in all fields.");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const data = await response.json();
+      setError(data.message || "Login failed. Please try again.");
       return;
     }
-    // TODO: Replace with real auth logic (e.g. API call)
-    console.log("Logging in with:", formData);
+
+    const data = await response.json();
+    localStorage.setItem("token", data.token); // store JWT
     navigate("/dashboard");
-  };
+  } catch (err) {
+    setError("Network error. Please try again.");
+  }
+};
 
   return (
     <div className="auth-page">

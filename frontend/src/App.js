@@ -10,6 +10,16 @@ import Settings from './pages/Settings/Settings';
 import SignUp from './pages/Sign-Up/SignUp';
 import WeightLogging from './pages/WeightLogging/WeightLogging';
 import Workout from './pages/Workout/Workout';
+import ProtectedRoute from './components/ProtectedRoute';
+
+<Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <Dashboard />
+    </ProtectedRoute>
+  }
+/>
 
 function App() {
   return (
