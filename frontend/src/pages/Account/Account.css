@@ -27,11 +27,85 @@
     font-weight: bold;
 }
 
-/* Info Card Personal Details */
+/* Personal Details Info Card */
 .info-card {
     background-color: #5f5555;
     border-radius: 6px;
     padding: 15px;
+}
+
+.personal-details-layout {
+    display: grid;
+    grid-template-columns: 2fr 220px;
+    gap: 16px;
+    align-items: start;
+}
+
+.personal-details-main {
+    min-width: 0;
+}
+
+.personal-details-side {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.profile-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.profile-image-circle {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, #6a6a60 0%, #5f5555 100%);
+    border: 3px solid #e9e9d2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+}
+
+.profile-initials {
+    color: #e9e9d2;
+    font-size: 3rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.profile-edit-badge {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 2px solid #e9e9d2;
+    background-color: #6a6a60;
+    color: #e9e9d2;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.profile-edit-badge:hover {
+    background-color: #7a7a70;
+}
+
+.profile-image-caption {
+    color: #e9e9d2;
+    font-weight: bold;
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 .info-display {
@@ -255,6 +329,23 @@
 
     .form-row {
         grid-template-columns: 1fr;
+    }
+
+    .personal-details-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .personal-details-side {
+        justify-content: flex-start;
+    }
+
+    .profile-image-circle {
+        width: 150px;
+        height: 150px;
+    }
+
+    .profile-initials {
+        font-size: 2.4rem;
     }
 
     .management-card {

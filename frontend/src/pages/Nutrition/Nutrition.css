@@ -1,66 +1,34 @@
 .nutrition-container {
     display: flex;
     flex-direction: column;
-    gap: 30px;
     padding: 16px;
     width: 90%;
     max-width: 1200px;
     margin: 0 auto;
     font-family: sans-serif;
-}
-
-/* Date Navigator */
-.date-navigator {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding: 15px;
-    background-color: #5f5555;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
-}
-
-.nav-arrow {
-    background-color: #5f5555;
-    border: 1px solid #6a6a60;
-    color: #e9e9d2;
-    font-size: 1.2rem;
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s;
-    font-weight: bold;
-}
-
-.nav-arrow:hover {
-    background-color: #6a6a60;
-    border-color: #e9e9d2;
-}
-
-.date-display {
-    color: #e9e9d2;
-    font-weight: bold;
-    font-size: 1.1rem;
-    min-width: 180px;
-    text-align: center;
+    gap: 18px;
 }
 
 /* Main Content Layout */
 .nutrition-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 30px;
+    grid-template-columns: 1.2fr 1.6fr 0.9fr;
+    gap: 20px;
     align-items: start;
 }
 
-/* Nutrition Log (Left card) */
-.nutrition-log {
+/* Shared card base */
+.nutrition-log,
+.center-panel,
+.summary-card {
     background-color: #5f5555;
     border-radius: 8px;
-    padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+}
+
+/* Left side: meal log */
+.nutrition-log {
+    padding: 20px;
 }
 
 .log-header {
@@ -78,17 +46,18 @@
     font-size: 1.3rem;
 }
 
-.log-header .add-button {
-    background-color: #6a6a60;
-    border: 1px solid #7a7a70;
+.nutrition-add-trigger {
+    background: transparent;
+    border: none;
+    padding: 0;
+    display: inline-flex;
     cursor: pointer;
 }
 
-.log-header .add-button:hover {
-    background-color: #7a7a70;
+.nutrition-add-trigger .add-button {
+    pointer-events: none;
 }
 
-/* Entries List */
 .entries-list {
     display: flex;
     flex-direction: column;
@@ -99,13 +68,11 @@
     background-color: #6a6a60;
     border-radius: 6px;
     padding: 15px;
-    border-left: 4px solid #8a8a80;
     transition: all 0.3s;
 }
 
 .entry-item:hover {
     background-color: #7a7a70;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .entry-meal h3 {
@@ -136,25 +103,110 @@
     font-size: 0.95rem;
 }
 
-/* Nutrition Summary (Right cards) */
+/* Center panel */
+.center-panel {
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.center-panel-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: #e9e9d2;
+}
+
+.center-panel-header h2 {
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.center-panel-header span {
+    color: #d0d0c0;
+    font-size: 0.9rem;
+}
+
+.center-panel-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    align-content: start;
+}
+
+.overview-metric {
+    background-color: #6a6a60;
+    border-radius: 6px;
+    padding: 18px 14px;
+    text-align: center;
+    min-height: 110px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.metric-label {
+    color: #d0d0c0;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+.metric-value {
+    color: #e9e9d2;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+/* Right sidebar */
 .nutrition-summary {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 }
 
 .summary-card {
-    background-color: #5f5555;
-    border-radius: 8px;
     padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
-    border-top: 3px solid #6a6a60;
     transition: all 0.3s;
 }
 
 .summary-card:hover {
     background-color: #6a6a60;
+}
+
+.summary-feature {
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.summary-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.summary-list-title {
+    color: #e9e9d2;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.summary-list-item {
+    background-color: #6a6a60;
+    border-radius: 6px;
+    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #e9e9d2;
+    font-size: 0.85rem;
 }
 
 .card-label {
@@ -187,23 +239,24 @@
         padding: 12px;
     }
 
-    .date-navigator {
-        gap: 15px;
-    }
-
-    .date-display {
-        min-width: 150px;
-    }
-
     .log-header {
         flex-direction: column;
         gap: 15px;
         align-items: flex-start;
     }
 
+    .center-panel-body {
+        grid-template-columns: 1fr;
+    }
+
     .entry-details {
         flex-direction: column;
         gap: 5px;
+    }
+
+    .center-panel,
+    .nutrition-log {
+        min-height: auto;
     }
 
     .summary-card {
