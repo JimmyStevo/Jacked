@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
 
@@ -20,6 +20,7 @@ if __name__ == "__main__":
     app.run(debug=True)
     
 
-# @app.route('/api/settings', methods=['GET'])
-# def getSettings():
-#     data = list(preference_collection.find{}, )
+@app.route('/api/settings', methods=['GET', 'POST'])
+def getSettings():
+     data = list(preference_collection.find({}, {"_id":0}))
+     return jsonify(data)
