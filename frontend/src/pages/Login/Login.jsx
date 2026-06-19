@@ -1,6 +1,7 @@
 import './Login.css';
 import MainButton from '../../components/button/MainButton';
 import React, { useState } from "react";
+import hero from "../../assets/hero.jpg";
 import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -32,12 +33,9 @@ const Login = () => {
     <div className="auth-page">
       {/* Left panel — image placeholder */}
       <div className="auth-image-panel">
-        <div className="auth-image-placeholder">
-          {/* Replace this div with an <img> tag once the image is decided */}
-          <span className="image-placeholder-label">IMAGE</span>
-        </div>
+        <img src={hero} alt="JACKED hero" className="auth-hero-image" />
+        <div className="auth-image-placeholder"></div>
       </div>
-
       {/* Right panel — form */}
       <div className="auth-form-panel">
         <div className="auth-card">

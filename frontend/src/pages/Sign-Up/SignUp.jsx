@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import hero from "../../assets/hero.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
@@ -58,10 +59,8 @@ const SignUp = () => {
     <div className="auth-page">
       {/* Left panel — image placeholder */}
       <div className="auth-image-panel">
-        <div className="auth-image-placeholder">
-          {/* Replace this div with an <img> tag once the image is decided */}
-          <span className="image-placeholder-label">IMAGE</span>
-        </div>
+        <img src={hero} alt="JACKED hero" className="auth-hero-image" />
+        <div className="image-placeholder"></div>
       </div>
 
       {/* Right panel — form */}
