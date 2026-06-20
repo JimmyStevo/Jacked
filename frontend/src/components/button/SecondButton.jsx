@@ -1,9 +1,9 @@
 import './SecondButton.css'
 
-function SecondButton({label, onClick=null}){
+function SecondButton({label, onClick=null, type=null}){
     
     return(
-        <button className='secondary-button' onClick={onClick}>
+        <button className='secondary-button' onClick={onClick} type={type}>
             {label}
         </button>
     )
