@@ -7,9 +7,22 @@ import SecondNaviationBar from '../../components/NavBar/SecondNavigationBar';
 import Cards from '../../components/Cards/Cards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
 
 
-const Settings = () => {
+const Settings = (props) => {
+    const[weight, setWeight] = useState('')
+    const[steps, setSteps] = useState('')
+    const[unit, setUnit] = useState('')
+    const[darkmode, setDarkmode] = useState('')
+
+    const insertSettings = () => {
+        APIService.insertSettings({weight, steps, unit, darkmode}).then
+    }
+
+    const handleSubmit = (event) => {
+
+    }
     return (
         <>
         {/* Nvaigation Bars */}
@@ -20,7 +33,7 @@ const Settings = () => {
             {/*Fitness Goals */}
             <div className='card-container-settings'>
                 <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}>
-                    <form>                   
+                    <form onSubmit={handleSubmit}>                   
                         <h1>
                             Target Weight:  
                         </h1>
