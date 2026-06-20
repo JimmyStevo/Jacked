@@ -15,12 +15,19 @@ preference_collection = db["Preferences"]
 app = Flask(__name__)
 CORS(app)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
-    
+# ============================================
+# Settings Backend logic
+# ============================================
 
 @app.route('/api/settings', methods=['GET', 'POST'])
 def getSettings():
      data = list(preference_collection.find({}, {"_id":0}))
      return jsonify(data)
+ 
+ def storeData():
+     
+ 
+ 
+if __name__ == "__main__":
+    app.run(debug=True)
+    
