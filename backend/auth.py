@@ -6,9 +6,9 @@ import jwt
 
 auth_bp = Blueprint("auth", __name__)
 
-client = MongoClient("mongodb://localhost:27017/")
-db = client["jacked_db"]
-users_collection = db["users"]
+client = MongoClient("mongodb+srv://jimmystevo_db_user:TestingDatabase@cluster0.gy3uo1w.mongodb.net/")
+db = client["Jacked_DB"]
+users_collection = db["User_Info"]
 
 JWT_SECRET = "YOUR_SECRET_KEY"
 JWT_ALGORITHM = "HS256"
