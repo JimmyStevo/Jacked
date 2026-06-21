@@ -6,13 +6,6 @@ const DateBar = () => {
     // State for date navigation
     const [currentDate, setCurrentDate] = useState(new Date());
 
-    // State for nutrition entries
-    const [nutritionEntries, setNutritionEntries] = useState([
-        { id: 1, meal: 'Breakfast', calories: 450, protein: 25 },
-        { id: 2, meal: 'Lunch', calories: 620, protein: 35 },
-        { id: 3, meal: 'Snack', calories: 200, protein: 10 },
-    ]);
-
     // Handle date navigation
     const handlePrevDay = () => {
         const prevDate = new Date(currentDate);

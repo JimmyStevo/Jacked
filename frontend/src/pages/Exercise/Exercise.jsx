@@ -15,6 +15,9 @@ const Exercise = () => {
         <>
         <MainNavigationBar/>
         <SecondNaviationBar/>
+
+        
+
         </>
     )
 }
