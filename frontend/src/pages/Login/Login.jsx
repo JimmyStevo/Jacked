@@ -1,11 +1,13 @@
 import './Login.css';
-import MainButton from '../../components/button/MainButton';
 import React, { useState } from "react";
 import hero from "../../assets/hero.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -18,42 +20,28 @@ const Login = () => {
     setError("");
   };
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (!formData.email || !formData.password) {
-    setError("Please fill in all fields.");
-    return;
-  }
-
-  try {
-    const response = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    if (!response.ok) {
-      const data = await response.json();
-      setError(data.message || "Login failed. Please try again.");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.email || !formData.password) {
+      setError("Please fill in all fields.");
       return;
     }
 
-    const data = await response.json();
-    localStorage.setItem("token", data.token); // store JWT
-    navigate("/dashboard");
-  } catch (err) {
-    setError("Network error. Please try again.");
-  }
-};
+    try {
+      const data = await loginUser(formData);
+      login(data.token, { email: data.email, username: data.username });
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message || "Login failed. Please try again.");
+    }
+  };
 
   return (
     <div className="auth-page">
-      {/* Left panel — image placeholder */}
       <div className="auth-image-panel">
         <img src={hero} alt="JACKED hero" className="auth-hero-image" />
         <div className="auth-image-placeholder"></div>
       </div>
-      {/* Right panel — form */}
       <div className="auth-form-panel">
         <div className="auth-card">
           <h1 className="brand-title">JACKED</h1>

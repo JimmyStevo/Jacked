@@ -1,0 +1,18 @@
+.dashboard-page {
+  padding: 3rem;
+  text-align: center;
+}
+
+.dashboard-page h1 {
+  margin-bottom: 1rem;
+}
+
+.btn-secondary {
+  display: inline-block;
+  margin-top: 1.5rem;
+  background: #333;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 6px;
+}

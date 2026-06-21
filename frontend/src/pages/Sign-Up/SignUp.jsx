@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import hero from "../../assets/hero.jpg";
 import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../../services/api";
 import "./SignUp.css";
 
 const SignUp = () => {
@@ -16,7 +17,6 @@ const SignUp = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear the error for the field being edited
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
@@ -44,45 +44,32 @@ const SignUp = () => {
   };
 
   const handleSubmit = async (e) => {
-    e,preventDefault();
+    e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
-    }
-  }
-
-  try {
-    const response = await fetch("/api/auth/register", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
-
-    if (!response.ok) {
-      const data = await response.json();
-      setErrors({ email: data.message || "Registration failed." });
       return;
     }
 
-    navigate("/login"); // or auto-login and navigate to dashboard
-  } catch (err) {
-    setErrors({ email: "Network error. Please try again." });
-  }
-};
+    try {
+      await registerUser({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+      });
+      navigate("/login");
+    } catch (err) {
+      setErrors({ email: err.message || "Registration failed." });
+    }
+  };
 
   return (
     <div className="auth-page">
-      {/* Left panel — image placeholder */}
       <div className="auth-image-panel">
         <img src={hero} alt="JACKED hero" className="auth-hero-image" />
         <div className="image-placeholder"></div>
       </div>
 
-      {/* Right panel — form */}
       <div className="auth-form-panel">
         <div className="auth-card">
           <h1 className="brand-title">JACKED</h1>
@@ -102,9 +89,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 autoComplete="username"
               />
-              {errors.username && (
-                <p className="form-error">{errors.username}</p>
-              )}
+              {errors.username && <p className="form-error">{errors.username}</p>}
             </div>
 
             <div className="form-group">
@@ -138,9 +123,7 @@ const SignUp = () => {
                 onChange={handleChange}
                 autoComplete="new-password"
               />
-              {errors.password && (
-                <p className="form-error">{errors.password}</p>
-              )}
+              {errors.password && <p className="form-error">{errors.password}</p>}
             </div>
 
             <div className="form-group">
@@ -151,17 +134,13 @@ const SignUp = () => {
                 id="confirmPassword"
                 type="password"
                 name="confirmPassword"
-                className={`form-input${
-                  errors.confirmPassword ? " input-error" : ""
-                }`}
+                className={`form-input${errors.confirmPassword ? " input-error" : ""}`}
                 placeholder="Re-enter your password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 autoComplete="new-password"
               />
-              {errors.confirmPassword && (
-                <p className="form-error">{errors.confirmPassword}</p>
-              )}
+              {errors.confirmPassword && <p className="form-error">{errors.confirmPassword}</p>}
             </div>
 
             <button type="submit" className="btn-primary">
@@ -179,6 +158,6 @@ const SignUp = () => {
       </div>
     </div>
   );
-
+};
 
 export default SignUp;
