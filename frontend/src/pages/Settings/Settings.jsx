@@ -13,19 +13,19 @@ import APIService from '../../Components/APIService'
 
 
 const Settings = (props) => {
-    const[weight, setWeight] = useState('')
-    const[steps, setSteps] = useState('')
+    const[weightGoal, setWeightGoal] = useState('')
+    const[stepsGoal, setSteps] = useState('')
     const[unit, setUnit] = useState('')
     const[darkmode, setDarkmode] = useState('')
 
     const insertSettings = () => {
-        APIService.insertSettings({weight, steps, unit, darkmode}).then((response) => props.insertSettings(response)).catch(error => console.log('error',error))
+        APIService.insertSettings({weightGoal, stepsGoal, unit, darkmode}).then((response) => props.insertSettings(response)).catch(error => console.log('error',error))
     }
 
     const handleSubmit = (event) => {
         event.preventDefault()
         insertSettings()
-        setWeight('')
+        setWeightGoal('')
         setSteps('')
     }
     return (
@@ -44,12 +44,12 @@ const Settings = (props) => {
                         <h1>
                             Target Weight:  
                         </h1>
-                            <input className='settings-input' type='number' placeholder='Enter your target Weight' value={weight}
-                            onChange={(e)=> setWeight(e.target.value)}/>
+                            <input className='settings-input' type='number' placeholder='Enter your target Weight' value={weightGoal}
+                            onChange={(e)=> setWeightGoal(e.target.value)}/>
                         <h1>
                             Target Steps: 
                         </h1>
-                        <input type='number' placeholder='Enter your target Steps' value={steps} onChange={(e)=> setSteps(e.target.value)}/>
+                        <input type='number' placeholder='Enter your target Steps' value={stepsGoal} onChange={(e)=> setSteps(e.target.value)}/>
                 </Cards>
             </div>
 
