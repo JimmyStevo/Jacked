@@ -14,13 +14,18 @@ import { useState } from 'react';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
+import Startup from './pages/Startup/Startup';
 
 function App() {
 
     const [settings, setSettings] = useState([])
+    const [startUp, setStartUp] = useState([])
 
     const insertSettings = (newSettings) => {
       setSettings(newSettings)
+    }
+    const insertStartup = (newStartUp) => {
+      setStartUp(newStartUp)
     }
 
   return (
@@ -37,6 +42,7 @@ function App() {
           <Route path="/signUp" element={<SignUp/>}/>
           <Route path="/weightLogging" element={<WeightLogging/>}/>
           <Route path="/workout" element={<Workout/>}/>
+          <Route path="/startup" element={<Startup insertStartup={insertStartup}/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import APIService from '../../Components/APIService'
+import APIService from '../../components/APIService'
 
 
 const Settings = (props) => {
@@ -27,6 +27,7 @@ const Settings = (props) => {
         insertSettings()
         setWeightGoal('')
         setSteps('')
+        setUnit('')
     }
     return (
         <>
