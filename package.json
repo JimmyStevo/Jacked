@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "flask": "^0.2.10",
+    "pymongo": "^0.0.1-security"
+  }
+}
