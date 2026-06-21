@@ -1,12 +1,12 @@
 import './MainButton.css'
 
-function Button({label}){
+function MainButton({label, onClick=null, type=null}){
     
     return(
-        <button className='main-button'>
+        <button className='main-button' onClick={onClick} type={type}>
             {label}
         </button>
     )
 }
 
-export default Button
+export default MainButton

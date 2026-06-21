@@ -1,0 +1,50 @@
+.card-container-workout{
+    margin: 20px auto;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.card-container-workout-column{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+}
+
+
+.card-container-workout-row{
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 100%;
+    padding-bottom: 10px;
+    min-width: 0;
+}
+
+.card-log-workout-card {
+    flex: 1.5;
+    min-width: 0;
+    height: 100%;
+    min-height: 250px;
+}
+
+.card-goal-progress-card {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+}
+
+.CircularProgressbar-path {
+  stroke: #ff0000;
+}
+.CircularProgressbar-trail {
+  stroke: #808080;
+}
+.CircularProgressbar-text {
+  fill: #ffff00;
+}
+.CircularProgressbar-background {
+  fill: #008000;
+}

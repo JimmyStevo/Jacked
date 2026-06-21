@@ -7,6 +7,9 @@
     color: #e9e9d2;
     padding: 1rem;
     gap: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 200;
 }
 
 .main-navbar-left .title {
@@ -22,6 +25,7 @@
 }
 
 .main-navbar-right .profile-icon,
+.main-navbar-right .settings-icon,
 .main-navbar-right .num-icon,
 .main-navbar-right .exit-icon {
     color: #e9e9d2;

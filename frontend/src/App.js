@@ -10,33 +10,33 @@ import Settings from './pages/Settings/Settings';
 import SignUp from './pages/Sign-Up/SignUp';
 import WeightLogging from './pages/WeightLogging/WeightLogging';
 import Workout from './pages/Workout/Workout';
+import { useState } from 'react';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
+
+    const [settings, setSettings] = useState([])
+
+    const insertSettings = (newSettings) => {
+      setSettings(newSettings)
+    }
+
   return (
-    <AuthProvider>
+    <AuthProvider>  
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/account" element={<Account />} />
-          <Route path="/foodLogging" element={<FoodLogging />} />
-          <Route path="/nutrition" element={<Nutrition />} />
-          <Route path="/overview" element={<Overview />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/weightLogging" element={<WeightLogging />} />
-          <Route path="/workout" element={<Workout />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/login" element={<Login/>}/>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/account" element={<Account/>}/>
+          <Route path="/foodLogging" element={<FoodLogging/>}/>
+          <Route path="/nutrition" element={<Nutrition/>}/>
+          <Route path="/overview" element={<Overview/>}/>
+          <Route path="/settings" element={<Settings insertSettings={insertSettings}/>}/>
+          <Route path="/signUp" element={<SignUp/>}/>
+          <Route path="/weightLogging" element={<WeightLogging/>}/>
+          <Route path="/workout" element={<Workout/>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

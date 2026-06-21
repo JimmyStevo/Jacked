@@ -1,61 +1,93 @@
 import './Settings.css'
+import Dropdown from '../../components/Dropdown/Dropdown';
 import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
 import MainButton from '../../components/button/MainButton';
 import SecondButton from '../../components/button/SecondButton'
 import SecondNaviationBar from '../../components/NavBar/SecondNavigationBar';
 import Cards from '../../components/Cards/Cards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faGear, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import APIService from '../../Components/APIService'
 
 
-const Settings = () => {
+const Settings = (props) => {
+    const[weight, setWeight] = useState('')
+    const[steps, setSteps] = useState('')
+    const[unit, setUnit] = useState('')
+    const[darkmode, setDarkmode] = useState('')
+
+    const insertSettings = () => {
+        APIService.insertSettings({weight, steps, unit, darkmode}).then((response) => props.insertSettings(response)).catch(error => console.log('error',error))
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        insertSettings()
+        setWeight('')
+        setSteps('')
+    }
     return (
         <>
         {/* Nvaigation Bars */}
         <MainNavigationBar/>
         <SecondNaviationBar/>
+        <form onSubmit={handleSubmit}>
         <div className='card-container-column'>
 
             {/*Fitness Goals */}
-            <div className='card-container'>
+            
+            <div className='card-container-settings'>
                 <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}>
-
-                    <form>                   
-                        <text>
-                            Target Weight
-                            :  
-                        </text>
-                        <input type='number' placeholder='Please enter your target Weight'/>
-                    </form>
-                    <form>
-                        <text>
+                                 
+                        <h1>
+                            Target Weight:  
+                        </h1>
+                            <input className='settings-input' type='number' placeholder='Enter your target Weight' value={weight}
+                            onChange={(e)=> setWeight(e.target.value)}/>
+                        <h1>
                             Target Steps: 
-                        </text>
-                        <input type='number' placeholder='Please enter your target Steps'/>
-                    </form>
+                        </h1>
+                        <input type='number' placeholder='Enter your target Steps' value={steps} onChange={(e)=> setSteps(e.target.value)}/>
                 </Cards>
             </div>
 
             {/* Notifications */}
-            <div className='card-container'>
-                <Cards Title={'Notifications'} icon={faInfoCircle} Description={'Set Your Notification Settings'} cardType={'card-large'}/>
+            <div className='card-container-settings'>
+                <Cards Title={'Notifications'} icon={faInfoCircle} Description={'Set Your Notification Settings'} cardType={'card-large'}>
+                    <h1>
+                        Stuff
+                    </h1>
+                    
+                </Cards>
             </div>
 
             {/* Preferences */}
-            <div className='card-container'>
+            <div className='card-container-settings'>
                 <Cards Title={'Preferences'} icon={faCog} Description={'Set Your Preferences'} cardType={'card-large'}>
+                    <h1>
+                        Unit of Measurement: 
+                        <Dropdown options={['Kg', 'Lb']} onChange={(val)=> setUnit(val)}/>
+                    </h1>
+                    <h1>
+                        Dark Mode:
+                    </h1>
                 </Cards>
             </div>
 
             {/* Privacy */}
-            <div className='card-container'>
+            <div className='card-container-settings'>
                 <Cards Title={'Privacy'} icon={faUserSecret} Description={'Set Privacy settings'} cardType={'card-large'}/>
             </div>
-            <div className='card-container'>
-                <SecondButton label='Save Changes'/> 
-                <MainButton label='Exit without Saving'/>
+            <div className='card-container-settings'>
+                <SecondButton label='Save Changes' type='submit'/> 
+                <Link to='/overview'>
+                    <MainButton label='Exit without Saving'/>
+                </Link>
             </div>
         </div>
+        </form>
         </>
     );
 }

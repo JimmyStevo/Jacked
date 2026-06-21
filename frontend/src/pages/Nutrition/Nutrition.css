@@ -1,0 +1,216 @@
+.nutrition-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding: 16px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: sans-serif;
+}
+
+/* Date Navigator */
+.date-navigator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 15px;
+    background-color: #5f5555;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+}
+
+.nav-arrow {
+    background-color: #5f5555;
+    border: 1px solid #6a6a60;
+    color: #e9e9d2;
+    font-size: 1.2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+}
+
+.nav-arrow:hover {
+    background-color: #6a6a60;
+    border-color: #e9e9d2;
+}
+
+.date-display {
+    color: #e9e9d2;
+    font-weight: bold;
+    font-size: 1.1rem;
+    min-width: 180px;
+    text-align: center;
+}
+
+/* Main Content Layout */
+.nutrition-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* Nutrition Log (Left card) */
+.nutrition-log {
+    background-color: #5f5555;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #6a6a60;
+}
+
+.log-header h2 {
+    color: #e9e9d2;
+    margin: 0;
+    font-size: 1.3rem;
+}
+
+.log-header .add-button {
+    background-color: #6a6a60;
+    border: 1px solid #7a7a70;
+    cursor: pointer;
+}
+
+.log-header .add-button:hover {
+    background-color: #7a7a70;
+}
+
+/* Entries List */
+.entries-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.entry-item {
+    background-color: #6a6a60;
+    border-radius: 6px;
+    padding: 15px;
+    border-left: 4px solid #8a8a80;
+    transition: all 0.3s;
+}
+
+.entry-item:hover {
+    background-color: #7a7a70;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.entry-meal h3 {
+    color: #e9e9d2;
+    margin: 0 0 8px 0;
+    font-size: 1rem;
+}
+
+.entry-details {
+    display: flex;
+    gap: 20px;
+    font-size: 0.85rem;
+}
+
+.calories,
+.protein {
+    color: #d0d0c0;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #d0d0c0;
+}
+
+.empty-state p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Nutrition Summary (Right cards) */
+.nutrition-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.summary-card {
+    background-color: #5f5555;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+    border-top: 3px solid #6a6a60;
+    transition: all 0.3s;
+}
+
+.summary-card:hover {
+    background-color: #6a6a60;
+}
+
+.card-label {
+    color: #d0d0c0;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.card-value {
+    color: #e9e9d2;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.card-unit {
+    color: #b0b0a0;
+    font-size: 0.8rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nutrition-content {
+        grid-template-columns: 1fr;
+    }
+
+    .nutrition-container {
+        gap: 20px;
+        padding: 12px;
+    }
+
+    .date-navigator {
+        gap: 15px;
+    }
+
+    .date-display {
+        min-width: 150px;
+    }
+
+    .log-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .entry-details {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .summary-card {
+        padding: 15px;
+    }
+
+    .card-value {
+        font-size: 1.5rem;
+    }
+}

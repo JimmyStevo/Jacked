@@ -7,7 +7,7 @@ const MainNavigationBar = () => {
     <nav className='main-navbar'>
         <div className='main-navbar-left'>
             <Link to='/' className='title'>
-                Jacked
+                JACKED
             </Link>
         </div>
         <div className='main-navbar-right'>
@@ -15,11 +15,15 @@ const MainNavigationBar = () => {
                 Stuff
                 <i className=''></i>
             </Link>
-            <Link to='/account' className='profile-icon'>
+            <Link to='/overview' className='settings-icon'>
                 <MainButton label="Points"/>
                 <i className=''></i>
             </Link>
-            <Link to='/' className='exit-icon'>
+            <Link to='/account' className='profile-icon'>
+                Account
+                <i className=''></i>
+            </Link>
+            <Link to='/login' className='exit-icon'>
                 Exit
                 <i className=''></i>
             </Link>

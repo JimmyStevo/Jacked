@@ -1,0 +1,35 @@
+.dropdown{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 200px;
+    position: relative;
+    border-radius: 5px;
+    align-self: center;
+}
+
+.dropdown .options {
+    position: absolute;
+    top: 100%;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    visibility: hidden;
+    background-color: #5f5555;
+    z-index: 10;
+    padding: 6px;
+}
+
+.dropdown .options.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown .options div:hover{
+    background-color: #7a7575;
+}
+
+.dropdown .option {
+    background-color: aqua;
+}
