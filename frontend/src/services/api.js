@@ -21,3 +21,23 @@ export const loginUser = async (payload) => {
   if (!response.ok) throw new Error(data.message || "Login failed.");
   return data;
 };
+
+/* Nutrition API */
+
+export const nutritionAPI = {
+    getAll: async () => {
+        const res = await fetch(`${API_BASE}/nutrition`);
+        return res.json();
+    },
+    add: async (entry) => {
+        const res = await fetch(`${API_BASE}/nutrition`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(entry),
+        });
+        return res.json();
+    },
+    delete: async (meal) => {
+        await fetch(`${API_BASE}/nutrition/${meal}`, { method: 'DELETE' });
+    },
+};

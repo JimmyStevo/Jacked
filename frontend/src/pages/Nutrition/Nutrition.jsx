@@ -3,26 +3,86 @@ import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
 import SecondNavigationBar from '../../components/NavBar/SecondNavigationBar';
 import DateBar from '../../components/NavBar/DateBar';
 import AddButton from '../../components/button/AddButton';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { nutritionAPI } from '../../services/api';
 
 const Nutrition = () => {
     // State for nutrition entries
-    const [nutritionEntries] = useState([
-        { id: 1, meal: 'Breakfast', calories: 450, protein: 25 },
-        { id: 2, meal: 'Lunch', calories: 620, protein: 35 },
-        { id: 3, meal: 'Snack', calories: 200, protein: 10 },
-        { id: 4, meal: 'Dinner', calories: 780, protein: 42 },
-    ]);
+    const [nutritionEntries, setNutritionEntries] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    // Load nutrition entries from MongoDB
+    useEffect(() => {
+        loadNutrition();
+    }, []);
+
+    const loadNutrition = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+            const data = await nutritionAPI.getAll();
+            setNutritionEntries(data);
+        } catch (error) {
+            console.error('Failed to load nutrition:', error);
+            setError('Failed to load nutrition data');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     // Calculate totals
-    const totalCalories = nutritionEntries.reduce((sum, entry) => sum + entry.calories, 0);
-    const totalProtein = nutritionEntries.reduce((sum, entry) => sum + entry.protein, 0);
+    const totalCalories = nutritionEntries.reduce((sum, entry) => sum + (entry.calories || 0), 0);
+    const totalProtein = nutritionEntries.reduce((sum, entry) => sum + (entry.protein || 0), 0);
     const totalEntries = nutritionEntries.length;
 
     // Handle add button click
-    const handleAddNutrition = () => {
-        alert('Add new nutrition entry feature coming soon!');
+    const handleAddNutrition = async () => {
+        const newEntry = {
+            meal: 'New Meal',
+            calories: 0,
+            protein: 0,
+            date: new Date().toISOString().split('T')[0]
+        };
+        try {
+            await nutritionAPI.add(newEntry);
+            loadNutrition();
+        } catch (error) {
+            console.error('Failed to add nutrition:', error);
+            setError('Failed to add nutrition entry');
+        }
     };
+
+    if (loading) {
+        return (
+            <>
+                <MainNavigationBar />
+                <SecondNavigationBar />
+                <div className='nutrition-container'>
+                    <DateBar />
+                    <div className='loading-state'>
+                        <p>Loading nutrition data...</p>
+                    </div>
+                </div>
+            </>
+        );
+    }
+
+    if (error) {
+        return (
+            <>
+                <MainNavigationBar />
+                <SecondNavigationBar />
+                <div className='nutrition-container'>
+                    <DateBar />
+                    <div className='error-state'>
+                        <p>{error}</p>
+                        <button onClick={loadNutrition}>Retry</button>
+                    </div>
+                </div>
+            </>
+        );
+    }
 
     return (
         <>
@@ -46,7 +106,7 @@ const Nutrition = () => {
                         <div className='entries-list'>
                             {nutritionEntries.length > 0 ? (
                                 nutritionEntries.map((entry) => (
-                                    <div key={entry.id} className='entry-item'>
+                                    <div key={entry.meal} className='entry-item'>
                                         <div className='entry-meal'>
                                             <h3>{entry.meal}</h3>
                                         </div>
