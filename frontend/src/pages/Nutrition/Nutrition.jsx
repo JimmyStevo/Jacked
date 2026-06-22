@@ -1,7 +1,6 @@
 import './Nutrition.css'
 import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
 import SecondNavigationBar from '../../components/NavBar/SecondNavigationBar';
-import AddButton from '../../components/button/AddButton';
 import MainButton from '../../components/button/MainButton';
 import SecondButton from '../../components/button/SecondButton';
 import Dropdown from '../../components/Dropdown/Dropdown';
@@ -267,8 +266,8 @@ const Nutrition = () => {
                                     Go to Today
                                 </button>
                             )}
-                            <button className='nutrition-add-trigger' onClick={handleOpenModal} aria-label='Add nutrition entry'>
-                                <AddButton />
+                            <button className='nutrition-add-meal-btn' onClick={handleOpenModal}>
+                                + Add Meal
                             </button>
                         </div>
 
