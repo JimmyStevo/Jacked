@@ -39,61 +39,74 @@ const Startup = (props) => {
         <MainNavigationBar/>
         <SecondNaviationBar/>
         <form onSubmit={handleSubmit}>
-            <div className='Startup-row'>
-                <div className='Startup-column'>
-                    <h2>Pick your preferred unit of Measurement</h2>
+            <div className='Startup-column'>
+                <div className='Startup-row'>
+                <div className='Startup-Card'>
+                    <h2>Pick your preferred unit of Measurement:</h2>
                     <Dropdown options={['Kg', 'Lb']} onChange={(val)=> setUnit(val)}/>
-                    <h2>How much do you weigh currently?</h2>
-                    <input className='Startup-input' type='text' value={currentWeight} onChange={(e)=> setCurrentWeight(e.target.value)}/>
-                    <h2>How tall are you?</h2>
-                    <input className='Startup-input' type='text' value={currentHeight} onChange={(e)=> setcurrentHeight(e.target.value)}/>
+                    <h2>How much do you weigh (in your preferred unit of measurement)?:</h2>
+                    <input className='Startup-input' type='number' value={currentWeight} onChange={(e)=> setCurrentWeight(e.target.value)}/>
+                    <h2>How tall are you (in cm)?</h2>
+                    <input className='Startup-input' type='number' value={currentHeight} onChange={(e)=> setcurrentHeight(e.target.value)}/>
                     <h2>What is your gender</h2>
-                    <Dropdown options={['Male', 'Female', 'Prefer not to say']} onChange={(val)=> setGender(val)}/>
-                    
-                    <h2>What is your goal?</h2>
+                    <Dropdown options={['male', 'female', 'prefer not to say']} onChange={(val)=> setGender(val)}/>
+                </div>
+                </div>
+                <div className='Startup-row'>
+                <div className='Startup-Card'>
+                    <h2>What is your goal?: </h2>
                         <div className='Startup-row'>
-                            <input type='radio' name='goalSelect' value='Gain Weight' checked={goal === 'Gain Weight'} onChange={(e)=> setGoal(e.target.value)}/>
+                            <input type='radio' name='goalSelect' value='gain' checked={goal === 'Gain Weight'} onChange={(e)=> setGoal(e.target.value)}/>
                             <p> Gain Weight </p>
                         </div>
                         <div className='Startup-row'>
-                            <input type='radio' name='goalSelect' value='Lose Weight' checked={goal === 'Lose Weight'} onChange={(e)=> setGoal(e.target.value)}/>
+                            <input type='radio' name='goalSelect' value='lose' checked={goal === 'Lose Weight'} onChange={(e)=> setGoal(e.target.value)}/>
                             <p> Lose Weight </p>
                         </div>
                         <div className='Startup-row'>
-                            <input type='radio' name='goalSelect' value='Maintain Weight' checked={goal === 'Maintain Weight'} onChange={(e)=> setGoal(e.target.value)}/>
+                            <input type='radio' name='goalSelect' value='maintain' checked={goal === 'Maintain Weight'} onChange={(e)=> setGoal(e.target.value)}/>
                             <p>Maintain Weight </p>
                         </div>
-
-                    <h2>How often do you want to work out</h2>
+                    </div>
+                    </div>
+                <div className='Startup-row'>
+                <div className='Startup-Card'>
+                    <h2>How often do you want to work out?: </h2>
                     <div className='Startup-row'>
-                        <input type='radio' name='WorkoutAmount' value='1 Day a week' checked={workFreq === '1 Day a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
+                        <input type='radio' name='WorkoutAmount' value='1' checked={workFreq === '1 Day a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
                         <p> 1 Day a week </p>
                     </div>
                     <div className='Startup-row'>
-                        <input type='radio' name='WorkoutAmount' value='2 Days a week' checked={workFreq === '2 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
+                        <input type='radio' name='WorkoutAmount' value='2' checked={workFreq === '2 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
                         <p> 2 Days a week </p>
                     </div>
                     <div className='Startup-row'>
-                        <input type='radio' name='WorkoutAmount' value='3 Days a week' checked={workFreq === '3 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
+                        <input type='radio' name='WorkoutAmount' value='3' checked={workFreq === '3 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
                         <p> 3 Days a week </p>
                     </div>
                     <div className='Startup-row'>
-                        <input type='radio' name='WorkoutAmount' value='4 Days a week' checked={workFreq === '4 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
+                        <input type='radio' name='WorkoutAmount' value='4' checked={workFreq === '4 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
                         <p> 4 Days a week </p>
                     </div>
                     <div className='Startup-row'>
-                        <input type='radio' name='WorkoutAmount' value='5 Days a week' checked={workFreq === '5 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
+                        <input type='radio' name='WorkoutAmount' value='5' checked={workFreq === '5 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
                         <p> 5 Days a week </p>
                     </div>
                     <div className='Startup-row'>
-                        <input type='radio' name='WorkoutAmount' value='6 Days a week' checked={workFreq === '6 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
+                        <input type='radio' name='WorkoutAmount' value='6' checked={workFreq === '6 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
                         <p> 6 Days a week </p>
                     </div>
                     <div className='Startup-row'>
-                        <input type='radio' name='WorkoutAmount' value='7 Days a week' checked={workFreq === '7 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
+                        <input type='radio' name='WorkoutAmount' value='7' checked={workFreq === '7 Days a week'} onChange={(e)=> setWorkFreq(e.target.value)}/>
                         <p> 7 Days a week </p>
                     </div>
                 </div>
+                </div>
+                    <div className='Startup-row'>
+                    <div className='card-container-settings'>
+                        <SecondButton label='Save Changes' type='submit'/> 
+                    </div>
+                    </div>
             </div>
         </form>
         
