@@ -27,16 +27,27 @@ def register():
     if users_collection.find_one({"email": email}):
         return jsonify({"message": "Email already registered."}), 409
 
-    salt = bcrypt.gensalt()
-    pw_hash = bcrypt.hashpw(password.encode("utf-8"), salt)
-    users_collection.insert_one({
+    pw_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+    insert_result = users_collection.insert_one({
         "username": username,
         "email": email,
         "password": pw_hash,
         "createdAt": datetime.utcnow(),
     })
 
-    return jsonify({"message": "Registration successful."}), 201
+    payload = {
+        "sub": str(insert_result.inserted_id),
+        "email": email,
+        "username": username,
+        "exp": datetime.utcnow() + timedelta(minutes=JWT_EXP_DELTA_MINUTES),
+    }
+
+    token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return jsonify({
+        "token": token,
+        "email": email,
+        "username": username,
+    }), 201
 
 @auth_bp.route("/auth/login", methods=["POST"])
 def login():
@@ -51,7 +62,7 @@ def login():
     if not user:
         return jsonify({"message": "Invalid email or password."}), 401
 
-    if not bcrypt.checkpw(password.encode("utf-8"), user["password"]):
+    if not bcrypt.checkpw(password.encode("utf-8"), user["password"].encode("utf-8")):
         return jsonify({"message": "Invalid email or password."}), 401
 
     payload = {

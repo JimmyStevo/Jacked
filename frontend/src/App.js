@@ -10,18 +10,14 @@ import Settings from './pages/Settings/Settings';
 import SignUp from './pages/Sign-Up/SignUp';
 import WeightLogging from './pages/WeightLogging/WeightLogging';
 import Workout from './pages/Workout/Workout';
-import { useState } from 'react';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
 function App() {
-
-    const [settings, setSettings] = useState([])
-
-    const insertSettings = (newSettings) => {
-      setSettings(newSettings)
-    }
+  const insertSettings = (newSettings) => {
+    console.log('Settings updated:', newSettings);
+  }
 
   return (
     <AuthProvider>  
@@ -34,9 +30,17 @@ function App() {
           <Route path="/nutrition" element={<Nutrition/>}/>
           <Route path="/overview" element={<Overview/>}/>
           <Route path="/settings" element={<Settings insertSettings={insertSettings}/>}/>
-          <Route path="/signUp" element={<SignUp/>}/>
+          <Route path="/signup" element={<SignUp/>}/>
           <Route path="/weightLogging" element={<WeightLogging/>}/>
           <Route path="/workout" element={<Workout/>}/>
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
