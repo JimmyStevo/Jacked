@@ -30,10 +30,18 @@ def updateSettings():
         return jsonify(data)
      
 # ============================================
-# Exercise Backend logic
+# StartUp Backend logic
 # ============================================
 
-     
+@app.route('/api/startup', methods=['GET', 'POST'])
+def updateStartUp():
+    if request.method == 'POST':
+        data = request.get_json()
+        preference_collection.insert_one(data)
+        return jsonify(data)
+    else:
+        data = list(preference_collection.find({}, {"_id":0}))
+        return jsonify(data)
  
 app.register_blueprint(auth_bp, url_prefix="/api")
 
