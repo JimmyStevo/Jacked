@@ -41,3 +41,20 @@ export const nutritionAPI = {
         await fetch(`${API_BASE}/nutrition/${meal}`, { method: 'DELETE' });
     },
 };
+
+/* Settings API */
+
+export const settingsAPI = {
+    insert: async (payload) => {
+        const response = await fetch(`${API_BASE}/settings`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        });
+        return response.json();
+    },
+    getAll: async () => {
+        const response = await fetch(`${API_BASE}/settings`);
+        return response.json();
+    },
+};

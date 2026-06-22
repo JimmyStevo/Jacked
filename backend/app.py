@@ -56,7 +56,7 @@ def updateSettings():
 @app.route('/api/nutrition', methods=['GET'])
 def get_nutrition():
     try:
-        if not nutrition_collection:
+        if nutrition_collection is None:
             return jsonify({"error": "Database not connected"}), 500
         entries = list(nutrition_collection.find({}, {"_id": 0}))
         return jsonify(entries)
@@ -66,7 +66,7 @@ def get_nutrition():
 @app.route('/api/nutrition', methods=['POST'])
 def add_nutrition():
     try:
-        if not nutrition_collection:
+        if nutrition_collection is None:
             return jsonify({"error": "Database not connected"}), 500
         data = request.get_json()
         nutrition_collection.insert_one(data)
@@ -77,7 +77,7 @@ def add_nutrition():
 @app.route('/api/nutrition/<meal>', methods=['DELETE'])
 def delete_nutrition(meal):
     try:
-        if not nutrition_collection:
+        if nutrition_collection is None:
             return jsonify({"error": "Database not connected"}), 500
         nutrition_collection.delete_one({"meal": meal})
         return '', 204

@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import APIService from '../../Components/APIService'
+import { settingsAPI } from '../../services/api';
 
 
 const Settings = (props) => {
@@ -19,7 +19,7 @@ const Settings = (props) => {
     const[darkmode, setDarkmode] = useState('')
 
     const insertSettings = () => {
-        APIService.insertSettings({weightGoal, stepsGoal, unit, darkmode}).then((response) => props.insertSettings(response)).catch(error => console.log('error',error))
+        settingsAPI.insert({weightGoal, stepsGoal, unit, darkmode}).then((response) => props.insertSettings(response)).catch(error => console.log('error',error))
     }
 
     const handleSubmit = (event) => {
