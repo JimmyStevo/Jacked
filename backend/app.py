@@ -8,8 +8,6 @@ import jwt
 client = MongoClient("mongodb+srv://jimmystevo_db_user:TestingDatabase@cluster0.gy3uo1w.mongodb.net/")
 db = client["Jacked_DB"]
 
-print("Connected bitches", db.list_collection_names())
-
 user_collection = db["User_Info"]
 preference_collection = db["Preferences"]
 
