@@ -3,6 +3,7 @@ from flask import Blueprint, request, jsonify
 from pymongo import MongoClient
 import bcrypt
 import jwt
+import os
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -10,7 +11,7 @@ client = MongoClient("mongodb+srv://jimmystevo_db_user:TestingDatabase@cluster0.
 db = client["Jacked_DB"]
 users_collection = db["User_Info"]
 
-JWT_SECRET = "YOUR_SECRET_KEY"
+JWT_SECRET = os.getenv("JWT_SECRET", "dev_secret_key_change_in_production")
 JWT_ALGORITHM = "HS256"
 JWT_EXP_DELTA_MINUTES = 60
 
@@ -62,7 +63,9 @@ def login():
     if not user:
         return jsonify({"message": "Invalid email or password."}), 401
 
-    if not bcrypt.checkpw(password.encode("utf-8"), user["password"].encode("utf-8")):
+    # Convert stored hash string back to bytes for comparison
+    stored_hash = user["password"].encode("utf-8") if isinstance(user["password"], str) else user["password"]
+    if not bcrypt.checkpw(password.encode("utf-8"), stored_hash):
         return jsonify({"message": "Invalid email or password."}), 401
 
     payload = {
