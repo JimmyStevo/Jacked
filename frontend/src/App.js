@@ -10,7 +10,6 @@ import Settings from './pages/Settings/Settings';
 import SignUp from './pages/Sign-Up/SignUp';
 import WeightLogging from './pages/WeightLogging/WeightLogging';
 import Workout from './pages/Workout/Workout';
-import { useState } from 'react';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';

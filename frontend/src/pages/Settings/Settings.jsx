@@ -13,20 +13,22 @@ import APIService from '../../components/APIService'
 
 
 const Settings = (props) => {
-    const[weightGoal, setWeightGoal] = useState('')
-    const[stepsGoal, setSteps] = useState('')
-    const[unit, setUnit] = useState('')
-    const[darkmode, setDarkmode] = useState('')
+    const [weightGoal, setWeightGoal] = useState('')
+    const [stepsGoal, setSteps] = useState('')
+    const [unit, setUnit] = useState('')
+    const [darkmode, setDarkmode] = useState('')
 
-    const insertSettings = () => {
-        APIService.insertSettings({weightGoal, stepsGoal, unit, darkmode}).then((response) => props.insertSettings(response)).catch(error => console.log('error',error))
+    const handleSettingsSubmit = () => {
+        insertSettings({ weightGoal, stepsGoal, unit, darkmode })
+            .then((response) => props.insertSettings(response))
+            .catch((error) => console.log('error', error));
     }
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        insertSettings()
-        setWeightGoal('')
-        setSteps('')
+        event.preventDefault();
+        handleSettingsSubmit();
+        setWeightGoal('');
+        setSteps('');
         setUnit('')
     }
     return (
