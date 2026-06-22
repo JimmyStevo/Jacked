@@ -27,7 +27,12 @@ export const loginUser = async (payload) => {
 export const nutritionAPI = {
     getAll: async () => {
         const res = await fetch(`${API_BASE}/nutrition`);
-        return res.json();
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        // Return empty array if null/undefined
+        return data || [];
     },
     add: async (entry) => {
         const res = await fetch(`${API_BASE}/nutrition`, {
@@ -35,10 +40,16 @@ export const nutritionAPI = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(entry),
         });
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
         return res.json();
     },
     delete: async (meal) => {
-        await fetch(`${API_BASE}/nutrition/${meal}`, { method: 'DELETE' });
+        const res = await fetch(`${API_BASE}/nutrition/${meal}`, { method: 'DELETE' });
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
     },
 };
 
