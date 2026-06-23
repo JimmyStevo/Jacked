@@ -23,8 +23,6 @@ const Startup = (props) => {
     const[workFreq, setWorkFreq] = useState('')
     
 
-
-
         const startupInsert = async () => {
             try{
                 const response = await insertStartup({currentWeight, currentHeight, unit, gender, goal, workFreq}, token)
