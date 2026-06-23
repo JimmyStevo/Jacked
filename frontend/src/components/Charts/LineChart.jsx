@@ -1,51 +1,39 @@
-import React, { useState } from "react";
-import { lineChart, Line, XAxis, YAxis, CartesaianGrid, Tooltip} from 'recharts'
+import React, { useState, useEffect } from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip} from 'recharts'
 import './LineChart.css'
+import { getWeightLogging } from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 
 
-const LineGraph = ({dataArray}) => {
+const LineGraph = () => {
+    const { token } = useAuth()
+    const [ chartData, setChartData ] = useState([])
 
-dataArray = [10, 20, 30, 10];
+    useEffect(() => {
+        getWeightLogging(token).then(data => {
+            const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+            const week = days.map((day, i) => {
+                const entry = data.find(d => new Date(d.date).getDay() === i + 1)
+                return{
+                    day: day,
+                    weight : entry ? entry.weight : null
+                }
+            })
+            setChartData(week)
+        })
+    }, [token])
 
-    const [currentDate] = useState(new Date());
-
-    const findWeek = () => {
-        const currentWeek = [];
-
-        for (let i = 0; i < 7; i++){
-            const day = new Date(currentDate)
-            day.setDate(currentDate.getDate() + i);
-            currentWeek.push(day);
-        }
-        return currentWeek
-    };
-    
-    const Chartdata = [
-        {
-            x: findWeek(),
-            y: dataArray,
-            type: 'scatter',
-            mode: 'lines+markers',
-            marker: { color: 'red'}
-
-    }];
-
-    const layout = {
-        title: {
-            text: '',
-            font: { size: 24, color: '#ffffff'}
-        },
-        autosize: true,
-        margin: {t: 40, r: 20, l: 40, b: 40},
-        paper_bgcolor: 'rgba(0,0,0,0)',
-        plot_bgcolor: 'rgba(0,0,0,0)'
-    };
-
-return(
-    <div className="linegraph-body">
-        <Plot data={Chartdata} layout={layout}/>
-    </div>
-);
-};
+    return (
+        <div className="linegraph-body">
+            <LineChart width={500} height={300} data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="day"/>
+                <YAxis />
+                <Tooltip />
+                <Line type={"monotone"} dataKey="weight" stroke="red" connectNulls={false}/>
+            </LineChart>
+        </div>
+    )
+}
 
 export default LineGraph

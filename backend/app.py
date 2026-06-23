@@ -69,12 +69,12 @@ def updateStartUp():
 # Graph Weight logic
 # ============================================
 
-@app.route('/api/startup', methods=['GET', 'POST'])
+@app.route('/api/weightLogging', methods=['GET', 'POST'])
 def WeightLogging():
     user_id = get_current_user()
     if request.method == 'POST':
         data = request.get_json()
-        data[user_id] = user_id
+        data["user_id"] = user_id
         data["date"] = datetime.now().strftime("%Y-%m-%d")
         WeightLogging_collection.insert_one(data)
         return jsonify(data)
@@ -85,7 +85,7 @@ def WeightLogging():
         endWeek = startWeek + timedelta(days=6)
         
         data = list(WeightLogging_collection.find({
-            "user+id":id,
+            "user_id":user_id,
             "date" : {
                 "$gte" : startWeek.strftime("%Y-%m-%d"),
                 "$lte" : endWeek.strftime("%Y-%m-%d")

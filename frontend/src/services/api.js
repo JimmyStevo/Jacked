@@ -76,12 +76,45 @@ export const loginUser = async (payload) => {
 };
 
 // SETTINGS SECTION
-export const insertSettings = async (payload) => {
+export const insertSettings = async (payload, token) => {
   return handleFetch(`${API_BASE}/settings`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`
+     },
     body: JSON.stringify(payload),
   });
 };
 
+export const getSettings = async (token) => {
+  return handleFetch(`${API_BASE}/settings`, {
+    method: "GET",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
+
 //WORKOUT / WEIGHT LOGGING SECTION
+export const insertWeightLogging = async (payload, token) => {
+  return handleFetch(`${API_BASE}/weightLogging`, {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`
+     },
+    body: JSON.stringify(payload),
+  });
+};
+
+export const getWeightLogging = async (token) => {
+  return handleFetch(`${API_BASE}/weightLogging`, {
+    method: "GET",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
