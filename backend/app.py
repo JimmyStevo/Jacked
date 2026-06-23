@@ -103,6 +103,8 @@ app.register_blueprint(auth_bp, url_prefix="/api")
 @app.route("/api/health")
 def health_check():
     return {"status": "ok"}
+
+
  
 if __name__ == "__main__":
     app.run(debug=True)

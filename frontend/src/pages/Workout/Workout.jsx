@@ -13,6 +13,7 @@ import WorkoutRest from './WorkoutRest';
 import DateBar from '../../components/NavBar/DateBar';
 import { useAuth } from '../../context/AuthContext';
 import { getStartup } from '../../services/api';
+import Weekbar from '../../components/NavBar/WeekBar';
 
 const Workout = () => {
 
@@ -31,7 +32,7 @@ const Workout = () => {
         <MainNavigationBar/>
         <SecondNaviationBar/>
 
-        <DateBar/>
+        <Weekbar/>
 
         <TertiaryNavigationBar 
             activeTab={activeTab}
