@@ -118,3 +118,15 @@ export const getWeightLogging = async (token) => {
     },
   });
 };
+
+// STARTUP SECTION
+
+export const insertStartup = async (payload, token) => {
+  return handleFetch(`${API_BASE}/startup`, {
+    method: "GET",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
