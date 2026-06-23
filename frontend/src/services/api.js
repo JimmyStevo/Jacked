@@ -22,6 +22,7 @@ export const loginUser = async (payload) => {
   return data;
 };
 
+// SETTINGS SECTION
 export const insertSettings = async (payload) => {
   const response = await fetch(`${API_BASE}/settings`, {
     method: "POST",
@@ -32,3 +33,5 @@ export const insertSettings = async (payload) => {
   if (!response.ok) throw new Error(data.message || "Could not save settings.");
   return data;
 };
+
+//WORKOUT / WEIGHT LOGGING SECTION

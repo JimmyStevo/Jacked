@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Plot from "react-plotly.js"
+import { lineChart, Line, XAxis, YAxis, CartesaianGrid, Tooltip} from 'recharts'
 import './LineChart.css'
 
 
-const LineGraph = (dataArray) => {
+const LineGraph = ({dataArray}) => {
 
 dataArray = [10, 20, 30, 10];
 
@@ -41,11 +41,9 @@ dataArray = [10, 20, 30, 10];
         plot_bgcolor: 'rgba(0,0,0,0)'
     };
 
-
-
 return(
     <div className="linegraph-body">
-        <Plot data={Chartdata}/>
+        <Plot data={Chartdata} layout={layout}/>
     </div>
 );
 };
