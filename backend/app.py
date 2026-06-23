@@ -1,35 +1,39 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from pymongo import MongoClient
-from auth import auth_bp
-import os
-from dotenv import load_dotenv
+from auth import auth_bp, JWT_SECRET, JWT_ALGORITHM
+import jwt
+from datetime import datetime, timedelta
 
-# Load environment variables
-load_dotenv()
 
-# MongoDB Connection
-MONGO_URI = os.getenv("MONGO_URI")
-DB_NAME = os.getenv("DB_NAME", "Jacked_DB")
+client = MongoClient("mongodb+srv://jimmystevo_db_user:TestingDatabase@cluster0.gy3uo1w.mongodb.net/")
+db = client["Jacked_DB"]
 
-try:
-    client = MongoClient(MONGO_URI)
-    db = client[DB_NAME]
-    # Verify connection
-    client.admin.command('ping')
-    print(f"[OK] Connected to MongoDB Atlas - Database: {DB_NAME}")
-except Exception as e:
-    print(f"[ERROR] Failed to connect to MongoDB: {e}")
-    client = None
-    db = None
-
-user_collection = db["User_Info"] if db is not None else None
-preference_collection = db["Preferences"] if db is not None else None
-nutrition_collection = db["Nutrition"] if db is not None else None
+user_collection = db["User_Info"]
+preference_collection = db["Preferences"]
+WeightLogging_collection = db["User_WeightLogging"]
 
 
 app = Flask(__name__)
 CORS(app)
+
+def get_current_user():
+    try:
+        auth_header = request.headers.get('Authorization')
+        if not auth_header:
+            raise ValueError("Authorization header missing")
+        parts = auth_header.split(' ')
+        if len(parts) != 2 or parts[0] != 'Bearer':
+            raise ValueError("Invalid authorization header format")
+        token = parts[1]
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        return payload['sub']
+    except jwt.ExpiredSignatureError:
+        raise ValueError("Token has expired")
+    except jwt.InvalidTokenError:
+        raise ValueError("Invalid token")
+    except Exception as e:
+        raise ValueError(f"Authentication error: {str(e)}")
 
 # ============================================
 # Settings Backend logic
@@ -37,52 +41,62 @@ CORS(app)
 
 @app.route('/api/settings', methods=['GET', 'POST'])
 def updateSettings():
+    user_id = get_current_user()
     if request.method == 'POST':
         data = request.get_json()
-        preference_collection.insert_one(data)
+        data["user_id"] = user_id 
+        preference_collection.update_one(
+            {"user_id" : user_id},
+            {"$set" : data},
+            upsert=True)
         return jsonify(data)
     else:
-        data = list(preference_collection.find({}, {"_id":0}))
+        data = list(preference_collection.find({"user_id": user_id}, {"_id":0}))
         return jsonify(data)
      
 # ============================================
-# Exercise Backend logic
+# StartUp Backend logic
 # ============================================
 
-
-
-# Nutrition Backend logic
-
-@app.route('/api/nutrition', methods=['GET'])
-def get_nutrition():
-    try:
-        if nutrition_collection is None:
-            return jsonify({"error": "Database not connected"}), 500
-        entries = list(nutrition_collection.find({}, {"_id": 0}))
-        return jsonify(entries)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
-@app.route('/api/nutrition', methods=['POST'])
-def add_nutrition():
-    try:
-        if nutrition_collection is None:
-            return jsonify({"error": "Database not connected"}), 500
+@app.route('/api/startup', methods=['GET', 'POST'])
+def updateStartUp():
+    user_id = get_current_user()
+    if request.method == 'POST':
         data = request.get_json()
-        nutrition_collection.insert_one(data)
-        return jsonify(data), 201
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        data["user_id"] = user_id 
+        preference_collection.insert_one(data)
+        return jsonify(data)
+    else:
+        data = list(preference_collection.find({"user_id": user_id}, {"_id":0}))
+        return jsonify(data)
 
-@app.route('/api/nutrition/<meal>', methods=['DELETE'])
-def delete_nutrition(meal):
-    try:
-        if nutrition_collection is None:
-            return jsonify({"error": "Database not connected"}), 500
-        nutrition_collection.delete_one({"meal": meal})
-        return '', 204
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+# ============================================
+# Graph Weight logic
+# ============================================
+
+@app.route('/api/weightLogging', methods=['GET', 'POST'])
+def WeightLogging():
+    user_id = get_current_user()
+    if request.method == 'POST':
+        data = request.get_json()
+        data["user_id"] = user_id
+        data["date"] = datetime.now().strftime("%Y-%m-%d")
+        WeightLogging_collection.insert_one(data)
+        return jsonify(data)
+    else:
+        today = datetime.now()
+        dif = today.weekday()
+        startWeek = today - timedelta(days=dif)
+        endWeek = startWeek + timedelta(days=6)
+        
+        data = list(WeightLogging_collection.find({
+            "user_id":user_id,
+            "date" : {
+                "$gte" : startWeek.strftime("%Y-%m-%d"),
+                "$lte" : endWeek.strftime("%Y-%m-%d")
+            }
+        }, {"_id":0})) 
+        return jsonify(data)
 
 app.register_blueprint(auth_bp, url_prefix="/api")
 

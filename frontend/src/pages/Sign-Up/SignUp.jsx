@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import hero from "../../assets/hero.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../services/api";
+import { useAuth } from "../../context/AuthContext";
 import "./SignUp.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -13,6 +15,7 @@ const SignUp = () => {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const [submitError, setSubmitError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,14 +55,15 @@ const SignUp = () => {
     }
 
     try {
-      await registerUser({
+      const data = await registerUser({
         username: formData.username,
         email: formData.email,
         password: formData.password,
       });
-      navigate("/login");
+      login(data.token, { email: data.email, username: data.username });
+      navigate("/dashboard");
     } catch (err) {
-      setErrors({ email: err.message || "Registration failed." });
+      setSubmitError(err.message || "Registration failed.");
     }
   };
 
@@ -75,6 +79,7 @@ const SignUp = () => {
           <h1 className="brand-title">JACKED</h1>
 
           <form className="auth-form" onSubmit={handleSubmit} noValidate>
+            {submitError && <p className="form-error">{submitError}</p>}
             <div className="form-group">
               <label htmlFor="username" className="form-label">
                 Username

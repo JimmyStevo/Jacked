@@ -1,20 +1,36 @@
 import { useEffect, useRef, useState } from "react"
 import './Dropdown.css'
 
-
-const Dropdown = ({options}) => {
+// DROPDOWN COMPONENT 
+const Dropdown = ({options, onChange}) => {
     const[dropdownToggled, setDropdownToggled] = useState(false);
     const[dropdownSelected, setDropdownSelected] = useState(null)
+    const dropdownRef = useRef(null)
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target))
+                setDropdownToggled(false)
+        }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+    },[]
+
+)
+// SETS THE SELECT ITEM AS VISIBLE TEXT IN PLACE OF PLACEHOLDER AND CLOSES THE DROPDOWN SELECTION WHEN USER CLICKS OUTSIDE
     return(
-        <div className="dropdown">
+        <div className="dropdown" ref={dropdownRef}>
             <button className="toggle" onClick={()=>{
-                setDropdownToggled(!dropdownToggled)
+                setDropdownToggled(!dropdownToggled) // OPENS DROPDOWN 
             }}>{dropdownSelected ? dropdownSelected : "Select a Unit"}</button>
             
             <div className={`options ${dropdownToggled ? "visible" : ""}`}>
                 {options.map((option, index) => (
-                    <div key={index} value={option} onClick={()=>{setDropdownSelected(option)}}>{option}</div>
+                    <div key={index} value={option} onClick={()=>{
+                        setDropdownSelected(option)
+                        setDropdownToggled(false)
+                        onChange(option)
+                    }}>{option}</div> 
                 ))}
             </div>
         </div>

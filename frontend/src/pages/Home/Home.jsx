@@ -43,7 +43,7 @@ const Home = () => {
             <label>
                 <h1>READY TO GET JACKED?</h1>
             </label>
-            <Link to='/signUp'>
+            <Link to='/signup'>
                 <MainButton label={'SIGN UP NOW'}/>
             </Link>
 
