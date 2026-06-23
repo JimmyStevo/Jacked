@@ -9,8 +9,6 @@ from datetime import datetime, timedelta
 client = MongoClient("mongodb+srv://jimmystevo_db_user:TestingDatabase@cluster0.gy3uo1w.mongodb.net/")
 db = client["Jacked_DB"]
 
-print("Connected bitches", db.list_collection_names())
-
 user_collection = db["User_Info"]
 preference_collection = db["Preferences"]
 WeightLogging_collection = db["User_WeightLogging"]
@@ -18,11 +16,25 @@ WeightLogging_collection = db["User_WeightLogging"]
 
 app = Flask(__name__)
 CORS(app)
+
 def get_current_user():
-    token = request.headers.get('Authorization').split(' ')[1]
-    payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
-    return payload['sub']
-    
+    try:
+        auth_header = request.headers.get('Authorization')
+        if not auth_header:
+            raise ValueError("Authorization header missing")
+        parts = auth_header.split(' ')
+        if len(parts) != 2 or parts[0] != 'Bearer':
+            raise ValueError("Invalid authorization header format")
+        token = parts[1]
+        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        return payload['sub']
+    except jwt.ExpiredSignatureError:
+        raise ValueError("Token has expired")
+    except jwt.InvalidTokenError:
+        raise ValueError("Invalid token")
+    except Exception as e:
+        raise ValueError(f"Authentication error: {str(e)}")
+
 # ============================================
 # Settings Backend logic
 # ============================================
