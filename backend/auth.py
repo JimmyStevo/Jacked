@@ -15,7 +15,7 @@ JWT_SECRET = os.getenv("JWT_SECRET", "dev_secret_key_change_in_production")
 JWT_ALGORITHM = "HS256"
 JWT_EXP_DELTA_MINUTES = 60
 
-@auth_bp.route("/auth/register", methods=["POST"])
+@auth_bp.route("/auth/signup", methods=["POST"])
 def register():
     data = request.get_json() or {}
     try:
@@ -58,7 +58,7 @@ def register():
         "username": username,
     }), 201
 
-@auth_bp.route("/auth/login", methods=["POST"])
+@auth_bp.route("/auth/login", methods=["POST"]) 
 def login():
     data = request.get_json() or {}
     try:

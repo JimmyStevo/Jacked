@@ -60,7 +60,7 @@ const handleFetch = async (url, options) => {
 };
 
 export const registerUser = async (payload) => {
-  return handleFetch(`${API_BASE}/auth/register`, {
+  return handleFetch(`${API_BASE}/auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
