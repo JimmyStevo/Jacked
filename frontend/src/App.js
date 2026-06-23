@@ -14,7 +14,6 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import Startup from './pages/Startup/Startup';
 import { AuthProvider } from './context/AuthContext';
-import { react } from 'plotly.js';
 import { useState } from 'react';
 
 
