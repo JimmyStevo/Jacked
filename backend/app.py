@@ -12,6 +12,7 @@ db = client["Jacked_DB"]
 user_collection = db["User_Info"]
 preference_collection = db["Preferences"]
 WeightLogging_collection = db["User_WeightLogging"]
+Nutrition_collection = db["User_NutritionLogging"]
 
 
 app = Flask(__name__)
@@ -96,6 +97,24 @@ def WeightLogging():
                 "$lte" : endWeek.strftime("%Y-%m-%d")
             }
         }, {"_id":0})) 
+        return jsonify(data)
+
+# Nutrition Logging Backend logic
+
+@app.route('/api/nutrition', methods=['GET', 'POST', 'DELETE'])
+def NutritionLogging():
+    user_id = get_current_user()
+    if request.method == 'POST':
+        data = request.get_json()
+        data["user_id"] = user_id
+        Nutrition_collection.insert_one(data)
+        return jsonify(data)
+    elif request.method == 'DELETE':
+        meal_name = request.args.get('meal')
+        Nutrition_collection.delete_one({"user_id": user_id, "meal": meal_name})
+        return jsonify({"message": "Deleted"})
+    else:
+        data = list(Nutrition_collection.find({"user_id": user_id}, {"_id": 0}))
         return jsonify(data)
 
 app.register_blueprint(auth_bp, url_prefix="/api")

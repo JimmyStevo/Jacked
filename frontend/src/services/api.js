@@ -130,3 +130,30 @@ export const insertStartup = async (payload, token) => {
     },
   });
 };
+
+// NUTRITION SECTION
+
+export const nutritionAPI = {
+  getAll: async () => {
+    const token = localStorage.getItem('token');
+    return handleFetch(`${API_BASE}/nutrition`, {
+      method: "GET",
+      headers: { "Authorization": `Bearer ${token}` },
+    });
+  },
+  add: async (entry) => {
+    const token = localStorage.getItem('token');
+    return handleFetch(`${API_BASE}/nutrition`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+      body: JSON.stringify(entry),
+    });
+  },
+  delete: async (meal) => {
+    const token = localStorage.getItem('token');
+    return handleFetch(`${API_BASE}/nutrition?meal=${encodeURIComponent(meal)}`, {
+      method: "DELETE",
+      headers: { "Authorization": `Bearer ${token}` },
+    });
+  },
+};
