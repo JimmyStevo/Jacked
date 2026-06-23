@@ -43,8 +43,12 @@ def get_current_user():
 def updateSettings():
     user_id = get_current_user()
     if request.method == 'POST':
+        data = request.get_json()
         data["user_id"] = user_id 
-        preference_collection.update_one(data)
+        preference_collection.update_one(
+            {"user_id" : user_id},
+            {"$set" : data},
+            upsert=True)
         return jsonify(data)
     else:
         data = list(preference_collection.find({"user_id": user_id}, {"_id":0}))
@@ -56,14 +60,15 @@ def updateSettings():
 
 @app.route('/api/startup', methods=['GET', 'POST'])
 def updateStartUp():
+    user_id = get_current_user()
     if request.method == 'POST':
         data = request.get_json()
+        data["user_id"] = user_id 
         preference_collection.insert_one(data)
         return jsonify(data)
     else:
-        data = list(preference_collection.find({}, {"_id":0}))
+        data = list(preference_collection.find({"user_id": user_id}, {"_id":0}))
         return jsonify(data)
-
 
 # ============================================
 # Graph Weight logic

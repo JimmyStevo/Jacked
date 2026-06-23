@@ -67,8 +67,8 @@ function App() {
           <Route path="/account" element={<Account insertAccount={insertAccount}/>}/>
           <Route path="/foodLogging" element={<FoodLogging insertFoodLogging={insertFoodLogging}/>}/>
           <Route path="/nutrition" element={<Nutrition insertNutrition={insertNutrition}/>}/>
-          <Route path="/settings" element={<Overview insertSettings={insertSettings}/>}/>
-          <Route path="/overview" element={<Settings insertOverview={insertOverview}/>}/>
+          <Route path="/settings" element={<Settings insertSettings={insertSettings}/>}/>
+          <Route path="/overview" element={<Overview insertOverview={insertOverview}/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/weightLogging" element={<WeightLogging insertWeightLogging={insertWeightLogging}/>}/>
           <Route path="/workout" element={<Workout insertWorkout={insertWorkout}/>}/>
