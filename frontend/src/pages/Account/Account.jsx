@@ -12,7 +12,7 @@ const Account = () => {
         address: '123 Fitness Ave, Gym City, GC 12345'
     });
 
-    // State to manage if we're editing
+    // State to manage when editing
     const [isEditing, setIsEditing] = useState(false);
 
     // Handle input change
@@ -27,13 +27,23 @@ const Account = () => {
     // Handle save
     const handleSave = () => {
         setIsEditing(false);
-        // Here you would typically send data to your backend
+        //send data to your backend
         console.log('User info saved:', userInfo);
     };
 
     // Handle cancel edit
     const handleCancel = () => {
         setIsEditing(false);
+    };
+
+    const getInitials = (name) => {
+        return name
+            .split(' ')
+            .filter(Boolean)
+            .map((part) => part[0])
+            .join('')
+            .toUpperCase()
+            .slice(0, 2);
     };
 
     return (
@@ -46,117 +56,93 @@ const Account = () => {
                 <div className='account-section'>
                     <h2>Personal Details</h2>
                     <div className='info-card'>
-                        {isEditing ? (
-                            <div className='form-group'>
-                                <div className='form-row'>
-                                    <div className='form-field'>
-                                        <label>Name</label>
-                                        <input 
-                                            type='text' 
-                                            name='name' 
-                                            value={userInfo.name}
-                                            onChange={handleInputChange}
-                                            placeholder='Enter your name'
-                                        />
+                        <div className='personal-details-layout'>
+                            <div className='personal-details-main'>
+                                {isEditing ? (
+                                    <div className='form-group'>
+                                        <div className='form-row'>
+                                            <div className='form-field'>
+                                                <label>Name</label>
+                                                <input 
+                                                    type='text' 
+                                                    name='name' 
+                                                    value={userInfo.name}
+                                                    onChange={handleInputChange}
+                                                    placeholder='Enter your name'
+                                                />
+                                            </div>
+                                            <div className='form-field'>
+                                                <label>Email</label>
+                                                <input 
+                                                    type='email' 
+                                                    name='email' 
+                                                    value={userInfo.email}
+                                                    onChange={handleInputChange}
+                                                    placeholder='Enter your email'
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className='form-row'>
+                                            <div className='form-field'>
+                                                <label>Phone</label>
+                                                <input 
+                                                    type='tel' 
+                                                    name='phone' 
+                                                    value={userInfo.phone}
+                                                    onChange={handleInputChange}
+                                                    placeholder='Enter your phone'
+                                                />
+                                            </div>
+                                            <div className='form-field'>
+                                                <label>Address</label>
+                                                <input 
+                                                    type='text' 
+                                                    name='address' 
+                                                    value={userInfo.address}
+                                                    onChange={handleInputChange}
+                                                    placeholder='Enter your address'
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className='button-group'>
+                                            <button onClick={handleSave} className='btn-save'>Save Changes</button>
+                                            <button onClick={handleCancel} className='btn-cancel'>Cancel</button>
+                                        </div>
                                     </div>
-                                    <div className='form-field'>
-                                        <label>Email</label>
-                                        <input 
-                                            type='email' 
-                                            name='email' 
-                                            value={userInfo.email}
-                                            onChange={handleInputChange}
-                                            placeholder='Enter your email'
-                                        />
+                                ) : (
+                                    <div className='info-display'>
+                                        <div className='info-item'>
+                                            <span className='label'>Name:</span>
+                                            <span className='value'>{userInfo.name}</span>
+                                        </div>
+                                        <div className='info-item'>
+                                            <span className='label'>Email:</span>
+                                            <span className='value'>{userInfo.email}</span>
+                                        </div>
+                                        <div className='info-item'>
+                                            <span className='label'>Phone:</span>
+                                            <span className='value'>{userInfo.phone}</span>
+                                        </div>
+                                        <div className='info-item'>
+                                            <span className='label'>Address:</span>
+                                            <span className='value'>{userInfo.address}</span>
+                                        </div>
+                                        <button onClick={() => setIsEditing(true)} className='btn-edit'>Edit Profile</button>
                                     </div>
-                                </div>
+                                )}
+                            </div>
 
-                                <div className='form-row'>
-                                    <div className='form-field'>
-                                        <label>Phone</label>
-                                        <input 
-                                            type='tel' 
-                                            name='phone' 
-                                            value={userInfo.phone}
-                                            onChange={handleInputChange}
-                                            placeholder='Enter your phone'
-                                        />
+                            <div className='personal-details-side'>
+                                <div className='profile-image-wrapper'>
+                                    <div className='profile-image-circle'>
+                                        <span className='profile-initials'>{getInitials(userInfo.name)}</span>
+                                        <button className='profile-edit-badge' type='button' aria-label='Edit profile image'>✎</button>
                                     </div>
-                                    <div className='form-field'>
-                                        <label>Address</label>
-                                        <input 
-                                            type='text' 
-                                            name='address' 
-                                            value={userInfo.address}
-                                            onChange={handleInputChange}
-                                            placeholder='Enter your address'
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className='button-group'>
-                                    <button onClick={handleSave} className='btn-save'>Save Changes</button>
-                                    <button onClick={handleCancel} className='btn-cancel'>Cancel</button>
+                                    <div className='profile-image-caption'>Profile Image</div>
                                 </div>
                             </div>
-                        ) : (
-                            <div className='info-display'>
-                                <div className='info-item'>
-                                    <span className='label'>Name:</span>
-                                    <span className='value'>{userInfo.name}</span>
-                                </div>
-                                <div className='info-item'>
-                                    <span className='label'>Email:</span>
-                                    <span className='value'>{userInfo.email}</span>
-                                </div>
-                                <div className='info-item'>
-                                    <span className='label'>Phone:</span>
-                                    <span className='value'>{userInfo.phone}</span>
-                                </div>
-                                <div className='info-item'>
-                                    <span className='label'>Address:</span>
-                                    <span className='value'>{userInfo.address}</span>
-                                </div>
-                                <button onClick={() => setIsEditing(true)} className='btn-edit'>Edit Profile</button>
-                            </div>
-                        )}
-                    </div>
-                </div>
-
-                {/* Account Settings Section */}
-                <div className='account-section'>
-                    <h2>Account Settings & Preferences</h2>
-                    <div className='settings-card'>
-                        <div className='setting-item'>
-                            <div className='setting-info'>
-                                <h3>Email Notifications</h3>
-                                <p>Receive updates via email</p>
-                            </div>
-                            <input type='checkbox' defaultChecked={true} />
-                        </div>
-
-                        <div className='setting-item'>
-                            <div className='setting-info'>
-                                <h3>Workout Reminders</h3>
-                                <p>Get reminders for your workouts</p>
-                            </div>
-                            <input type='checkbox' defaultChecked={true} />
-                        </div>
-
-                        <div className='setting-item'>
-                            <div className='setting-info'>
-                                <h3>Privacy Mode</h3>
-                                <p>Keep your progress private</p>
-                            </div>
-                            <input type='checkbox' defaultChecked={false} />
-                        </div>
-
-                        <div className='setting-item'>
-                            <div className='setting-info'>
-                                <h3>Dark Mode</h3>
-                                <p>Use dark theme</p>
-                            </div>
-                            <input type='checkbox' defaultChecked={false} />
                         </div>
                     </div>
                 </div>

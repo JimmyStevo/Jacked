@@ -39,28 +39,28 @@ def get_current_user():
 
 @app.route('/api/settings', methods=['GET', 'POST'])
 def updateSettings():
-    try:
-        user_id = get_current_user()
-        if request.method == 'POST':
-            data = request.get_json() or {}
-            data["user_id"] = user_id
-            preference_collection.update_one(
-                {"user_id": user_id},
-                {"$set": data},
-                upsert=True
-            )
-            return jsonify(data), 200
-        else:
-            data = list(preference_collection.find({"user_id": user_id}, {"_id": 0}))
-            return jsonify(data), 200
-    except ValueError as e:
-        return jsonify({"message": str(e)}), 401
+    user_id = get_current_user()
+    if request.method == 'POST':
+        data["user_id"] = user_id 
+        preference_collection.update_one(data)
+        return jsonify(data)
+    else:
+        data = list(preference_collection.find({"user_id": user_id}, {"_id":0}))
+        return jsonify(data)
      
 # ============================================
-# Exercise Backend logic
+# StartUp Backend logic
 # ============================================
 
-     
+@app.route('/api/startup', methods=['GET', 'POST'])
+def updateStartUp():
+    if request.method == 'POST':
+        data = request.get_json()
+        preference_collection.insert_one(data)
+        return jsonify(data)
+    else:
+        data = list(preference_collection.find({}, {"_id":0}))
+        return jsonify(data)
  
 @app.route('/api/startup', methods=['GET', 'POST'])
 def updateStartUp():
