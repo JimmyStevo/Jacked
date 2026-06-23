@@ -123,10 +123,20 @@ export const getWeightLogging = async (token) => {
 
 export const insertStartup = async (payload, token) => {
   return handleFetch(`${API_BASE}/startup`, {
-    method: "GET",
+    method: "POST",
     headers: {
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`
     },
   });
 };
+
+export const getStartup = async (token) => {
+  return handleFetch(`${API_BASE}/startup`, {
+    method: "GET",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  })
+}
