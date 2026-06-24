@@ -24,7 +24,7 @@ const Dropdown = ({options, onChange, value}) => {
 // SETS THE SELECT ITEM AS VISIBLE TEXT IN PLACE OF PLACEHOLDER AND CLOSES THE DROPDOWN SELECTION WHEN USER CLICKS OUTSIDE
     return(
         <div className="dropdown" ref={dropdownRef}>
-            <button className="toggle" onClick={()=>{
+            <button type="button" className="toggle" onClick={()=>{
                 setDropdownToggled(!dropdownToggled) // OPENS DROPDOWN 
             }}>{dropdownSelected ? dropdownSelected : "Select a Unit"}</button>
             

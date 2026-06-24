@@ -11,6 +11,7 @@ import Dropdown from '../../components/Dropdown/Dropdown';
 import { useState } from 'react';
 import { insertStartup } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 const Startup = (props) => {
@@ -25,9 +26,10 @@ const Startup = (props) => {
     
 
         const startupInsert = async () => {
+            console.log({currentWeight, currentHeight, unit, gender, goal, workFreq, workdays: selectedDays})
             try{
                 const response = await insertStartup({currentWeight, currentHeight, unit, gender, goal, workFreq, workdays: selectedDays}, token)
-                props.insertStartup(response)
+                navigate('/overview')
             } catch(error) {
                 console.log('error', error)
             }
@@ -37,13 +39,6 @@ const Startup = (props) => {
         const handleSubmit = (event) => {
             event.preventDefault()
             startupInsert()
-            setCurrentWeight('')
-            setcurrentHeight('')
-            setUnit('')
-            setGender('')
-            setGoal('')
-            setWorkFreq('')
-            
         }
         
         // FUNCTION TO ALLOW THE USER TO SELECT DAYS BASED ON THE PREVIOUS
@@ -158,9 +153,7 @@ const Startup = (props) => {
                 </div>
                     <div className='Startup-row'>
                     <div className='card-container-settings'>
-                    <Link to='/overview'>
                         <SecondButton label='Save Changes' type='submit'/>
-                    </Link>
                     </div>
                     </div>
             </div>
