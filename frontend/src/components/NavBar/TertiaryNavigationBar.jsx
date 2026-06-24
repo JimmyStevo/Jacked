@@ -5,32 +5,20 @@ import Cards from '../Cards/Cards';
 import TitleCards from '../Cards/TitleCards';
 import SelectCards from '../Cards/SelectCards';
 
-const TertiaryNavigationBar = ({ activeTab, setActiveTab }) => {
+const TertiaryNavigationBar = ({ activeTab, setActiveTab, workdays }) => {
+    const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
     return(
         <nav className='tertiary-navbar'>
             <div className='tertiary-navbar-center'>
                 <ul className='nav-links'>
-                    <li onClick={()=> setActiveTab('upperbody')}>
-                        <SelectCards Title={"UPPER BODY"} isActive={activeTab === 'upperbody'}/>
-                    </li>
-                    <li onClick={()=> setActiveTab('lowerbody')}>
-                        <SelectCards Title={"LOWER BODY"} isActive={activeTab === 'lowerbody'}/>
-                    </li>
-                    <li onClick={()=> setActiveTab('rest')}>
-                        <SelectCards Title={"REST"} isActive={activeTab === 'rest'}/>
-                    </li>
-                    <li onClick={()=> setActiveTab('push')}>
-                        <SelectCards Title={"PUSH"} isActive={activeTab === 'push'}/>
-                    </li>
-                    <li onClick={()=> setActiveTab('pull')}>
-                        <SelectCards Title={"PULL"} isActive={activeTab === 'pull'}/>                    
-                    </li>
-                    <li onClick={()=> setActiveTab('legs')}>
-                        <SelectCards Title={"LEGS"} isActive={activeTab === 'legs'}/>                    
-                    </li>
-                    <li onClick={()=> setActiveTab('rest')}>
-                        <SelectCards Title={"REST"} isActive={activeTab === 'rest'}/>
-                    </li>
+                    {days.map(day => (
+                        <li key={day} onClick={() => setActiveTab(day)}>
+                            <SelectCards
+                                Title={day}
+                                isActive={activeTab === day}
+                                isRest={!workdays.includes(day)}/>
+                        </li>
+                    ))}
                 </ul>
 
             </div>

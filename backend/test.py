@@ -1,14 +1,15 @@
 from pymongo import MongoClient
+from datetime import datetime
 
-try:
-    client = MongoClient(
-        "mongodb+srv://jimmystevo_db_user:TestingDatabase@cluster0.gy3uo1w.mongodb.net/",
-        serverSelectionTimeoutMS=10000
-    )
+client = MongoClient("mongodb+srv://jimmystevo_db_user:TestingDatabase@cluster0.gy3uo1w.mongodb.net/")
+db = client["Jacked_DB"]
+collection = db["User_Info"]
 
-    print("Attempting connection...")
-    print(client.admin.command("ping"))
+print("Attempting insert...")
 
-except Exception as e:
-    import traceback
-    traceback.print_exc()
+result = collection.insert_one({
+    "name": "Test User",
+    "createdAt": datetime.utcnow()
+})
+
+print("Inserted ID:", result.inserted_id)

@@ -123,6 +123,38 @@ export const getWeightLogging = async (token) => {
 
 export const insertStartup = async (payload, token) => {
   return handleFetch(`${API_BASE}/startup`, {
+    method: "POST",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
+
+export const getStartup = async (token) => {
+  return handleFetch(`${API_BASE}/startup`, {
+    method: "GET",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
+
+// OVERVIEW SECTION
+
+export const insertOverview = async (payload, token) => {
+  return handleFetch(`${API_BASE}/overview`, {
+    method: 'POST',
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
+
+export const getOverview = async (token) => {
+  return handleFetch(`${API_BASE}/overview`, { 
     method: "GET",
     headers: {
       "Content-Type" : "application/json",
