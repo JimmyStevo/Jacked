@@ -138,5 +138,27 @@ export const getStartup = async (token) => {
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`
     },
-  })
-}
+  });
+};
+
+// OVERVIEW SECTION
+
+export const insertOverview = async (payload, token) => {
+  return handleFetch(`${API_BASE}/overview`, {
+    method: 'POST',
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
+
+export const getOverview = async (token) => {
+  return handleFetch(`${API_BASE}/overview`, { 
+    method: "GET",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
