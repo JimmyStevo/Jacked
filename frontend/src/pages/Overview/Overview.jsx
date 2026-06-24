@@ -9,9 +9,12 @@ import LineGraph from '../../components/Charts/LineChart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
+import { insertOverview, getOverview } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
+
 
 const Overview = () => {
-
+const { token } = useAuth() 
 const [Complete, setCompleted] = useState(75);
 
 
@@ -39,13 +42,13 @@ const cardData = [
             </div>
             <div className='card-container-overview'>
                 <Cards Title={'Todays Macros'} icon={faIdCard} Description={'This is the place for bar metrics'} cardType={'card-med-large-long'}>
-                    <h3>CALORIES</h3>
+                    <h1>CALORIES</h1>
                     <ProgressBar progress={Complete}/>
-                    <h3>PROTIEN</h3>
+                    <h1>PROTIEN</h1>
                     <ProgressBar progress={Complete}/>
-                    <h3>CARBS</h3>
+                    <h1>CARBS</h1>
                     <ProgressBar progress={Complete}/>
-                    <h3>FAT</h3>
+                    <h1>FAT</h1>
                     <ProgressBar progress={Complete}/>
                 </Cards>
             </div>

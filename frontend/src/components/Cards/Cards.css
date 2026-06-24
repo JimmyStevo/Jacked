@@ -7,6 +7,7 @@
     padding: 16px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
     box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .card-icon-image-container {
@@ -31,6 +32,13 @@
     font-size: 0.5rem;
     color: #ffffff;
     line-height: 1.5;
+}
+
+.card-icon-row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
 }
 
 /* Card size options for each of the pages */
