@@ -7,6 +7,15 @@
     color: #e9e9d2;
 }
 
+.Startup-row-internal{
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    color: #e9e9d2;
+    gap: 8px;
+}
+
+
 .Startup-Column{
     width: 100%;
     display: flex;

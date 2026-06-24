@@ -9,19 +9,26 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import APIService from '../../components/APIService'
+import { insertSettings, getSettings } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 
 const Settings = (props) => {
+    const { token } = useAuth()
+
     const [weightGoal, setWeightGoal] = useState('')
     const [stepsGoal, setSteps] = useState('')
     const [unit, setUnit] = useState('')
     const [darkmode, setDarkmode] = useState('')
 
-    const handleSettingsSubmit = () => {
-        insertSettings({ weightGoal, stepsGoal, unit, darkmode })
-            .then((response) => props.insertSettings(response))
-            .catch((error) => console.log('error', error));
+    const handleSettingsSubmit = async () => {
+        try{
+            const response = await insertSettings({weightGoal, stepsGoal, unit, darkmode}, token)
+            props.insertSettings(response)
+        }
+        catch(error){
+            console.log('error', error)
+        }
     }
 
     const handleSubmit = (event) => {

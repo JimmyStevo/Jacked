@@ -12,64 +12,29 @@ import WeightLogging from './pages/WeightLogging/WeightLogging';
 import Workout from './pages/Workout/Workout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import { AuthProvider } from './context/AuthContext';
 import Startup from './pages/Startup/Startup';
+import { AuthProvider } from './context/AuthContext';
+
+
 
 function App() {
-
-    const [settings, setSettings] = useState([])
-    const [startUp, setStartUp] = useState([])
-    const [overview, setOverview] = useState([])
-    const [home, setHome] = useState([])
-    const [account, setAccount] = useState([])
-    const [foodLogging, setFoodLogging] = useState([])
-    const [nutrition, setNutrition] = useState([])
-    const [weightLogging, setWeightLogging] = useState([])
-    const [workout, setWorkout] = useState([])
-
-    const insertSettings = (newSettings) => {
-      setSettings(newSettings)
-    }
-    const insertStartup = (newStartUp) => {
-      setStartUp(newStartUp)
-    }
-    const insertOverview = (newOverview) => {
-      setOverview(newOverview)
-    }
-    const insertHome =(newHome)=>{
-      setHome(newHome)
-    }
-    const insertAccount=(newAccount)=>{
-      setAccount(newAccount)
-    }
-    const insertFoodLogging=(newFoodLogging)=>{
-      setFoodLogging(newFoodLogging)
-    }
-    const insertNutrition=(newNutrition)=>{
-      setNutrition(newNutrition)
-    }
-    const insertWeightLogging=(newWeightLogging)=>{
-      setWeightLogging(newWeightLogging)
-    }
-    const insertWorkout=(newWorkout)=>{
-      setWorkout(newWorkout)
-    }
 
   return (
     <AuthProvider>  
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login/>}/>
-          <Route path="/" element={<Home insertHome={insertHome}/>}/>
-          <Route path="/account" element={<Account insertAccount={insertAccount}/>}/>
-          <Route path="/foodLogging" element={<FoodLogging insertFoodLogging={insertFoodLogging}/>}/>
-          <Route path="/nutrition" element={<Nutrition insertNutrition={insertNutrition}/>}/>
-          <Route path="/overview" element={<Overview insertSettings={insertSettings}/>}/>
-          <Route path="/settings" element={<Settings insertOverview={insertOverview}/>}/>
+          <Route path="/" element={<Home/>}/>
+          <Route path="/account" element={<ProtectedRoute><Account/></ProtectedRoute>}/>
+          <Route path="/foodLogging" element={<ProtectedRoute><FoodLogging/></ProtectedRoute>}/>
+          <Route path="/nutrition" element={<ProtectedRoute><Nutrition/></ProtectedRoute>}/>
+          <Route path="/settings" element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
+          <Route path="/overview" element={<ProtectedRoute><Overview/></ProtectedRoute>}/>
           <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/weightLogging" element={<WeightLogging insertWeightLogging={insertWeightLogging}/>}/>
-          <Route path="/workout" element={<Workout insertWorkout={insertWorkout}/>}/>
-          <Route path="/startup" element={<Startup insertStartup={insertStartup}/>}/>
+          <Route path="/weightLogging" element={<WeightLogging/>}/>
+          <Route path="/workout" element={<Workout/>}/>
+          <Route path="/startup" element={<ProtectedRoute><Startup/></ProtectedRoute>}/>
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
