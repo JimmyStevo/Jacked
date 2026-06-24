@@ -11,9 +11,10 @@ const LineGraph = () => {
 
     useEffect(() => {
         getWeightLogging(token).then(data => {
+            const dataArray = Array.isArray(data) ? data : [];
             const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
             const week = days.map((day, i) => {
-                const entry = data.find(d => new Date(d.date).getDay() === i + 1)
+                const entry = dataArray.find(d => new Date(d.date).getDay() === i + 1)
                 return{
                     day: day,
                     weight : entry ? entry.weight : null

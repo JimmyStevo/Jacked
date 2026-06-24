@@ -6,25 +6,16 @@ const DateBar = ({ currentDate: propDate, setCurrentDate: setPropDate }) => {
     const [internalDate, setInternalDate] = useState(new Date());
     
     const currentDate = propDate ?? internalDate;
-    const setCurrentDate = propSetDate ?? setInternalDate;
-
-    // State for date navigation
-    //const [currentDate, setCurrentDate] = useState(new Date());
+    const setCurrentDate = setPropDate ?? setInternalDate;
 
     // Handle date navigation
     const handlePrevDay = () => {
-       // const prevDate = new Date(currentDate);
-       // prevDate.setDate(prevDate.getDate() - 1);
-       // setCurrentDate(prevDate);
-       const d = new Date(currentDate);
-       d.setDate(d.getDate() - 1);
-       setCurrentDate(d);
+        const d = new Date(currentDate);
+        d.setDate(d.getDate() - 1);
+        setCurrentDate(d);
     };
 
     const handleNextDay = () => {
-        // const nextDate = new Date(currentDate);
-        // nextDate.setDate(nextDate.getDate() + 1);
-        // setCurrentDate(nextDate);
         const d = new Date(currentDate);
         d.setDate(d.getDate() + 1);
         setCurrentDate(d);
@@ -33,15 +24,13 @@ const DateBar = ({ currentDate: propDate, setCurrentDate: setPropDate }) => {
     // Format date for display
     const formatDate = (date) => 
         date.toLocaleDateString('en-US', {
-        //return date.toLocaleDateString('en-US', { 
-          weekday: 'short', 
-           year: 'numeric', 
-           month: 'short', 
-           day: 'numeric' 
-        //});
-    });
+            weekday: 'short', 
+            year: 'numeric', 
+            month: 'short', 
+            day: 'numeric' 
+        });
 
-    return( 
+    return ( 
         <div className='date-bar'>
             <div className='date-navigator'>
                 <button className='nav-arrow' onClick={handlePrevDay}>←</button>

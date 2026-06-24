@@ -1,6 +1,7 @@
 import './Nutrition.css'
 import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
 import SecondNavigationBar from '../../components/NavBar/SecondNavigationBar';
+import DateBar from '../../components/NavBar/DateBar';
 import MainButton from '../../components/button/MainButton';
 import SecondButton from '../../components/button/SecondButton';
 import Dropdown from '../../components/Dropdown/Dropdown';
@@ -33,7 +34,7 @@ const Nutrition = () => {
     const [showModal, setShowModal] = useState(false);
     const [editingEntry, setEditingEntry] = useState(null);
     
-    // Date navigation (separate from DateBar)
+    // Date navigation - use shared DateBar
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     // Form state
@@ -46,16 +47,17 @@ const Nutrition = () => {
         date: new Date().toISOString().split('T')[0]
     });
 
-    // Load nutrition entries from MongoDB
+    // Load nutrition entries from MongoDB when date changes
     useEffect(() => {
         loadNutrition();
-    }, []);
+    }, [selectedDate]);
 
     const loadNutrition = async () => {
         setLoading(true);
         setError(null);
         try {
-            const data = await nutritionAPI.getAll();
+            const dateStr = selectedDate.toISOString().split('T')[0];
+            const data = await nutritionAPI.getAll(dateStr, dateStr);
             setNutritionEntries(Array.isArray(data) ? data : []);
         } catch (error) {
             console.error('Failed to load nutrition:', error);
@@ -97,18 +99,8 @@ const Nutrition = () => {
 
     // Check if viewing today
     const isToday = () => {
-        const today = new Date();
-        return selectedDate.toISOString().split('T')[0] === today.toISOString().split('T')[0];
-    };
-
-    // Format date for display
-    const formatDate = (date) => {
-        return date.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
+        const today = new Date().toISOString().split('T')[0];
+        return selectedDate.toISOString().split('T')[0] === today;
     };
 
     // Handle form input changes
@@ -169,6 +161,10 @@ const Nutrition = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
+        const token = localStorage.getItem('token');
+        console.log('Token exists:', !!token);
+        console.log('Token value:', token);
+        
         const entry = {
             meal: formData.meal,
             calories: parseFloat(formData.calories) || 0,
@@ -177,21 +173,23 @@ const Nutrition = () => {
             mealType: formData.mealType,
             date: selectedDate.toISOString().split('T')[0]
         };
+        console.log('Submitting entry:', entry);
 
         try {
-            await nutritionAPI.add(entry);
+            const result = await nutritionAPI.add(entry);
+            console.log('Success:', result);
             handleCloseModal();
             loadNutrition();
         } catch (error) {
             console.error('Failed to save nutrition:', error);
-            setError('Failed to save nutrition entry');
+            setError('Failed to save nutrition entry: ' + error.message);
         }
     };
 
     // Handle delete
-    const handleDelete = async (meal) => {
+    const handleDelete = async (meal, date) => {
         try {
-            await nutritionAPI.delete(meal);
+            await nutritionAPI.delete(meal, date);
             loadNutrition();
         } catch (error) {
             console.error('Failed to delete nutrition:', error);
@@ -203,14 +201,8 @@ const Nutrition = () => {
             <>
                 <MainNavigationBar />
                 <SecondNavigationBar />
+                <DateBar currentDate={selectedDate} setCurrentDate={setSelectedDate} />
                 <div className='nutrition-container'>
-                    <div className='nutrition-date-bar'>
-                        <div className='nutrition-date-navigator'>
-                            <button className='nutrition-nav-arrow' onClick={handlePrevDay}>←</button>
-                            <span className='nutrition-date-display'>{formatDate(selectedDate)}</span>
-                            <button className='nutrition-nav-arrow' onClick={handleNextDay}>→</button>
-                        </div>
-                    </div>
                     <div className='loading-state'>
                         <p>Loading nutrition data...</p>
                     </div>
@@ -224,14 +216,8 @@ const Nutrition = () => {
             <>
                 <MainNavigationBar />
                 <SecondNavigationBar />
+                <DateBar currentDate={selectedDate} setCurrentDate={setSelectedDate} />
                 <div className='nutrition-container'>
-                    <div className='nutrition-date-bar'>
-                        <div className='nutrition-date-navigator'>
-                            <button className='nutrition-nav-arrow' onClick={handlePrevDay}>←</button>
-                            <span className='nutrition-date-display'>{formatDate(selectedDate)}</span>
-                            <button className='nutrition-nav-arrow' onClick={handleNextDay}>→</button>
-                        </div>
-                    </div>
                     <div className='error-state'>
                         <p>{error}</p>
                         <button onClick={loadNutrition}>Retry</button>
@@ -245,16 +231,9 @@ const Nutrition = () => {
         <>
             <MainNavigationBar />
             <SecondNavigationBar />
+            <DateBar currentDate={selectedDate} setCurrentDate={setSelectedDate} />
 
             <div className='nutrition-container'>
-                <div className='nutrition-date-bar'>
-                    <div className='nutrition-date-navigator'>
-                        <button className='nutrition-nav-arrow' onClick={handlePrevDay}>←</button>
-                        <span className='nutrition-date-display'>{formatDate(selectedDate)}</span>
-                        <button className='nutrition-nav-arrow' onClick={handleNextDay}>→</button>
-                    </div>
-                </div>
-
                 {/* Main Content Area */}
                 <div className='nutrition-content'>
                     {/* Left Side - Nutrition Log */}
@@ -288,7 +267,7 @@ const Nutrition = () => {
                                             className='entry-delete-btn' 
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                handleDelete(entry.meal);
+                                                handleDelete(entry.meal, entry.date);
                                             }}
                                         >
                                             ×
@@ -330,6 +309,53 @@ const Nutrition = () => {
                                     <div className='overview-metric'>
                                         <div className='metric-label'>Meals</div>
                                         <div className='metric-value'>{totalEntries}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Right Panel - Progress */}
+                    <div className='progress-panel'>
+                        <div className='progress-card'>
+                            <div className='progress-card-header'>
+                                <h2>Progress</h2>
+                            </div>
+                            <div className='progress-card-body'>
+                                <div className='progress-item'>
+                                    <div className='progress-header'>
+                                        <span className='progress-label'>Calories</span>
+                                        <span className='progress-values'>{totalCalories} / 2000</span>
+                                    </div>
+                                    <div className='progress-bar-container'>
+                                        <div 
+                                            className='progress-bar-fill calories-bar'
+                                            style={{ width: `${Math.min((totalCalories / 2000) * 100, 100)}%` }}
+                                        ></div>
+                                    </div>
+                                </div>
+                                <div className='progress-item'>
+                                    <div className='progress-header'>
+                                        <span className='progress-label'>Protein</span>
+                                        <span className='progress-values'>{totalProtein}g / 150g</span>
+                                    </div>
+                                    <div className='progress-bar-container'>
+                                        <div 
+                                            className='progress-bar-fill protein-bar'
+                                            style={{ width: `${Math.min((totalProtein / 150) * 100, 100)}%` }}
+                                        ></div>
+                                    </div>
+                                </div>
+                                <div className='progress-item'>
+                                    <div className='progress-header'>
+                                        <span className='progress-label'>Meals</span>
+                                        <span className='progress-values'>{totalEntries} / 4</span>
+                                    </div>
+                                    <div className='progress-bar-container'>
+                                        <div 
+                                            className='progress-bar-fill meals-bar'
+                                            style={{ width: `${Math.min((totalEntries / 4) * 100, 100)}%` }}
+                                        ></div>
                                     </div>
                                 </div>
                             </div>
