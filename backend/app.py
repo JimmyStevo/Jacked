@@ -5,7 +5,6 @@ from auth import auth_bp, JWT_SECRET, JWT_ALGORITHM
 from bson import ObjectId
 from datetime import datetime, timedelta
 import jwt
-import requests as http_requests
 
 client = MongoClient("mongodb+srv://jimmystevo_db_user:TestingDatabase@cluster0.gy3uo1w.mongodb.net/")
 db = client["Jacked_DB"]
