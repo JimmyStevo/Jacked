@@ -9,16 +9,21 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { insertSettings, getSettings } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
-import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
 
 
 const Settings = () => {
     const { token } = useAuth()
     const [savedSettings, setSavedSettings] = useState({})
+    const [unit, setUnit] = useState('')
     const [weightGoal, setWeightGoal] = useState('')
     const [stepsGoal, setSteps] = useState('')
-    const [unit, setUnit] = useState('')
+    const [weight, setWeight] = useState('')
+    const [goal, setGoal] = useState('')
+    const [workFreq, setWorkFreq] = useState('')
+    const [workdays, setWorkdays] = useState([])
     const [darkmode, setDarkmode] = useState('')
+    
 
     const handleSettingsSubmit = async () => {
         try{
@@ -38,16 +43,23 @@ const Settings = () => {
         getSettings(token).then(data => {
             const settings = data[0] || {}
             setSavedSettings(settings)
+            setUnit(settings.units || "")
             setWeightGoal(settings.weightGoal || "")
             setSteps(settings.stepsGoal || "")
-            setUnit(settings.unit || "")
+            setWeight(settings.weight || "")
+            setGoal(settings.goal || "")
+            setWorkFreq(settings.workFreq || "")
+            setWorkdays(settings.workdays || [])
         })
     }, [token])
 
     const handleRevert = () =>{
         setWeightGoal(savedSettings.weightGoal || "")
         setSteps(savedSettings.stepsGoal || "")
-        setUnit(savedSettings.unit || "")
+        setUnit(savedSettings.units || "")
+        setGoal(savedSettings.goal || "")
+        setWorkFreq(savedSettings.workFreq || "")
+        setWorkdays(savedSettings.workdays || [])
     }
 
     return (
@@ -65,6 +77,7 @@ const Settings = () => {
                         <h1>
                             Current Weight:  
                         </h1>   
+                        <h3>{weight}</h3>
                         <h1>
                             Target Weight:  
                         </h1>
@@ -83,6 +96,7 @@ const Settings = () => {
                     <h1>
                         Current Goal:
                     </h1>
+                    <h3>{goal}</h3>
                     <h1>
                         Workout Frequency:  
                     </h1>
