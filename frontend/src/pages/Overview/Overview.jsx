@@ -39,7 +39,7 @@ const cardData = [
     {Title: "WORKOUTS", icon: faIdCard, Description: "", cardType: "card-med"},
     {Title: "CALORIES TODAY", icon: faIdCard, Description: `${totalCalories} kcal`, cardType: "card-med"},
     {Title: "PROTEIN", icon: faIdCard, Description: `${totalProtein} g`, cardType: "card-med"},
-    {Title: "POINTS", icon: faIdCard, Description: "This is the description #4", cardType: "card-med"}
+    {Title: "POINTS", icon: faIdCard, Description: "", cardType: "card-med"}
     ]
     return (
         <>
@@ -58,7 +58,7 @@ const cardData = [
             }
             </div>
             <div className='card-container-overview'>
-                <Cards Title={'Todays Macros'} icon={faIdCard} Description={'This is the place for bar metrics'} cardType={'card-med-large-long'}>
+                <Cards Title={'Todays Macros'} icon={faIdCard} Description={''} cardType={'card-med-large-long'}>
                     <h1>CALORIES</h1>
                     <ProgressBar progress={Complete}/>
                     <h1>PROTIEN</h1>
@@ -70,16 +70,16 @@ const cardData = [
                 </Cards>
             </div>
             <div className='card-container-overview'>
-                <Cards Title={'Weight Progress'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-large'}>
+                <Cards Title={'Weight Progress'} icon={faGamepad} Description={''} cardType={'card-large'}>
                     <LineGraph/>
                 </Cards>
             </div>
             <div className='card-container-overview-largergap'>
-                <Cards Title={'Log Weight'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}>
+                <Cards Title={'Log Weight'} icon={faGamepad} Description={''} cardType={'card-med-large'}>
                     <input className='overview-form' type='text'/>
                     <MainButton  label={'Log (+5 points'}/>
                 </Cards>
-                <Cards Title={'Weekly Check-in'} icon={faGamepad} Description={'This is the place for bar metrics'} cardType={'card-med-large'}>
+                <Cards Title={'Weekly Check-in'} icon={faGamepad} Description={''} cardType={'card-med-large'}>
                     <SecondButton label={'Start Checkin (+25 points)'}/>
                 </Cards>
                 

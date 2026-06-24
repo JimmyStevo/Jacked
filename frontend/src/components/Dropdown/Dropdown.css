@@ -28,6 +28,7 @@
 
 .dropdown .options div:hover{
     background-color: #7a7575;
+    cursor: pointer;
 }
 
 .dropdown .option {
