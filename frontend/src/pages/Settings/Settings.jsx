@@ -100,9 +100,13 @@ const Settings = () => {
                     <h1>
                         Workout Frequency:  
                     </h1>
+                    <h3>{workFreq}</h3>
                     <h1>
                         Days to Workout:  
                     </h1>
+                    <h3>{workdays.map(day => (
+                        <span key={day}>{day}, </span> 
+                    ))}</h3>
                 </Cards>
             </div>
 
@@ -112,7 +116,7 @@ const Settings = () => {
                     <h1>
                         Unit of Measurement: 
                     </h1>
-                    <h3><Dropdown options={['Kg', 'Lb']} onChange={(val)=> setUnit(val)}/></h3>
+                    <h3><Dropdown options={['Kg', 'Lb']} onChange={(val)=> setUnit(val)} value={unit}/></h3>
                     <h1>
                         Dark Mode: 
                     </h1>

@@ -13,6 +13,7 @@
 .card-icon-image-container {
     height: 180px;
     overflow: hidden;
+    color: #e9e9d2;
 }
 
 .card-icon-image {
@@ -80,7 +81,7 @@
     height: fit-content;
     min-height: 350px;
     text-align: left;
-    color: #ffffff;
+    color: #e9e9d2;
     gap: 8px;
 }
 
@@ -93,6 +94,14 @@
     color: #ffffff;
 }
 
+.card-percent {
+    width: 60%;
+    margin: 0 auto;
+    height: fit-content;
+    min-height: 150px;
+    text-align: left;
+    color: #e9e9d2;
+}
 
 /* Title Card CSS specifically for the second navigation bar */
 

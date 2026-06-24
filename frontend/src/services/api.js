@@ -128,6 +128,7 @@ export const insertStartup = async (payload, token) => {
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`
     },
+    body: JSON.stringify(payload),
   });
 };
 
@@ -150,6 +151,7 @@ export const insertOverview = async (payload, token) => {
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`
     },
+    body: JSON.stringify(payload),
   });
 };
 
@@ -161,4 +163,39 @@ export const getOverview = async (token) => {
       "Authorization" : `Bearer ${token}`
     },
   });
+};
+
+// NUTRITION SECTION
+
+export const nutritionAPI = {
+  getAll: async (fromDate, toDate) => {
+    const token = localStorage.getItem('token');
+    let url = `${API_BASE}/nutrition`;
+    if (fromDate && toDate) {
+      url += `?from=${fromDate}&to=${toDate}`;
+    }
+    return handleFetch(url, {
+      method: "GET",
+      headers: { "Authorization": `Bearer ${token}` },
+    });
+  },
+  add: async (entry) => {
+    const token = localStorage.getItem('token');
+    return handleFetch(`${API_BASE}/nutrition`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+      body: JSON.stringify(entry),
+    });
+  },
+  delete: async (meal, date) => {
+    const token = localStorage.getItem('token');
+    let url = `${API_BASE}/nutrition?meal=${encodeURIComponent(meal)}`;
+    if (date) {
+      url += `&date=${date}`;
+    }
+    return handleFetch(url, {
+      method: "DELETE",
+      headers: { "Authorization": `Bearer ${token}` },
+    });
+  },
 };

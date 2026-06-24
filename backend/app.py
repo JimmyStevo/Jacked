@@ -12,6 +12,7 @@ db = client["Jacked_DB"]
 user_collection = db["User_Info"]
 preference_collection = db["Preferences"]
 food_logging_collection = db["Food_Logging"]
+Nutrition_collection = db["User_NutritionLogging"]
 
 
 app = Flask(__name__)
@@ -20,6 +21,14 @@ CORS(app)
 # ============================================
 # Auth helper
 # ============================================
+
+# ============================================
+# Auth helper
+# ============================================
+
+@app.errorhandler(ValueError)
+def handle_auth_error(e):
+    return jsonify({"message": str(e)}), 401
 
 def get_current_user():
     try:
@@ -227,6 +236,40 @@ def weight_logging():
                 "$lte" : endWeek.strftime("%Y-%m-%d")
             }
         }, {"_id":0})) 
+        return jsonify(data)
+
+# Nutrition Logging Backend logic
+
+@app.route('/api/nutrition', methods=['GET', 'POST', 'DELETE'])
+def NutritionLogging():
+    try:
+        user_id = get_current_user()
+    except ValueError as e:
+        app.logger.error(f"Auth error in nutrition: {e}")
+        return jsonify({"message": str(e)}), 401
+    
+    if request.method == 'POST':
+        data = request.get_json()
+        app.logger.info(f"Adding nutrition entry for user {user_id}: {data}")
+        data["user_id"] = user_id
+        Nutrition_collection.insert_one(data)
+        return jsonify(data)
+    elif request.method == 'DELETE':
+        meal_name = request.args.get('meal')
+        entry_date = request.args.get('date')
+        query = {"user_id": user_id, "meal": meal_name}
+        if entry_date:
+            query["date"] = entry_date
+        Nutrition_collection.delete_one(query)
+        return jsonify({"message": "Deleted"})
+    else:
+        # Get date filter from query params (optional)
+        date_from = request.args.get('from')
+        date_to = request.args.get('to')
+        query = {"user_id": user_id}
+        if date_from and date_to:
+            query["date"] = {"$gte": date_from, "$lte": date_to}
+        data = list(Nutrition_collection.find(query, {"_id": 0}))
         return jsonify(data)
 
 app.register_blueprint(auth_bp, url_prefix="/api")
