@@ -25,16 +25,16 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login/>}/>
           <Route path="/" element={<Home/>}/>
-          <Route path="/account" element={<ProtectedRoute><Account/></ProtectedRoute>}/>
-          <Route path="/foodLogging" element={<ProtectedRoute><FoodLogging/></ProtectedRoute>}/>
-          <Route path="/nutrition" element={<ProtectedRoute><Nutrition/></ProtectedRoute>}/>
-          <Route path="/settings" element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
-          <Route path="/overview" element={<ProtectedRoute><Overview/></ProtectedRoute>}/>
+          <Route path="/account" element={<><Account/></>}/>
+          <Route path="/foodLogging" element={<><FoodLogging/></>}/>
+          <Route path="/nutrition" element={<><Nutrition/></>}/>
+          <Route path="/settings" element={<Settings/>}/>
+          <Route path="/overview" element={<><Overview/></>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/weightLogging" element={<WeightLogging/>}/>
           <Route path="/workout" element={<Workout/>}/>
-          <Route path="/startup" element={<ProtectedRoute><Startup/></ProtectedRoute>}/>
-          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
+          <Route path="/startup" element={<Startup/>}/>
+          <Route path="/dashboard" element={<><Dashboard /></>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>

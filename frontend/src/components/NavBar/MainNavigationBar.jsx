@@ -12,7 +12,7 @@ const MainNavigationBar = () => {
         </div>
         <div className='main-navbar-right'>
             <Link to='/settings' className='num-icon'>
-                Stuff
+                Settings
                 <i className=''></i>
             </Link>
             <Link to='/startup' className='settings-icon'>
