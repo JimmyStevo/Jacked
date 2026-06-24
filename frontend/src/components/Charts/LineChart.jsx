@@ -3,18 +3,21 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip} from 'recharts'
 import './LineChart.css'
 import { getWeightLogging } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
-
-
+ 
+ 
 const LineGraph = () => {
     const { token } = useAuth()
     const [ chartData, setChartData ] = useState([])
-
+ 
     useEffect(() => {
         getWeightLogging(token).then(data => {
             const dataArray = Array.isArray(data) ? data : [];
             const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
             const week = days.map((day, i) => {
-                const entry = dataArray.find(d => new Date(d.date).getDay() === i + 1)
+                const entry = dataArray.find(d => {
+                    const day = new Date(d.date).getDay()
+                    return day === (i === 6 ? 0 : i + 1)
+                })
                 return{
                     day: day,
                     weight : entry ? entry.weight : null
@@ -23,7 +26,7 @@ const LineGraph = () => {
             setChartData(week)
         })
     }, [token])
-
+ 
     return (
         <div className="linegraph-body">
             <LineChart width={500} height={300} data={chartData}>
@@ -36,5 +39,5 @@ const LineGraph = () => {
         </div>
     )
 }
-
+ 
 export default LineGraph

@@ -8,6 +8,9 @@ const DateBar = ({ currentDate: propDate, setCurrentDate: setPropDate }) => {
     const currentDate = propDate ?? internalDate;
     const setCurrentDate = setPropDate ?? setInternalDate;
 
+    // State for date navigation
+    //const [currentDate, setCurrentDate] = useState(new Date());
+
     // Handle date navigation
     const handlePrevDay = () => {
         const d = new Date(currentDate);

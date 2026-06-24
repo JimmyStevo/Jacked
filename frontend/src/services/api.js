@@ -128,6 +128,7 @@ export const insertStartup = async (payload, token) => {
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`
     },
+    body: JSON.stringify(payload),
   });
 };
 
@@ -150,6 +151,7 @@ export const insertOverview = async (payload, token) => {
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`
     },
+    body: JSON.stringify(payload),
   });
 };
 
