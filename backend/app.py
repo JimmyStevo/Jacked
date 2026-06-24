@@ -23,10 +23,6 @@ CORS(app)
 # Auth helper
 # ============================================
 
-# ============================================
-# Auth helper
-# ============================================
-
 @app.errorhandler(ValueError)
 def handle_auth_error(e):
     return jsonify({"message": str(e)}), 401
@@ -239,7 +235,9 @@ def weight_logging():
         }, {"_id":0})) 
         return jsonify(data)
 
+# ============================================
 # Nutrition Logging Backend logic
+# ============================================
 
 @app.route('/api/nutrition', methods=['GET', 'POST', 'DELETE'])
 def NutritionLogging():

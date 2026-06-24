@@ -14,16 +14,10 @@ const Home = () => {
 
     return (
         <>
-        <MainNavigationBar/>
-        <SecondNaviationBar/>
-
         <div className='card-container-home-column'>
             <div className='card-container-home'>
                 <Cards Title={'GET JACKED'} icon={null} Description={'Track your fitness journey with AI-powered nutrition and workout plans. Transform your body.'} cardType={'card-med-large'}>
                 </Cards>
-            </div>
-            <div className='card-container-home'>
-                <MainButton label={'START YOUR JOURNEY'}/>
             </div>
             <label>
                 <h1>FEATURES</h1>
@@ -46,7 +40,6 @@ const Home = () => {
             <Link to='/signup'>
                 <MainButton label={'SIGN UP NOW'}/>
             </Link>
-
         </div>
         </>
     );
