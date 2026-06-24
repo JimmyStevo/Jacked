@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
 import SecondNavigationBar from '../../components/NavBar/SecondNavigationBar';
-import DateBar from '../../components/DateBar/DateBar';
+import DateBar from '../../components/NavBar/DateBar';
 import './FoodLogging.css';
 
 // ── Daily goals — swap with real user prefs from DB when ready ──
