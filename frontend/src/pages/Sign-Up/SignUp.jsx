@@ -60,7 +60,7 @@ const SignUp = () => {
         email: formData.email,
         password: formData.password,
       });
-      login(data.token, { email: data.email, username: data.username });
+      login(data.token, { user_id: data.user_id, email: data.email, username: data.username });
       navigate("/startup");
     } catch (err) {
       setSubmitError(err.message || "Registration failed.");
