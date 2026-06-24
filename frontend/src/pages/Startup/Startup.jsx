@@ -158,7 +158,9 @@ const Startup = (props) => {
                 </div>
                     <div className='Startup-row'>
                     <div className='card-container-settings'>
-                        <SecondButton label='Save Changes' type='submit'/> 
+                    <Link to='/overview'>
+                        <SecondButton label='Save Changes' type='submit'/>
+                    </Link>
                     </div>
                     </div>
             </div>
