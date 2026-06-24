@@ -1,14 +1,12 @@
 import './DateBar.css';
 import { useState } from 'react';
 
-<DateBar currentDate={date} setCurrentDate={setDate} />
-
 const DateBar = ({ currentDate: propDate, setCurrentDate: setPropDate }) => {
 
     const [internalDate, setInternalDate] = useState(new Date());
     
     const currentDate = propDate ?? internalDate;
-    const setCurrentDate = propSetDate ?? setInternalDate;
+    const setCurrentDate = setPropDate ?? setInternalDate;
 
     // State for date navigation
     //const [currentDate, setCurrentDate] = useState(new Date());
