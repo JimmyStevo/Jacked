@@ -23,10 +23,6 @@ CORS(app)
 # Auth helper
 # ============================================
 
-# ============================================
-# Auth helper
-# ============================================
-
 @app.errorhandler(ValueError)
 def handle_auth_error(e):
     return jsonify({"message": str(e)}), 401

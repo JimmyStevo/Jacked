@@ -29,7 +29,7 @@ const Login = () => {
 
     try {
       const data = await loginUser(formData);
-      login(data.token, { email: data.email, username: data.username });
+      login(data.token, { user_id: data.user_id, email: data.email, username: data.username });
       navigate("/dashboard");
     } catch (err) {
       setError(err.message || "Login failed. Please try again.");
