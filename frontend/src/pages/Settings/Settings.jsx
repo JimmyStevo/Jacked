@@ -5,26 +5,29 @@ import MainButton from '../../components/button/MainButton';
 import SecondButton from '../../components/button/SecondButton'
 import SecondNaviationBar from '../../components/NavBar/SecondNavigationBar';
 import Cards from '../../components/Cards/Cards';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faGear, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { insertSettings, getSettings } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import { faUser, faWeightScale, faDumbbell, faIdCard, faGamepad, faInfoCircle, faCog, faUserSecret } from '@fortawesome/free-solid-svg-icons';
 
 
-const Settings = (props) => {
+const Settings = () => {
     const { token } = useAuth()
-
+    const [savedSettings, setSavedSettings] = useState({})
+    const [unit, setUnit] = useState('')
     const [weightGoal, setWeightGoal] = useState('')
     const [stepsGoal, setSteps] = useState('')
-    const [unit, setUnit] = useState('')
+    const [weight, setWeight] = useState('')
+    const [goal, setGoal] = useState('')
+    const [workFreq, setWorkFreq] = useState('')
+    const [workdays, setWorkdays] = useState([])
     const [darkmode, setDarkmode] = useState('')
+    
 
     const handleSettingsSubmit = async () => {
         try{
             const response = await insertSettings({weightGoal, stepsGoal, unit, darkmode}, token)
-            props.insertSettings(response)
         }
         catch(error){
             console.log('error', error)
@@ -34,10 +37,31 @@ const Settings = (props) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         handleSettingsSubmit();
-        setWeightGoal('');
-        setSteps('');
-        setUnit('')
     }
+
+    useEffect(() => {
+        getSettings(token).then(data => {
+            const settings = data[0] || {}
+            setSavedSettings(settings)
+            setUnit(settings.units || "")
+            setWeightGoal(settings.weightGoal || "")
+            setSteps(settings.stepsGoal || "")
+            setWeight(settings.weight || "")
+            setGoal(settings.goal || "")
+            setWorkFreq(settings.workFreq || "")
+            setWorkdays(settings.workdays || [])
+        })
+    }, [token])
+
+    const handleRevert = () =>{
+        setWeightGoal(savedSettings.weightGoal || "")
+        setSteps(savedSettings.stepsGoal || "")
+        setUnit(savedSettings.units || "")
+        setGoal(savedSettings.goal || "")
+        setWorkFreq(savedSettings.workFreq || "")
+        setWorkdays(savedSettings.workdays || [])
+    }
+
     return (
         <>
         {/* Nvaigation Bars */}
@@ -50,7 +74,10 @@ const Settings = (props) => {
             
             <div className='card-container-settings'>
                 <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}>
-                                 
+                        <h1>
+                            Current Weight:  
+                        </h1>   
+                        <h3>{weight}</h3>
                         <h1>
                             Target Weight:  
                         </h1>
@@ -67,9 +94,15 @@ const Settings = (props) => {
             <div className='card-container-settings'>
                 <Cards Title={'Notifications'} icon={faInfoCircle} Description={'Set Your Notification Settings'} cardType={'card-large'}>
                     <h1>
-                        Stuff
+                        Current Goal:
                     </h1>
-                    
+                    <h3>{goal}</h3>
+                    <h1>
+                        Workout Frequency:  
+                    </h1>
+                    <h1>
+                        Days to Workout:  
+                    </h1>
                 </Cards>
             </div>
 
@@ -78,11 +111,12 @@ const Settings = (props) => {
                 <Cards Title={'Preferences'} icon={faCog} Description={'Set Your Preferences'} cardType={'card-large'}>
                     <h1>
                         Unit of Measurement: 
-                        <Dropdown options={['Kg', 'Lb']} onChange={(val)=> setUnit(val)}/>
                     </h1>
+                    <h3><Dropdown options={['Kg', 'Lb']} onChange={(val)=> setUnit(val)}/></h3>
                     <h1>
-                        Dark Mode:
+                        Dark Mode: 
                     </h1>
+                    <h3>-- coming soon(tm)</h3>
                 </Cards>
             </div>
 
@@ -93,7 +127,7 @@ const Settings = (props) => {
             <div className='card-container-settings'>
                 <SecondButton label='Save Changes' type='submit'/> 
                 <Link to='/overview'>
-                    <MainButton label='Exit without Saving'/>
+                    <MainButton label='Exit without Saving' onClick={handleRevert}/>
                 </Link>
             </div>
         </div>
