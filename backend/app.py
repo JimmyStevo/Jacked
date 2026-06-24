@@ -14,6 +14,7 @@ user_collection = db["User_Info"]
 preference_collection = db["Preferences"]
 food_logging_collection = db["Food_Logging"]
 Nutrition_collection = db["User_NutritionLogging"]
+weight_logging_collection = db["User_WeightLogging"]
 
 
 app = Flask(__name__)
@@ -215,14 +216,14 @@ def delete_food_entry(entry_id):
 # Graph Weight logic
 # ============================================
 
-@app.route('/api/WeightLogging', methods=['GET', 'POST'])
+@app.route('/api/weightLogging', methods=['GET', 'POST'])
 def weight_logging():
     user_id = get_current_user()
     if request.method == 'POST':
         data = request.get_json()
         data["user_id"] = user_id
         data["date"] = datetime.now().strftime("%Y-%m-%d")
-        food_logging_collection.insert_one(data)
+        weight_logging_collection.insert_one(data)
         return jsonify(data)
     else:
         today = datetime.now()
@@ -230,7 +231,7 @@ def weight_logging():
         startWeek = today - timedelta(days=dif)
         endWeek = startWeek + timedelta(days=6)
         
-        data = list(food_logging_collection.find({
+        data = list(weight_logging_collection.find({
             "user_id":user_id,
             "date" : {
                 "$gte" : startWeek.strftime("%Y-%m-%d"),
