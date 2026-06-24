@@ -15,6 +15,7 @@ body{
     width: 90%;
     height: auto;
     padding-bottom: 12px;
+
 }
 
 .card-container-overview-largergap{
@@ -33,6 +34,7 @@ body{
     justify-content: center;
     align-items: center;
     padding-bottom: 24px;
+    
 }
 
 .overview-form{

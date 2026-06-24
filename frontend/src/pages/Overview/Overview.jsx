@@ -11,17 +11,34 @@ import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightSc
 import { useEffect, useState } from 'react';
 import { insertOverview, getOverview } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
+import { getNiceTickValues } from 'recharts';
+import { nutritionAPI } from '../../services/api';
 
 
 const Overview = () => {
 const { token } = useAuth() 
 const [Complete, setCompleted] = useState(75);
+const [nutritionData, setNutritionData] = useState([])
+const [totalCalories, setTotalCalories] = useState(0)
+const [totalProtein, setTotalProtein] = useState(0)
+
+
+useEffect(() => {
+    const today = new Date().toISOString().split('T')[0]
+    nutritionAPI.getAll(today, today).then(data => {
+        const totalCalories = nutritionData.reduce((sum, d) => sum + (d.calories || 0), 0)
+        const totalProtein = nutritionData.reduce((sum, d) => sum + (d.protein || 0), 0)
+        setTotalCalories(totalCalories)
+        setTotalProtein(totalProtein)
+    })
+}, [])
+
 
 
 const cardData = [
-    {Title: "WORKOUTS", icon: faIdCard, Description: "THIS WEEK", cardType: "card-med"},
-    {Title: "CALORIES TODAY", icon: faIdCard, Description: "This is the description #2", cardType: "card-med"},
-    {Title: "PROTEIN", icon: faIdCard, Description: "This is the description #3", cardType: "card-med"},
+    {Title: "WORKOUTS", icon: faIdCard, Description: "", cardType: "card-med"},
+    {Title: "CALORIES TODAY", icon: faIdCard, Description: `${totalCalories} kcal`, cardType: "card-med"},
+    {Title: "PROTEIN", icon: faIdCard, Description: `${totalProtein} g`, cardType: "card-med"},
     {Title: "POINTS", icon: faIdCard, Description: "This is the description #4", cardType: "card-med"}
     ]
     return (
