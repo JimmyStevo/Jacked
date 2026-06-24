@@ -34,7 +34,9 @@ def register():
             return jsonify({"message": "Email already registered."}), 409
 
         pw_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
+        user_id = str(__import__('uuid').uuid4())
         insert_result = users_collection.insert_one({
+            "user_id": user_id,
             "username": username,
             "email": email,
             "password": pw_hash,
@@ -54,6 +56,7 @@ def register():
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
     return jsonify({
         "token": token,
+        "user_id": user_id,
         "email": email,
         "username": username,
     }), 201
@@ -95,6 +98,7 @@ def login():
     token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
     return jsonify({
         "token": token,
+        "user_id": user.get("user_id", str(user["_id"])),
         "email": email,
         "username": user["username"],
     }), 200
