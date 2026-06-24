@@ -1,40 +1,55 @@
 import './DateBar.css';
 import { useState } from 'react';
 
-const DateBar = () => {
+<DateBar currentDate={date} setCurrentDate={setDate} />
+
+const DateBar = ({ currentDate: propDate, setCurrentDate: setPropDate }) => {
+
+    const [internalDate, setInternalDate] = useState(new Date());
     
+    const currentDate = propDate ?? internalDate;
+    const setCurrentDate = propSetDate ?? setInternalDate;
+
     // State for date navigation
-    const [currentDate, setCurrentDate] = useState(new Date());
+    //const [currentDate, setCurrentDate] = useState(new Date());
 
     // Handle date navigation
     const handlePrevDay = () => {
-        const prevDate = new Date(currentDate);
-        prevDate.setDate(prevDate.getDate() - 1);
-        setCurrentDate(prevDate);
+       // const prevDate = new Date(currentDate);
+       // prevDate.setDate(prevDate.getDate() - 1);
+       // setCurrentDate(prevDate);
+       const d = new Date(currentDate);
+       d.setDate(d.getDate() - 1);
+       setCurrentDate(d);
     };
 
     const handleNextDay = () => {
-        const nextDate = new Date(currentDate);
-        nextDate.setDate(nextDate.getDate() + 1);
-        setCurrentDate(nextDate);
+        // const nextDate = new Date(currentDate);
+        // nextDate.setDate(nextDate.getDate() + 1);
+        // setCurrentDate(nextDate);
+        const d = new Date(currentDate);
+        d.setDate(d.getDate() + 1);
+        setCurrentDate(d);
     };
 
     // Format date for display
-    const formatDate = (date) => {
-        return date.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
-        });
-    };
+    const formatDate = (date) => 
+        date.toLocaleDateString('en-US', {
+        //return date.toLocaleDateString('en-US', { 
+          weekday: 'short', 
+           year: 'numeric', 
+           month: 'short', 
+           day: 'numeric' 
+        //});
+    });
+
     return( 
         <div className='date-bar'>
             <div className='date-navigator'>
-                    <button className='nav-arrow' onClick={handlePrevDay}>←</button>
-                    <span className='date-display'>{formatDate(currentDate)}</span>
-                    <button className='nav-arrow' onClick={handleNextDay}>→</button>
-                </div>
+                <button className='nav-arrow' onClick={handlePrevDay}>←</button>
+                <span className='date-display'>{formatDate(currentDate)}</span>
+                <button className='nav-arrow' onClick={handleNextDay}>→</button>
+            </div>
         </div>
     );
 };
