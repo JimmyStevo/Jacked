@@ -16,6 +16,8 @@ preference_collection = db["Preferences"]
 food_logging_collection = db["Food_Logging"] # Might need
 Nutrition_collection = db["User_NutritionLogging"]
 weight_logging_collection = db["User_WeightLogging"]
+exercise_collection_ref = db["Exercise_Info"]
+workout_logging_collection = db["User_WorkoutLogging"]
 
 
 app = Flask(__name__)
@@ -249,6 +251,8 @@ def delete_food_entry(entry_id):
     except Exception as e:
         app.logger.error(f"Delete error: {e}")
         return jsonify({"message": "An internal error occurred"}), 500
+
+
 # ============================================
 # Graph Weight logic
 # ============================================
@@ -261,6 +265,7 @@ def weight_logging():
         data["user_id"] = user_id
         data["date"] = datetime.now().strftime("%Y-%m-%d")
         weight_logging_collection.insert_one(data)
+        data.pop("_id", None)
         return jsonify(data)
     else:
         today = datetime.now()
@@ -312,6 +317,42 @@ def NutritionLogging():
             query["date"] = {"$gte": date_from, "$lte": date_to}
         data = list(Nutrition_collection.find(query, {"_id": 0}))
         return jsonify(data)
+    
+    
+# ============================================
+# Exercise logging Backend logic
+# ============================================
+
+@app.route('/api/workout', methods=['GET', 'POST'])
+def exerciseLogging():
+    try:
+        user_id = get_current_user()
+    except ValueError as e:
+        app.logger.error(f"AUth error in Workout: {e}")
+        return jsonify({"message": str(e)}), 401
+    
+    if request.method == 'POST':
+        data = request.get_json()
+        data["user_id"] = user_id
+        data["date"] = datetime.now().strftime("%Y-%m-%d")
+        workout_logging_collection.insert_one(data)
+        data.pop("_id", None)
+        return jsonify(data), 201
+    else:
+        muscle = request.args.get('muscle', '').strip()
+        level = request.args.get('level', '').strip()
+        category = request.args.get('catagory', '').strip()
+        filters = {}
+        if muscle:
+            filters['primaryMuscles'] = muscle
+        if level:
+            filters['level'] = level
+        if category:
+            filters['catagory'] = category
+            
+        exercises = list(exercise_collection_ref.find(filters, {"_id": 0}))
+        return jsonify(exercises)
+
 
 app.register_blueprint(auth_bp, url_prefix="/api")
 

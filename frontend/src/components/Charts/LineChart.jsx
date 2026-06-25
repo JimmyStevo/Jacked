@@ -29,12 +29,22 @@ const LineGraph = () => {
  
     return (
         <div className="linegraph-body">
-            <LineChart width={500} height={300} data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="day"/>
-                <YAxis />
+            <LineChart style={{ width: '100%', aspectRatio: 3, maxWidth: 1800, margin: 'auto' }} responsive data={chartData} >
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-3)"/>
+                <XAxis dataKey="day" stroke="white"/>
+                <YAxis stroke="white"/>
                 <Tooltip />
-                <Line type={"monotone"} dataKey="weight" stroke="red" connectNulls={false}/>
+                <Line
+        type="monotone"
+        dataKey="weight"
+        stroke="red"
+        dot={{
+          fill: 'red',
+        }}
+        activeDot={{
+          stroke: 'red',
+        }}
+      />
             </LineChart>
         </div>
     )

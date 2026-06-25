@@ -7,8 +7,32 @@
     box-sizing: border-box;
 }
 
-.progressbar .progress{
-    background-color: #ac0404;
+.progressbar-progress1{
+    background-color: #a10f0f;
+    height: 100%;
+    border-radius: 16px;
+    transition: width 400ms ease-in-out;
+
+}
+
+.progressbar-progress2{
+    background-color: #180d7a;
+    height: 100%;
+    border-radius: 16px;
+    transition: width 400ms ease-in-out;
+
+}
+
+.progressbar-progress3{
+    background-color: #0c6b18;
+    height: 100%;
+    border-radius: 16px;
+    transition: width 400ms ease-in-out;
+
+}
+
+.progressbar-progress4{
+    background-color: #cf9619;
     height: 100%;
     border-radius: 16px;
     transition: width 400ms ease-in-out;
