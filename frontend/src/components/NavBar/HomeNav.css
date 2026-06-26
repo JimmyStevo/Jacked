@@ -1,0 +1,30 @@
+.home-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #353232;
+    color: #e9e9d2;
+    padding: 1rem;
+    gap: 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+}
+
+.home-navbar-left .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #e9e9d2;
+    text-decoration: none;
+}
+
+.home-navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.home-navbar-right .login-icon {
+    color: #e9e9d2;
+    margin-left: 1rem;
+    position: relative;
+}

@@ -1,6 +1,6 @@
 import './Login.css';
 import React, { useState } from "react";
-import hero from "../../assets/hero.jpg";
+import hero2 from "../../assets/hero2.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
@@ -39,8 +39,7 @@ const Login = () => {
   return (
     <div className="auth-page">
       <div className="auth-image-panel">
-        <img src={hero} alt="JACKED hero" className="auth-hero-image" />
-        <div className="auth-image-placeholder"></div>
+        <img src={hero2} alt="JACKED hero" className="auth-hero-image" />
       </div>
       <div className="auth-form-panel">
         <div className="auth-card">
