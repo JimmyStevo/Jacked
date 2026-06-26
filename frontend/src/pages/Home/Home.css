@@ -8,42 +8,6 @@
     background-color: rgb(26, 26, 26);
 }
 
-.main-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-    background-color: #353232;
-    color: #e9e2d2;
-    padding: 1rem 2rem;
-    gap: 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 200;
-}
-
-.main-navbar-left .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #e9e9d2;
-    text-decoration: none;
-}
-
-.main-navbar-right {
-    display: flex;
-    align-items: center;
-}
-
-.main-navbar-right .profile-icon,
-.main-navbar-right .settings-icon,
-.main-navbar-right .num-icon,
-.main-navbar-right .exit-icon {
-    color: #e9e9d2;
-    margin-left: 1rem;
-    position: relative;
-}
-
 .home-header {
     position: left;
     padding: 10px;
