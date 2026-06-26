@@ -1,5 +1,5 @@
 import './Home.css'
-import HomeNav from '../../components/NavBar/HomeNav';
+import HomeNavBar from '../../components/NavBar/HomeNav';
 import MainButton from '../../components/button/MainButton';
 import Cards from '../../components/Cards/Cards';
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return (
         <>
-            <HomeNav />
+            <HomeNavBar />
             <div className='home-page-wrapper'>
                 <header className='home-header'>
                     <h1>Get ready to get JACKED</h1>
