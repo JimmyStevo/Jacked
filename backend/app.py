@@ -22,6 +22,7 @@ workout_logging_collection = db["User_WorkoutLogging"]
 
 app = Flask(__name__)
 CORS(app)
+app.register_blueprint(auth_bp, url_prefix="/api")
 
 # ============================================
 # Auth helper
@@ -341,20 +342,20 @@ def exerciseLogging():
     else:
         muscle = request.args.get('muscle', '').strip()
         level = request.args.get('level', '').strip()
-        category = request.args.get('catagory', '').strip()
+        category = request.args.get('category', '').strip()
         filters = {}
         if muscle:
             filters['primaryMuscles'] = muscle
         if level:
             filters['level'] = level
         if category:
-            filters['catagory'] = category
+            filters['category'] = category
             
         exercises = list(exercise_collection_ref.find(filters, {"_id": 0}))
         return jsonify(exercises)
 
 
-app.register_blueprint(auth_bp, url_prefix="/api")
+
 
 @app.route("/api/health")
 def health_check():

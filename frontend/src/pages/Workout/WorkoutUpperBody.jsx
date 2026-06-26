@@ -8,41 +8,76 @@ import Dropdown from '../../components/Dropdown/Dropdown';
 import SecondButton from '../../components/button/SecondButton';
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css'
+import { useEffect, useState } from 'react';
+import { getExercises, insertWorkoutLogging } from '../../services/api';
+import { useAuth } from '../../context/AuthContext';
 
 const WorkoutUpperBody = () => {
-    const percentage = 60;
+    const { token } = useAuth()
+    const muscleGroup = ['adominals', 'back', 'biceps', 'chest', 'glutes', 'hamstrings', 'quadriceps', 'shoulders','triceps']
+    const percentage = 85;
+    const [sets, setSets] = useState('')
+    const [reps, setReps] = useState('')
+    const [weight, setWeight] = useState('')
+    const [selectedExercise, setSelectedExercise] = useState('')
+    const [muscle, setMuscle] = useState('')
+    const [exercises, setExercises ] = useState([])
+   
+
+    useEffect(()=>{
+        if(!muscle) return
+        getExercises(token, {muscle}).then(data => {
+            if(Array.isArray(data)) setExercises(data.map(e => e.name))
+        })
+    }, [muscle])
+
+
+    const handleLog = async () => {
+        await insertWorkoutLogging({
+            exercises: selectedExercise,
+            sets,
+            reps,
+            weight
+
+        }, token)
+    }
+
     return (
     <div className='card-container-workout'>
         <div className='card-container-workout-row'>
         <Cards Title={'LOG WORKOUT'} icon={null} Description={null} cardType={'card-log-workout-card'}>
             <div className='card-container-workout-row'>
                 <div className='card-container-workout-column'>
+                    <label>Muscle Group</label>
+                    <Dropdown options={muscleGroup} onChange={(val) => setMuscle(val)}/>
+                </div>
+                <div className='card-container-workout-column'>
                     <label>Exercise</label>
-                    <Dropdown options={['Shoulder Press', 'Chest Press', 'Bicep Curl', 'Terry Crews special']} onChange={(val) => console.log(val)}/>
+                    <Dropdown options={exercises} onChange={(val) => setSelectedExercise(val)}/>
                 </div>
             </div>
             <div className='card-container-workout-row'>
                 <div className='card-container-workout-column'>
                     <label>Sets</label>
-                    <input type='number' placeholder='Number of Sets'/>
+                    <input type='number' placeholder='Number of Sets' value={sets} onChange={e => setSets(e.target.value)}/>
                 </div>
                 <div className='card-container-workout-column'>
                     <label>Reps</label>
-                    <input type='number' placeholder='Number of Reps'/>
+                    <input type='number' placeholder='Number of Reps'value={reps} onChange={e => setReps(e.target.value)}/>
                 </div>
                 <div className='card-container-workout-column'>
                     <label>Weight</label>
-                    <input type="number" placeholder='Weight'/>
+                    <input type="number" placeholder='Weight' value={weight} onChange={e => setWeight(e.target.value)}/>
                 </div>
             </div>
             <div className='card-container-workout-row'>
-                <SecondButton label={'LOG'}/>
+                <SecondButton label={'LOG'} onClick={handleLog}/>
                 <MainButton label={'EXIT'}/>
             </div>
         </Cards>
         <Cards Title={'GOAL PROGRESS'} icon={null} Description={null} cardType={'card-goal-progress-card'}>
-            <div style={{width: 200, height: 200, justifyContent: 'center'}}>
-                <CircularProgressbar value={percentage} text={`${percentage}%`}/>
+            <div style={{width: 200, height: 200}}>
+                <CircularProgressbar value={percentage} text={`${percentage}%`} />
             </div>
         </Cards>
         </div>

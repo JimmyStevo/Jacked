@@ -23,12 +23,13 @@ const Startup = (props) => {
     const[goal, setGoal] = useState('')
     const[workFreq, setWorkFreq] = useState('')
     const[selectedDays, setSelectedDays] = useState('')
+    const[goalAmount, setGoalAmount] = useState('')
     
 
         const startupInsert = async () => {
-            console.log({currentWeight, currentHeight, unit, gender, goal, workFreq, workdays: selectedDays})
+            console.log({currentWeight, currentHeight, unit, gender, goal, workFreq, workdays: selectedDays, goalAmount})
             try{
-                const response = await insertStartup({currentWeight, currentHeight, unit, gender, goal, workFreq, workdays: selectedDays}, token)
+                const response = await insertStartup({currentWeight, currentHeight, unit, gender, goal, workFreq, workdays: selectedDays, goalAmount}, token)
                 navigate('/overview')
             } catch(error) {
                 console.log('error', error)
@@ -83,7 +84,7 @@ const Startup = (props) => {
                 </div>
                 </div>
                 <div className='Startup-row'>
-                <div className='Startup-Card'>
+                    <div className='Startup-Card'>
                     <h2>What is your goal?: </h2>
                         <div className='Startup-row'>
                             <input type='radio' name='goalSelect' value='gain' checked={goal === 'gain'} onChange={(e)=> setGoal(e.target.value)}/>
@@ -98,7 +99,13 @@ const Startup = (props) => {
                             <p>Maintain Weight </p>
                         </div>
                     </div>
+                    <div className='Startup-Card'>
+                        <div className='Startup-row'>
+                            <h2> What is your desired weight?: </h2>
+                            <input className='Startup-input' type='number' value={goalAmount} onChange={(e)=> setGoalAmount(e.target.value)}/>
+                        </div>
                     </div>
+                </div>
                 <div className='Startup-row'>
                 <div className='Startup-Card'>
                     <h2>How often do you want to work out?: </h2>
