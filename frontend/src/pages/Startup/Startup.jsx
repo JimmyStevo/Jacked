@@ -81,6 +81,9 @@ const Startup = (props) => {
                     <input className='Startup-input' type='number' value={currentHeight} onChange={(e)=> setcurrentHeight(e.target.value)}/>
                     <h2>What is your gender</h2>
                     <Dropdown options={['male', 'female', 'prefer not to say']} onChange={(val)=> setGender(val)}/>
+                    <h2> What is your desired weight?: </h2>
+                    <input className='Startup-input' type='number' value={goalAmount} onChange={(e)=> setGoalAmount(e.target.value)}/>
+                        
                 </div>
                 </div>
                 <div className='Startup-row'>
@@ -97,12 +100,6 @@ const Startup = (props) => {
                         <div className='Startup-row'>
                             <input type='radio' name='goalSelect' value='maintain' checked={goal === 'maintain'} onChange={(e)=> setGoal(e.target.value)}/>
                             <p>Maintain Weight </p>
-                        </div>
-                    </div>
-                    <div className='Startup-Card'>
-                        <div className='Startup-row'>
-                            <h2> What is your desired weight?: </h2>
-                            <input className='Startup-input' type='number' value={goalAmount} onChange={(e)=> setGoalAmount(e.target.value)}/>
                         </div>
                     </div>
                 </div>
