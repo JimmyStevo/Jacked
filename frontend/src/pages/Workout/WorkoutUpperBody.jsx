@@ -18,7 +18,7 @@ const WorkoutUpperBody = () => {
             <div className='card-container-workout-row'>
                 <div className='card-container-workout-column'>
                     <label>Exercise</label>
-                    <Dropdown options={['Shoulder Press', 'Chest Press', 'Bicep Curl', 'Terry Crews special']}/>
+                    <Dropdown options={['Shoulder Press', 'Chest Press', 'Bicep Curl', 'Terry Crews special']} onChange={(val) => console.log(val)}/>
                 </div>
             </div>
             <div className='card-container-workout-row'>

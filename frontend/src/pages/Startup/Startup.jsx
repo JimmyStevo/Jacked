@@ -8,10 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Dropdown from '../../components/Dropdown/Dropdown';
-import { useState, useNavigate } from 'react';
+import { useState } from 'react';
 import { insertStartup } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
-
+import { useNavigate } from 'react-router-dom';
 
 const Startup = (props) => {
     const { token } = useAuth()

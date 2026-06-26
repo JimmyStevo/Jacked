@@ -40,12 +40,13 @@ const Workout = () => {
             workdays={workdays}/>
 
         {/* Shows workout page if day  is marked for workout other wise shows rest  */}
-        {activeTab && workdays.includes(activeTab) && <WorkoutUpperBody/>}
+        {/* {activeTab && workdays.includes(activeTab) && <WorkoutUpperBody/>} */}
+        {activeTab && <WorkoutUpperBody/>}
         {/* {activeTab === 'lowerbody' && <WorkoutLowerBody/>}
         {activeTab === 'legs' && <WorkoutLegs/>}
         {activeTab === 'push' && <WorkoutPush/>}
         {activeTab === 'pull' && <WorkoutPull/>} */}
-        {activeTab && !workdays.includes(activeTab) && <WorkoutRest/>}
+        {/* {activeTab && !workdays.includes(activeTab) && <WorkoutRest/>} */}
         </>
     );
 }

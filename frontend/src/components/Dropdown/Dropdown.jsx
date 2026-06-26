@@ -26,7 +26,7 @@ const Dropdown = ({options, onChange, value}) => {
         <div className="dropdown" ref={dropdownRef}>
             <button type="button" className="toggle" onClick={()=>{
                 setDropdownToggled(!dropdownToggled) // OPENS DROPDOWN 
-            }}>{dropdownSelected ? dropdownSelected : "Select a Unit"}</button>
+            }}>{dropdownSelected ? dropdownSelected : "Make a selection"}</button>
             
             <div className={`options ${dropdownToggled ? "visible" : ""}`}>
                 {options.map((option, index) => (

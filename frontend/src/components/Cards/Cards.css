@@ -30,7 +30,7 @@
 
 .card-icon-description {
     margin: 0;
-    font-size: 0.5rem;
+
     color: #ffffff;
     line-height: 1.5;
 }
@@ -50,7 +50,7 @@
     min-height: 200px;
     text-align: left;
     font-size: inherit;
-    color: #ffffff;
+    color: #e9e9d2;
     gap: 8px;
 }
 
@@ -72,7 +72,7 @@
     text-align: left;
     font-size: inherit;
     font-weight: 400;
-    color: #ffffff;
+    color: #e9e9d2;
 }
 
 .card-large {

@@ -8,9 +8,9 @@ function Cards({Title, icon, Description, cardType, children}){
                 <FontAwesomeIcon icon={icon} />    
                 <h2>{Title}</h2>
             </div>
-                    <p className='card-icon-description'>
+                    <h1 className='card-icon-description'>
                         {Description}
-                    </p>
+                    </h1>
                     {children}
 
         </div>

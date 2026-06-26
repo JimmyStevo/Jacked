@@ -1,14 +1,13 @@
 import React from "react";
 import './ProgressBar.css';
 
-const ProgressBar = ({progress}) => {
+const ProgressBar = ({progress, barType}) => {
     
     return(
-            <div className="progressbar">
+            <div className={"progressbar" + barType}>
                 <div className="progress" style={{width: `${progress}%`}}/>
             </div>
     )
-
 
 }
 
