@@ -119,42 +119,6 @@ export const getWeightLogging = async (token) => {
   });
 };
 
-export const insertWorkoutLogging = async (payload, token) => {
-  return handleFetch(`${API_BASE}/workout`, {
-    method: "POST",
-    headers: { 
-      "Content-Type": "application/json",
-      "Authorization" : `Bearer ${token}`
-     },
-    body: JSON.stringify(payload),
-  });
-};
-
-export const getWorkoutLogging = async (token) => {
-  return handleFetch(`${API_BASE}/workout`, {
-    method: "GET",
-    headers: {
-      "Content-Type" : "application/json",
-      "Authorization" : `Bearer ${token}`
-    },
-  });
-};
-
-export const getExercises = async (token, filters) => {
-  const params = new URLSearchParams()
-  if (filters.muscle) params.append('muscle', filters.muscle)
-  if (filters.level) params.append('level', filters.level)
-  if (filters.category) params.append('category', filters.category)
-
-  return handleFetch(`${API_BASE}/workout?${params.toString()}`, {
-    method: "GET",
-    headers: {
-      "Content-Type" : "application/json",
-      "Authorization" : `Bearer ${token}`
-    },
-  });
-};
-
 // STARTUP SECTION
 
 export const insertStartup = async (payload, token) => {
@@ -223,17 +187,19 @@ export const nutritionAPI = {
       body: JSON.stringify(entry),
     });
   },
-  delete: async (meal, date) => {
+  update: async (id, entry) => {
     const token = localStorage.getItem('token');
-    let url = `${API_BASE}/nutrition?meal=${encodeURIComponent(meal)}`;
-    if (date) {
-      url += `&date=${date}`;
-    }
-    return handleFetch(url, {
+    return handleFetch(`${API_BASE}/nutrition?id=${encodeURIComponent(id)}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+      body: JSON.stringify(entry),
+    });
+  },
+  delete: async (id) => {
+    const token = localStorage.getItem('token');
+    return handleFetch(`${API_BASE}/nutrition?id=${encodeURIComponent(id)}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${token}` },
     });
   },
 };
-
-

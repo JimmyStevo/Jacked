@@ -16,8 +16,6 @@ preference_collection = db["Preferences"]
 food_logging_collection = db["Food_Logging"] # Might need
 Nutrition_collection = db["User_NutritionLogging"]
 weight_logging_collection = db["User_WeightLogging"]
-exercise_collection_ref = db["Exercise_Info"]
-workout_logging_collection = db["User_WorkoutLogging"]
 
 
 app = Flask(__name__)
@@ -251,8 +249,6 @@ def delete_food_entry(entry_id):
     except Exception as e:
         app.logger.error(f"Delete error: {e}")
         return jsonify({"message": "An internal error occurred"}), 500
-
-
 # ============================================
 # Graph Weight logic
 # ============================================
@@ -265,7 +261,6 @@ def weight_logging():
         data["user_id"] = user_id
         data["date"] = datetime.now().strftime("%Y-%m-%d")
         weight_logging_collection.insert_one(data)
-        data.pop("_id", None)
         return jsonify(data)
     else:
         today = datetime.now()
@@ -286,7 +281,7 @@ def weight_logging():
 # Nutrition Logging Backend logic
 # ============================================
 
-@app.route('/api/nutrition', methods=['GET', 'POST', 'DELETE'])
+@app.route('/api/nutrition', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def NutritionLogging():
     try:
         user_id = get_current_user()
@@ -298,15 +293,33 @@ def NutritionLogging():
         data = request.get_json()
         app.logger.info(f"Adding nutrition entry for user {user_id}: {data}")
         data["user_id"] = user_id
-        Nutrition_collection.insert_one(data)
+        result = Nutrition_collection.insert_one(data)
+        data['_id'] = str(result.inserted_id)
         return jsonify(data)
+    elif request.method == 'PUT':
+        entry_id = request.args.get('id')
+        if not entry_id:
+            return jsonify({"message": "Missing entry id"}), 400
+        data = request.get_json()
+        update_fields = {k: v for k, v in data.items() if k != '_id' and k != 'user_id'}
+        result = Nutrition_collection.update_one(
+            {"_id": ObjectId(entry_id), "user_id": user_id},
+            {"$set": update_fields}
+        )
+        if result.matched_count == 0:
+            return jsonify({"message": "Entry not found"}), 404
+        return jsonify({"message": "Updated"})
     elif request.method == 'DELETE':
-        meal_name = request.args.get('meal')
-        entry_date = request.args.get('date')
-        query = {"user_id": user_id, "meal": meal_name}
-        if entry_date:
-            query["date"] = entry_date
-        Nutrition_collection.delete_one(query)
+        entry_id = request.args.get('id')
+        if entry_id:
+            Nutrition_collection.delete_one({"_id": ObjectId(entry_id), "user_id": user_id})
+        else:
+            meal_name = request.args.get('meal')
+            entry_date = request.args.get('date')
+            query = {"user_id": user_id, "meal": meal_name}
+            if entry_date:
+                query["date"] = entry_date
+            Nutrition_collection.delete_one(query)
         return jsonify({"message": "Deleted"})
     else:
         # Get date filter from query params (optional)
@@ -315,44 +328,10 @@ def NutritionLogging():
         query = {"user_id": user_id}
         if date_from and date_to:
             query["date"] = {"$gte": date_from, "$lte": date_to}
-        data = list(Nutrition_collection.find(query, {"_id": 0}))
+        data = list(Nutrition_collection.find(query))  # Return all fields for frontend display
+        for e in data:
+            e['_id'] = str(e['_id'])
         return jsonify(data)
-    
-    
-# ============================================
-# Exercise logging Backend logic
-# ============================================
-
-@app.route('/api/workout', methods=['GET', 'POST'])
-def exerciseLogging():
-    try:
-        user_id = get_current_user()
-    except ValueError as e:
-        app.logger.error(f"AUth error in Workout: {e}")
-        return jsonify({"message": str(e)}), 401
-    
-    if request.method == 'POST':
-        data = request.get_json()
-        data["user_id"] = user_id
-        data["date"] = datetime.now().strftime("%Y-%m-%d")
-        workout_logging_collection.insert_one(data)
-        data.pop("_id", None)
-        return jsonify(data), 201
-    else:
-        muscle = request.args.get('muscle', '').strip()
-        level = request.args.get('level', '').strip()
-        category = request.args.get('catagory', '').strip()
-        filters = {}
-        if muscle:
-            filters['primaryMuscles'] = muscle
-        if level:
-            filters['level'] = level
-        if category:
-            filters['catagory'] = category
-            
-        exercises = list(exercise_collection_ref.find(filters, {"_id": 0}))
-        return jsonify(exercises)
-
 
 app.register_blueprint(auth_bp, url_prefix="/api")
 

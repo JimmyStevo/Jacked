@@ -49,12 +49,26 @@ const Nutrition = () => {
 
     // Load nutrition entries from MongoDB when date changes
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setLoading(false);
+            setError('Please log in to view nutrition data.');
+            return;
+        }
         loadNutrition();
     }, [selectedDate]);
 
     const loadNutrition = async () => {
         setLoading(true);
         setError(null);
+        
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setError('Please log in to view nutrition data.');
+            setLoading(false);
+            return;
+        }
+        
         try {
             const dateStr = selectedDate.toISOString().split('T')[0];
             const data = await nutritionAPI.getAll(dateStr, dateStr);
@@ -67,12 +81,8 @@ const Nutrition = () => {
         }
     };
 
-    // Filter entries by selected date
-    const filteredEntries = nutritionEntries.filter(entry => {
-        const entryDate = new Date(entry.date).toISOString().split('T')[0];
-        const selectedDateStr = selectedDate.toISOString().split('T')[0];
-        return entryDate === selectedDateStr;
-    });
+    // Entries are already filtered by date from the backend
+    const filteredEntries = nutritionEntries;
 
     // Calculate totals for filtered entries
     const totalCalories = filteredEntries.reduce((sum, entry) => sum + (entry.calories || 0), 0);
@@ -162,6 +172,11 @@ const Nutrition = () => {
         e.preventDefault();
         
         const token = localStorage.getItem('token');
+        if (!token) {
+            setError('Please log in to add nutrition entries.');
+            return;
+        }
+        
         console.log('Token exists:', !!token);
         console.log('Token value:', token);
         
@@ -176,8 +191,12 @@ const Nutrition = () => {
         console.log('Submitting entry:', entry);
 
         try {
-            const result = await nutritionAPI.add(entry);
-            console.log('Success:', result);
+            if (editingEntry) {
+                await nutritionAPI.update(editingEntry._id, entry);
+            } else {
+                await nutritionAPI.add(entry);
+            }
+            console.log('Success');
             handleCloseModal();
             loadNutrition();
         } catch (error) {
@@ -187,9 +206,9 @@ const Nutrition = () => {
     };
 
     // Handle delete
-    const handleDelete = async (meal, date) => {
+    const handleDelete = async (id) => {
         try {
-            await nutritionAPI.delete(meal, date);
+            await nutritionAPI.delete(id);
             loadNutrition();
         } catch (error) {
             console.error('Failed to delete nutrition:', error);
@@ -429,8 +448,8 @@ const Nutrition = () => {
                                     <label>Meal Type</label>
                                     <Dropdown 
                                         options={MEAL_TYPES}
-                                        onSelect={(type) => setFormData(prev => ({ ...prev, mealType: type }))}
-                                        selected={formData.mealType}
+                                        onChange={(type) => setFormData(prev => ({ ...prev, mealType: type }))}
+                                        value={formData.mealType}
                                     />
                                 </div>
                             </div>
@@ -470,7 +489,7 @@ const Nutrition = () => {
                                 />
                                 <MainButton 
                                     label={editingEntry ? 'Update' : 'Add Meal'} 
-                                    onClick={handleSubmit}
+                                    type="submit"
                                 />
                             </div>
                         </form>
