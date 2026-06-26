@@ -89,30 +89,6 @@ const Nutrition = () => {
     const totalProtein = filteredEntries.reduce((sum, entry) => sum + (entry.protein || 0), 0);
     const totalEntries = filteredEntries.length;
 
-    // Date navigation functions
-    const handlePrevDay = () => {
-        const prevDate = new Date(selectedDate);
-        prevDate.setDate(prevDate.getDate() - 1);
-        setSelectedDate(prevDate);
-    };
-
-    const handleNextDay = () => {
-        const nextDate = new Date(selectedDate);
-        nextDate.setDate(nextDate.getDate() + 1);
-        setSelectedDate(nextDate);
-    };
-
-    // Jump to today
-    const goToToday = () => {
-        setSelectedDate(new Date());
-    };
-
-    // Check if viewing today
-    const isToday = () => {
-        const today = new Date().toISOString().split('T')[0];
-        return selectedDate.toISOString().split('T')[0] === today;
-    };
-
     // Handle form input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -259,8 +235,8 @@ const Nutrition = () => {
                     <div className='nutrition-log'>
                         <div className='log-header'>
                             <h2>Nutrition Log</h2>
-                            {!isToday() && (
-                                <button className='today-btn' onClick={goToToday}>
+                            {selectedDate.toISOString().split('T')[0] !== new Date().toISOString().split('T')[0] && (
+                                <button className='today-btn' onClick={() => setSelectedDate(new Date())}>
                                     Go to Today
                                 </button>
                             )}
@@ -286,7 +262,7 @@ const Nutrition = () => {
                                             className='entry-delete-btn' 
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                handleDelete(entry.meal, entry.date);
+                                                handleDelete(entry._id);
                                             }}
                                         >
                                             ×
@@ -452,17 +428,6 @@ const Nutrition = () => {
                                         value={formData.mealType}
                                     />
                                 </div>
-                            </div>
-
-                            <div className='form-group'>
-                                <label>Date</label>
-                                <input
-                                    type='date'
-                                    name='date'
-                                    value={formData.date}
-                                    onChange={handleInputChange}
-                                    required
-                                />
                             </div>
 
                             <div className='preset-foods'>
