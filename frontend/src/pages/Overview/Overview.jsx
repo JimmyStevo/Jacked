@@ -99,13 +99,13 @@ const cardData = [
             <div className='card-container-overview'>
                 <Cards Title={'Todays Macros'} icon={faIdCard} Description={''} cardType={'card-med-large-long'}>
                     <h1>CALORIES</h1>
-                    <ProgressBar progress={(totalCalories / target.calories) * 100} barType={'progressbar-progress1'}/>
+                    <ProgressBar progress={(totalCalories / target.calories) * 100} barType={'progressbar-progress1'} current={totalCalories} goal={target.calories}/>
                     <h1>PROTIEN</h1>
-                    <ProgressBar progress={(totalProtein / target.protein) * 100} barType={'progressbar-progress2'}/>
+                    <ProgressBar progress={(totalProtein / target.protein) * 100} barType={'progressbar-progress2'} current={totalProtein} goal={target.protein}/>
                     <h1>CARBS</h1>
-                    <ProgressBar progress={(totalCarbs / target.carbs) * 100} barType={'progressbar-progress3'}/>
+                    <ProgressBar progress={(totalCarbs / target.carbs) * 100} barType={'progressbar-progress3'} current={totalCarbs} goal={target.carbs}/>
                     <h1>FAT</h1>
-                    <ProgressBar progress={(totalFat / target.fat) * 100} barType={'progressbar-progress4'}/>
+                    <ProgressBar progress={(totalFat / target.fat) * 100} barType={'progressbar-progress4'} current={totalFat} goal={target.fat}/>
                 </Cards>
             </div>
             <div className='card-container-overview'>

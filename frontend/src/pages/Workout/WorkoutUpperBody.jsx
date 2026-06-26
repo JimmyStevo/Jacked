@@ -22,6 +22,7 @@ const WorkoutUpperBody = () => {
     const [selectedExercise, setSelectedExercise] = useState('')
     const [muscle, setMuscle] = useState('')
     const [exercises, setExercises ] = useState([])
+    const [successfulSubmit, setSuccessfulSubmit] = useState(false)
    
 
     useEffect(()=>{
@@ -39,7 +40,17 @@ const WorkoutUpperBody = () => {
             reps,
             weight
 
-        }, token)
+        }, token) 
+        handleSuccesfulSubmit()
+    }
+
+    const handleSuccesfulSubmit = () =>{
+        setMuscle("")
+        setSelectedExercise("")
+        setSets("")
+        setReps("")
+        setWeight("")
+        setSuccessfulSubmit(true)
     }
 
     return (
@@ -72,6 +83,7 @@ const WorkoutUpperBody = () => {
             </div>
             <div className='card-container-workout-row'>
                 <SecondButton label={'LOG'} onClick={handleLog}/>
+                {successfulSubmit && <p style={{color: 'green'}}>Workout Logged</p>}
                 <MainButton label={'EXIT'}/>
             </div>
         </Cards>
