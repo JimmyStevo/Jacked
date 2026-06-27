@@ -21,6 +21,7 @@ meal_plans_collection = db["Meal_Plans"]  # New collection for saved meal plans
 
 app = Flask(__name__)
 CORS(app)
+app.register_blueprint(auth_bp, url_prefix="/api")
 
 # ============================================
 # Auth helper
@@ -333,8 +334,62 @@ def NutritionLogging():
         for e in data:
             e['_id'] = str(e['_id'])
         return jsonify(data)
+    
+    
+# ============================================
+# Exercise logging Backend logic
+# ============================================
 
-app.register_blueprint(auth_bp, url_prefix="/api")
+@app.route('/api/workout', methods=['GET', 'POST'])
+def exerciseLogging():
+    try:
+        user_id = get_current_user()
+    except ValueError as e:
+        app.logger.error(f"AUth error in Workout: {e}")
+        return jsonify({"message": str(e)}), 401
+    
+    if request.method == 'POST':
+        data = request.get_json()
+        data["user_id"] = user_id
+        data["date"] = datetime.now().strftime("%Y-%m-%d")
+        workout_logging_collection.insert_one(data)
+        data.pop("_id", None)
+        return jsonify(data), 201
+    else:
+        muscle = request.args.get('muscle', '').strip()
+        level = request.args.get('level', '').strip()
+        category = request.args.get('category', '').strip()
+        filters = {}
+        if muscle:
+            filters['primaryMuscles'] = muscle
+        if level:
+            filters['level'] = level
+        if category:
+            filters['category'] = category
+            
+        exercises = list(exercise_collection_ref.find(filters, {"_id": 0}))
+        return jsonify(exercises)
+
+
+# ============================================
+# WorkoutAmount logging Backend logic
+# ============================================
+
+@app.route('/api/overview', methods=['GET', 'POST'])
+def workout_amount():
+    try:
+        user_id = get_current_user()
+        today = datetime.now().strftime("%Y-%m-%d")
+        query = {"user_id": user_id, "date" : today}
+        workoutAmount = workout_logging_collection.count_documents(query)
+        return jsonify({"count" : workoutAmount})
+        
+            
+    except ValueError as e:
+        return jsonify({"message": str(e)}), 401
+    except Exception as e:
+        app.logger.error(f"workout error: {e}")
+        return jsonify({"message": "An internal error occurred"}), 500
 
 # Import and register meal planner blueprint
 from meal_planner_routes import meal_bp, init_meal_routes

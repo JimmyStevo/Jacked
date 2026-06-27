@@ -5,7 +5,6 @@ import 'react-circular-progressbar/dist/styles.css'
 
 const ProgressBarCircle = ({}) => {
     const percentage = 66;
-    
 }
 
 export default ProgressBarCircle

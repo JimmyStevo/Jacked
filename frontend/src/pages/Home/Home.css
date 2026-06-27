@@ -8,45 +8,11 @@
     background-color: rgb(26, 26, 26);
 }
 
-.main-navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 100%;
-    background-color: #353232;
-    color: #e9e2d2;
-    padding: 1rem 2rem;
-    gap: 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 200;
-}
-
-.main-navbar-left .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #e9e9d2;
-    text-decoration: none;
-}
-
-.main-navbar-right {
-    display: flex;
-    align-items: center;
-}
-
-.main-navbar-right .profile-icon,
-.main-navbar-right .settings-icon,
-.main-navbar-right .num-icon,
-.main-navbar-right .exit-icon {
-    color: #e9e9d2;
-    margin-left: 1rem;
-    position: relative;
-}
-
 .home-header {
-    position: left;
-    padding: 10px;
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+    padding: 10px 0;
 }
 
 .home-header h1 {
@@ -57,6 +23,123 @@
     margin: 0;
 }
 
+/* Hero card section */
+
+.home-hero-card {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #5f5555;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+    padding: 48px 40px;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.home-her-body {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 640px;
+}
+
+.home-her-body h2 {
+    font-size: 2rem;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0px;
+}
+
+.home-hero-body p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #e9e9d2;
+    margin: 0;
+}
+
+/* features section */
+
+.features-section {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+ 
+.features-section h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+ 
+/* ── Feature card grid — 2 columns like rsuite CardGroup ── */
+.feature-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+ 
+/* Individual feature cards */
+
+.feature-card {
+    background-color: #5f5555;
+    border-radius: 8px;
+    padding: 24px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 1);
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: background-color 0.2s;
+}
+ 
+.feature-card:hover {
+    background-color: #6a6060;
+}
+ 
+.feature-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+ 
+.feature-card-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #e02020;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+ 
+.feature-card-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0;
+}
+ 
+.feature-card-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #e9e9d2;
+    margin: 0;
+}
+
+/* CTA section */
+
 .ready-section {
     max-width: 900px;
     width: 100%;
@@ -65,7 +148,7 @@
     align-items: center;
     text-align: center;
     gap: 18px;
-    padding: 24px 20px;
+    padding: 40px 20px;
     background: rgba(0, 0, 0, 0.55);
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(0, 0, 0, 0.35);
@@ -86,11 +169,7 @@
     max-width: 640px;
 }
 
-.hero-card-section {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
+
 
 .card-container-home {
     margin: 0 auto;
@@ -120,36 +199,47 @@
     letter-spacing: 0.2em;
 }
 
+/* Responsivness */
+
 @media (max-width: 900px) {
-    .card-container-home {
-        flex-direction: column;
-        gap: 18px;
-        width: 100%;
+    .feature-card-grid {
+        grid-template-columns: 1fr;
     }
-
-    .ready-section {
-        padding: 20px;
-    }
-
+ 
     .home-header h1 {
         font-size: 2.4rem;
     }
-
+ 
+    .home-hero-body h2 {
+        font-size: 1.6rem;
+    }
+ 
     .ready-section h2 {
         font-size: 2rem;
     }
 }
-
+ 
 @media (max-width: 600px) {
-    .home-page {
+    .home-page-wrapper {
         padding: 24px 16px;
+        gap: 32px;
     }
-
+ 
+    .home-header h1 {
+        font-size: 1.8rem;
+        letter-spacing: 0.15em;
+    }
+ 
+    .home-hero-card {
+        padding: 28px 20px;
+    }
+ 
     .ready-section h2 {
         font-size: 1.75rem;
     }
-
+ 
     .ready-section p {
         font-size: 0.95rem;
     }
 }
+ 
