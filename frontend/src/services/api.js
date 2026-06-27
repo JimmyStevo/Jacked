@@ -119,26 +119,28 @@ export const getWeightLogging = async (token) => {
   });
 };
 
-// export const insertWorkoutLogging = async (payload, token) => {
-//   return handleFetch(`${API_BASE}/workout`, {
-//     method: "POST",
-//     headers: { 
-//       "Content-Type": "application/json",
-//       "Authorization" : `Bearer ${token}`
-//      },
-//     body: JSON.stringify(payload),
-//   });
-// };
+// WORKOUT SECTION
 
-// export const getWorkoutLogging = async (token) => {
-//   return handleFetch(`${API_BASE}/workout`, {
-//     method: "GET",
-//     headers: {
-//       "Content-Type" : "application/json",
-//       "Authorization" : `Bearer ${token}`
-//     },
-//   });
-// };
+export const insertWorkoutLogging = async (payload, token) => {
+  return handleFetch(`${API_BASE}/workout`, {
+    method: "POST",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization" : `Bearer ${token}`
+     },
+    body: JSON.stringify(payload),
+  });
+};
+
+export const getWorkoutLogging = async (token) => {
+  return handleFetch(`${API_BASE}/workout`, {
+    method: "GET",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
 
 export const getExercises = async (token, filters) => {
   const params = new URLSearchParams()
@@ -235,5 +237,3 @@ export const nutritionAPI = {
     });
   },
 };
-
-
