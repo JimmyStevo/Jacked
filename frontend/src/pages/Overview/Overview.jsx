@@ -9,7 +9,7 @@ import LineGraph from '../../components/Charts/LineChart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { insertWeightLogging, nutritionAPI, getSettings } from '../../services/api';
+import { insertWeightLogging, nutritionAPI, getSettings, getOverview } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { getNiceTickValues } from 'recharts';
 
@@ -27,6 +27,7 @@ const [totalCarbs, setTotalCarbs] = useState(0)
 const [weight, setWeight] = useState('')
 const [userGoal, setUserGoal] = useState('')
 const [userGender, setUserGender] = useState('')
+const [totalWorkouts, setTotalWorkouts] = useState(0)
 
 const handleSubmit = async () => {
     try {
@@ -36,6 +37,8 @@ const handleSubmit = async () => {
         console.log('error', error)
     }
 }
+
+
 
 const Goals ={
     male: {
@@ -74,8 +77,14 @@ useEffect(()=>{
 
 const target = Goals[userGender]?.[userGoal] || Goals.male.maintain
 
+useEffect(()=>{
+    getOverview(token).then(data => {
+        setWorkouts(data.count)
+    })
+},[])
+
 const cardData = [
-    {Title: "WORKOUTS", icon: faIdCard, Description: `${workouts}`, cardType: "card-med"},
+    {Title: "WORKOUTS", icon: faIdCard, Description: `${totalWorkouts}`, cardType: "card-med"},
     {Title: "CALORIES TODAY", icon: faIdCard, Description: `${totalCalories} kcal`, cardType: "card-med"},
     {Title: "PROTEIN", icon: faIdCard, Description: `${totalProtein} g`, cardType: "card-med"},
     {Title: "POINTS", icon: faIdCard, Description: "", cardType: "card-med"}

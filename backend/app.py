@@ -355,7 +355,25 @@ def exerciseLogging():
         return jsonify(exercises)
 
 
+# ============================================
+# WorkoutAmount logging Backend logic
+# ============================================
 
+@app.route('/api/overview', methods=['GET', 'POST'])
+def workout_amount():
+    try:
+        user_id = get_current_user()
+        today = datetime.now().strftime("%Y-%m-%d")
+        query = {"user_id": user_id, "date" : today}
+        workoutAmount = workout_logging_collection.count_documents(query)
+        return jsonify({"count" : workoutAmount})
+        
+            
+    except ValueError as e:
+        return jsonify({"message": str(e)}), 401
+    except Exception as e:
+        app.logger.error(f"workout error: {e}")
+        return jsonify({"message": "An internal error occurred"}), 500
 
 @app.route("/api/health")
 def health_check():
