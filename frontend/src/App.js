@@ -11,6 +11,7 @@ import SignUp from './pages/Sign-Up/SignUp';
 import WeightLogging from './pages/WeightLogging/WeightLogging';
 import Workout from './pages/Workout/Workout';
 import Dashboard from './pages/Dashboard/Dashboard';
+import MealPlanner from './pages/MealPlanner/MealPlanner';
 import ProtectedRoute from './components/ProtectedRoute';
 import Startup from './pages/Startup/Startup';
 import { AuthProvider } from './context/AuthContext';
@@ -28,6 +29,7 @@ function App() {
           <Route path="/account" element={<><Account/></>}/>
           <Route path="/foodLogging" element={<><FoodLogging/></>}/>
           <Route path="/nutrition" element={<><Nutrition/></>}/>
+          <Route path="/mealplanner" element={<><MealPlanner/></>}/>
           <Route path="/settings" element={<Settings/>}/>
           <Route path="/overview" element={<><Overview/></>}/>
           <Route path="/signup" element={<SignUp/>}/>

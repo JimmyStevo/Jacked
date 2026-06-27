@@ -16,6 +16,7 @@ preference_collection = db["Preferences"]
 food_logging_collection = db["Food_Logging"] # Might need
 Nutrition_collection = db["User_NutritionLogging"]
 weight_logging_collection = db["User_WeightLogging"]
+meal_plans_collection = db["Meal_Plans"]  # New collection for saved meal plans
 
 
 app = Flask(__name__)
@@ -334,6 +335,11 @@ def NutritionLogging():
         return jsonify(data)
 
 app.register_blueprint(auth_bp, url_prefix="/api")
+
+# Import and register meal planner blueprint
+from meal_planner_routes import meal_bp, init_meal_routes
+init_meal_routes(meal_plans_collection, user_collection)
+app.register_blueprint(meal_bp)
 
 @app.route("/api/health")
 def health_check():

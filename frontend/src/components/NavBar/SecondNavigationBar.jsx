@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Cards from '../Cards/Cards';
 import TitleCards from '../Cards/TitleCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faScaleBalanced } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faScaleBalanced, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 
 const SecondNavigationBar = () => {
     return(
@@ -25,6 +25,10 @@ const SecondNavigationBar = () => {
                     </li>
                     <li>
                     <Link to='/workout'> <TitleCards Title={"Workout"} icon={faDumbbell}/>
+                    </Link>
+                    </li>
+                    <li>
+                    <Link to='/mealPlanner'> <TitleCards Title={"MealPlanner"} icon={faCalendarDays}/>
                     </Link>
                     </li>
                 </ul>

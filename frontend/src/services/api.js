@@ -203,3 +203,63 @@ export const nutritionAPI = {
     });
   },
 };
+
+// MEAL PLANNER SECTION
+
+export const searchFoods = async (query, pageSize = 20, page = 1, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/search?q=${encodeURIComponent(query)}&page_size=${pageSize}&page=${page}`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
+
+export const getProductByBarcode = async (barcode, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/product/${encodeURIComponent(barcode)}`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
+
+export const generateMealPlan = async (goals, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/generate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${authToken}` },
+    body: JSON.stringify(goals),
+  });
+};
+
+export const calculateDailyNeeds = async (userData, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/calculate-needs`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${authToken}` },
+    body: JSON.stringify(userData),
+  });
+};
+
+export const getSavedPlans = async (token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/plans`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
+
+export const getPlanById = async (planId, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/plans/${encodeURIComponent(planId)}`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
+
+export const deletePlan = async (planId, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/plans/${encodeURIComponent(planId)}`, {
+    method: "DELETE",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
