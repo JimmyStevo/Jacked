@@ -26,17 +26,17 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login/>}/>
           <Route path="/" element={<Home/>}/>
-          <Route path="/account" element={<><Account/></>}/>
+          <Route path="/account" element={<ProtectedRoute><Account/></ProtectedRoute>}/>
           <Route path="/foodLogging" element={<><FoodLogging/></>}/>
-          <Route path="/nutrition" element={<><Nutrition/></>}/>
-          <Route path="/mealplanner" element={<><MealPlanner/></>}/>
+          <Route path="/nutrition" element={<ProtectedRoute><Nutrition/></ProtectedRoute>}/>
+          <Route path="/mealplanner" element={<ProtectedRoute><MealPlanner/></ProtectedRoute>}/>
           <Route path="/settings" element={<Settings/>}/>
-          <Route path="/overview" element={<><Overview/></>}/>
+          <Route path="/overview" element={<ProtectedRoute><Overview/></ProtectedRoute>}/>
           <Route path="/signup" element={<SignUp/>}/>
-          <Route path="/weightLogging" element={<WeightLogging/>}/>
-          <Route path="/workout" element={<Workout/>}/>
+          <Route path="/weightLogging" element={<ProtectedRoute><WeightLogging/></ProtectedRoute>}/>
+          <Route path="/workout" element={<ProtectedRoute><Workout/></ProtectedRoute>}/>
           <Route path="/startup" element={<Startup/>}/>
-          <Route path="/dashboard" element={<><Dashboard /></>}/>
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>}/>
         </Routes>
       </BrowserRouter>
     </AuthProvider>
