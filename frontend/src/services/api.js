@@ -225,15 +225,79 @@ export const nutritionAPI = {
       body: JSON.stringify(entry),
     });
   },
-  delete: async (meal, date) => {
+  update: async (id, entry) => {
     const token = localStorage.getItem('token');
-    let url = `${API_BASE}/nutrition?meal=${encodeURIComponent(meal)}`;
-    if (date) {
-      url += `&date=${date}`;
-    }
-    return handleFetch(url, {
+    return handleFetch(`${API_BASE}/nutrition?id=${encodeURIComponent(id)}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
+      body: JSON.stringify(entry),
+    });
+  },
+  delete: async (id) => {
+    const token = localStorage.getItem('token');
+    return handleFetch(`${API_BASE}/nutrition?id=${encodeURIComponent(id)}`, {
       method: "DELETE",
       headers: { "Authorization": `Bearer ${token}` },
     });
   },
+};
+
+// MEAL PLANNER SECTION
+
+export const searchFoods = async (query, pageSize = 20, page = 1, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/search?q=${encodeURIComponent(query)}&page_size=${pageSize}&page=${page}`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
+
+export const getProductByBarcode = async (barcode, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/product/${encodeURIComponent(barcode)}`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
+
+export const generateMealPlan = async (goals, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/generate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${authToken}` },
+    body: JSON.stringify(goals),
+  });
+};
+
+export const calculateDailyNeeds = async (userData, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/calculate-needs`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${authToken}` },
+    body: JSON.stringify(userData),
+  });
+};
+
+export const getSavedPlans = async (token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/plans`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
+
+export const getPlanById = async (planId, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/plans/${encodeURIComponent(planId)}`, {
+    method: "GET",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
+};
+
+export const deletePlan = async (planId, token) => {
+  const authToken = token || localStorage.getItem('token');
+  return handleFetch(`${API_BASE}/meal/plans/${encodeURIComponent(planId)}`, {
+    method: "DELETE",
+    headers: { "Authorization": `Bearer ${authToken}` },
+  });
 };

@@ -1,15 +1,21 @@
 import './DateBar.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const DateBar = ({ currentDate: propDate, setCurrentDate: setPropDate }) => {
-
+    // Only use internal state as fallback when NOT controlled
     const [internalDate, setInternalDate] = useState(new Date());
     
-    const currentDate = propDate ?? internalDate;
-    const setCurrentDate = setPropDate ?? setInternalDate;
-
-    // State for date navigation
-    //const [currentDate, setCurrentDate] = useState(new Date());
+    // Determine if controlled (has both prop and setter)
+    const isControlled = setPropDate !== undefined && propDate !== undefined;
+    const currentDate = isControlled ? propDate : internalDate;
+    const setCurrentDate = isControlled ? setPropDate : setInternalDate;
+    
+    // Sync internal state when prop changes (for uncontrolled mode)
+    useEffect(() => {
+        if (!isControlled && propDate) {
+            setInternalDate(propDate);
+        }
+    }, [propDate, isControlled]);
 
     // Handle date navigation
     const handlePrevDay = () => {
