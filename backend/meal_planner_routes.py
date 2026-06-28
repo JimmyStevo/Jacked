@@ -172,7 +172,7 @@ def get_saved_plans():
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
     
-    if not _meal_plans_collection:
+    if _meal_plans_collection is None:
         return jsonify({"error": "Database not available"}), 503
     
     try:
@@ -198,7 +198,7 @@ def get_saved_plan(plan_id: str):
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
     
-    if not _meal_plans_collection:
+    if _meal_plans_collection is None:
         return jsonify({"error": "Database not available"}), 503
     
     try:
@@ -225,7 +225,7 @@ def delete_saved_plan(plan_id: str):
     if not user_id:
         return jsonify({"error": "Authentication required"}), 401
     
-    if not _meal_plans_collection:
+    if _meal_plans_collection is None:
         return jsonify({"error": "Database not available"}), 503
     
     try:

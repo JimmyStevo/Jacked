@@ -67,8 +67,8 @@ const Startup = (props) => {
 
     return(
         <>
-        <MainNavigationBar/>
-        <SecondNaviationBar/>
+        {/* <MainNavigationBar/>
+        <SecondNaviationBar/> */}
         <form onSubmit={handleSubmit}>
             <div className='Startup-column'>
                 <div className='Startup-row'>

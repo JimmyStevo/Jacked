@@ -16,6 +16,10 @@ preference_collection = db["Preferences"]
 food_logging_collection = db["Food_Logging"] # Might need
 Nutrition_collection = db["User_NutritionLogging"]
 weight_logging_collection = db["User_WeightLogging"]
+exercise_collection_ref = db["Exercise_Info"]
+workout_logging_collection = db["User_WorkoutLogging"]
+
+
 meal_plans_collection = db["Meal_Plans"]  # New collection for saved meal plans
 
 
@@ -395,6 +399,7 @@ def workout_amount():
 # Import and register meal planner blueprint
 from meal_planner_routes import meal_bp, init_meal_routes
 init_meal_routes(meal_plans_collection, user_collection)
+print("meal_plans_collection set:", meal_plans_collection)
 app.register_blueprint(meal_bp)
 
 @app.route("/api/health")
