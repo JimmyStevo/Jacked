@@ -6,6 +6,9 @@ import TitleCards from '../Cards/TitleCards';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faScaleBalanced, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 
+// Secondary navigation bar for all pages allows for extra navigation and creating a more 
+// visually appealing experience
+
 const SecondNavigationBar = () => {
     return(
         <nav className='second-navbar'>

@@ -5,6 +5,8 @@ import Cards from '../Cards/Cards';
 import TitleCards from '../Cards/TitleCards';
 import SelectCards from '../Cards/SelectCards';
 
+// for use in specific pages to allow multiple selection within a page
+
 const TertiaryNavigationBar = ({ activeTab, setActiveTab, workdays }) => {
     const days = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
     return(

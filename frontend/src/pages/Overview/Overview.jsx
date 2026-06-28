@@ -38,7 +38,7 @@ const handleSubmit = async () => {
     }
 }
 
-
+// hard coded goal data used to create percentage of user goal progress
 
 const Goals ={
     male: {
@@ -54,6 +54,8 @@ const Goals ={
 
 }
 
+
+// grab user nutrion information to display the current intake of specifc macro foods
 useEffect(() => {
     const today = new Date().toISOString().split('T')[0]
     nutritionAPI.getAll(today, today).then(data => {
@@ -67,6 +69,7 @@ useEffect(() => {
     })
 }, [])
 
+// grab user settings to use in later calculations in conjunction withh Goals
 useEffect(()=>{
     getSettings(token).then(data => {
         const preference = Array.isArray(data) ? data[0] : data
@@ -75,14 +78,16 @@ useEffect(()=>{
     })
 }, [token])
 
+// work out the goal values based on user defined goal and gender
 const target = Goals[userGender]?.[userGoal] || Goals.male.maintain
 
-useEffect(()=>{
-    getOverview(token).then(data => {
-        setWorkouts(data.count)
-    })
-},[])
+// useEffect(()=>{
+//     getOverview(token).then(data => {
+//         setWorkouts(data.count)
+//     })
+// },[])
 
+// set data for cards to then be passed through
 const cardData = [
     {Title: "WORKOUTS", icon: faIdCard, Description: `${totalWorkouts}`, cardType: "card-med"},
     {Title: "CALORIES TODAY", icon: faIdCard, Description: `${totalCalories} kcal`, cardType: "card-med"},
@@ -105,6 +110,9 @@ const cardData = [
                 />))
             }
             </div>
+
+            {/* Progress Bar for user information  */}
+
             <div className='card-container-overview'>
                 <Cards Title={'Todays Macros'} icon={faIdCard} Description={''} cardType={'card-med-large-long'}>
                     <h1>CALORIES</h1>
@@ -117,12 +125,18 @@ const cardData = [
                     <ProgressBar progress={(totalFat / target.fat) * 100} barType={'progressbar-progress4'} current={totalFat} goal={target.fat}/>
                 </Cards>
             </div>
+
+            {/* Chart section for user input weight tracking*/}
+
             <div className='card-container-overview'>
                 <div className='card-container-graph'>
                     <h1>WEIGHT PROGRESS</h1>
                     <LineGraph/>
                 </div>
             </div>
+
+            {/*  Weight logging functionality  */}
+
             <div className='card-container-overview-largergap'>
                 <Cards Title={'Log Weight'} icon={faGamepad} Description={''} cardType={'card-med-large'}>
                     <input className='overview-form' type='number' value={weight} onChange={(e) => setWeight(e.target.value)}/>

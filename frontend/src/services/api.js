@@ -97,7 +97,7 @@ export const getSettings = async (token) => {
   });
 };
 
-//WORKOUT / WEIGHT LOGGING SECTION
+// WEIGHT LOGGING SECTION
 export const insertWeightLogging = async (payload, token) => {
   return handleFetch(`${API_BASE}/weightLogging`, {
     method: "POST",
@@ -141,6 +141,8 @@ export const getWorkoutLogging = async (token) => {
     },
   });
 };
+
+// EXERCISE SECTION 
 
 export const getExercises = async (token, filters) => {
   const params = new URLSearchParams()

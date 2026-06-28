@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const Weekbar = () => {
     
-    // workout the date at teh start and end of the week
+    // workout the date at the start and end of the week
     const getStart = (date) => {
         const d = new Date(date)
         const dif = d.getDay() === 0 ? 6 : d.getDay() -1

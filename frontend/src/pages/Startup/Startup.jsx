@@ -25,7 +25,7 @@ const Startup = (props) => {
     const[selectedDays, setSelectedDays] = useState('')
     const[goalAmount, setGoalAmount] = useState('')
     
-
+    // User information passed to the database
         const startupInsert = async () => {
             console.log({currentWeight, currentHeight, unit, gender, goal, workFreq, workdays: selectedDays, goalAmount})
             try{

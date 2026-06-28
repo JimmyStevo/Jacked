@@ -20,6 +20,9 @@ import { AuthProvider } from './context/AuthContext';
 
 function App() {
 
+// all pages wrapped in authentication logic and set on protected routes so only logged
+// in users can access certain pages
+
   return (
     <AuthProvider>  
       <BrowserRouter>

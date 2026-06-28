@@ -251,6 +251,7 @@ def delete_food_entry(entry_id):
     except Exception as e:
         app.logger.error(f"Delete error: {e}")
         return jsonify({"message": "An internal error occurred"}), 500
+    
 # ============================================
 # Graph Weight logic
 # ============================================

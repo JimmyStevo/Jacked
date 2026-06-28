@@ -2,6 +2,8 @@ import './MainNavigationBar.css';
 import MainButton from '../button/MainButton'
 import { Link } from 'react-router-dom';
 
+// Global navigation bar to be used in all main pages
+
 const MainNavigationBar = () => {
     return(
     <nav className='main-navbar'>

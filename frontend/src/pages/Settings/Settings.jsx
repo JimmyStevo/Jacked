@@ -24,7 +24,7 @@ const Settings = () => {
     const [workdays, setWorkdays] = useState([])
     const [darkmode, setDarkmode] = useState('')
     
-
+// updates database when the user submits
     const handleSettingsSubmit = async () => {
         try{
             const response = await insertSettings({weightGoal, stepsGoal, unit, darkmode}, token)
@@ -38,6 +38,7 @@ const Settings = () => {
         event.preventDefault();
         handleSettingsSubmit();
     }
+
 
     useEffect(() => {
         getSettings(token).then(data => {
@@ -53,6 +54,7 @@ const Settings = () => {
         })
     }, [token])
 
+    // clears any changes the user may have made a reverts to original information
     const handleRevert = () =>{
         setWeightGoal(savedSettings.weightGoal || "")
         setSteps(savedSettings.stepsGoal || "")
@@ -74,39 +76,29 @@ const Settings = () => {
             
             <div className='card-container-settings'>
                 <Cards Title={'Fitness Goals'} icon={faDumbbell} Description={'Set Your Fitness goals'} cardType={'card-large'}>
-                        <h1>
-                            Current Weight:  
-                        </h1>   
-                        <h3>{weight}</h3>
-                        <h1>
-                            Target Weight:  
-                        </h1>
-                            <input className='settings-input' type='number' placeholder='Enter your target Weight' value={weightGoal}
+                    <h1>Current Weight:</h1>   
+                    <h3>{weight}</h3>
+                    <h1>Target Weight:</h1>
+                        <input className='settings-input' type='number' placeholder='Enter your target Weight' value={weightGoal}
                             onChange={(e)=> setWeightGoal(e.target.value)}/>
-                        <h1>
-                            Target Steps: 
-                        </h1>
+                    <h1>Target Steps:</h1>
                         <input type='number' placeholder='Enter your target Steps' value={stepsGoal} onChange={(e)=> setSteps(e.target.value)}/>
+                    <h1>Current Goal:</h1>
+                        <h3>{goal}</h3>
+                    <h1>Workout Frequency:</h1>
+                        <h3>{workFreq}</h3>
+                    <h1>Days to Workout:</h1>
+                        <h3>{workdays.map(day => (
+                            <span key={day}>{day}, </span> 
+                            ))}
+                        </h3>
                 </Cards>
             </div>
 
             {/* Notifications */}
             <div className='card-container-settings'>
                 <Cards Title={'Notifications'} icon={faInfoCircle} Description={'Set Your Notification Settings'} cardType={'card-large'}>
-                    <h1>
-                        Current Goal:
-                    </h1>
-                    <h3>{goal}</h3>
-                    <h1>
-                        Workout Frequency:  
-                    </h1>
-                    <h3>{workFreq}</h3>
-                    <h1>
-                        Days to Workout:  
-                    </h1>
-                    <h3>{workdays.map(day => (
-                        <span key={day}>{day}, </span> 
-                    ))}</h3>
+
                 </Cards>
             </div>
 
