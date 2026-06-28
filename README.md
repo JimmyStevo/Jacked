@@ -8,4 +8,4 @@ user can sign-up and go through the pages as well
 
 technologies used
 
-flask, flask-cors, recharts, pymongo, react, 
+flask, flask-cors, recharts, pymongo, react, auth, bson, jwt
