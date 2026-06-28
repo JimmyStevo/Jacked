@@ -9,7 +9,7 @@ import LineGraph from '../../components/Charts/LineChart';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faGear, faRightFromBracked, faChartLine, faUtensils, faWeightScale, faDumbbell, faIdCard, faGamepad } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { insertWeightLogging, nutritionAPI, getSettings, getOverview } from '../../services/api';
+import { insertWeightLogging, nutritionAPI, getSettings, getOverview, getFoodLogging } from '../../services/api';
 import { useAuth } from '../../context/AuthContext';
 import { getNiceTickValues } from 'recharts';
 
@@ -56,18 +56,23 @@ const Goals ={
 
 
 // grab user nutrion information to display the current intake of specifc macro foods
+// uses ... as an unpacker to allow multiple arrays to feed into the overview display
 useEffect(() => {
-    const today = new Date().toISOString().split('T')[0]
-    nutritionAPI.getAll(today, today).then(data => {
-        console.log("nutrition data", data)
-        const dataArray = Array.isArray(data) ? data : []
-        setNutritionData(dataArray)
-        setTotalCalories(dataArray.reduce((sum, d) => sum + (d.calories || 0), 0))
-        setTotalProtein(dataArray.reduce((sum, d) => sum + (d.protein || 0), 0))
-        setTotalFat(dataArray.reduce((sum, d) => sum + (d.fat || 0), 0))
-        setTotalCarbs(dataArray.reduce((sum, d) => sum + (d.carbs || 0), 0))
+    const today = new Date().toISOString().split('T')[0];
+
+    Promise.all([
+        nutritionAPI.getAll(today, today),
+        getFoodLogging(today, token)
+    ]).then(([nutritionData, foodLogData]) => {
+        const combined = [
+            ...(Array.isArray(nutritionData) ? nutritionData : []),
+            ...(Array.isArray(foodLogData) ? foodLogData : [])];
+        setTotalCalories(combined.reduce((sum, d) => sum + (d.calories || 0), 0))
+        setTotalProtein(combined.reduce((sum, d) => sum + (d.protein || 0), 0))
+        setTotalFat(combined.reduce((sum, d) => sum + (d.fat || d.fats || 0), 0))
+        setTotalCarbs(combined.reduce((sum, d) => sum + (d.carbs || 0), 0))
     })
-}, [])
+}, [token]);
 
 // grab user settings to use in later calculations in conjunction withh Goals
 useEffect(()=>{

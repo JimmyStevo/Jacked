@@ -205,6 +205,19 @@ export const getOverview = async (token) => {
   });
 };
 
+// FOOD LOGGING SECTION
+
+export const getFoodLogging = async (date, token) => {
+  return handleFetch(`${API_BASE}/food-logging?date=${date}`, { 
+    method: "GET",
+    headers: {
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`
+    },
+  });
+};
+
+
 // NUTRITION SECTION
 
 export const nutritionAPI = {
