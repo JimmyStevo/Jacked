@@ -3,6 +3,8 @@ import MainNavigationBar from '../../components/NavBar/MainNavigationBar';
 import SecondNavigationBar from '../../components/NavBar/SecondNavigationBar';
 import DateBar from '../../components/NavBar/DateBar';
 import './FoodLogging.css';
+
+const API_BASE = process.env.REACT_APP_API_BASE || '/api';
  
 // ── Daily goals — replace with real user prefs from DB when ready ──
 const GOALS = { calories: 2500, protein: 180, carbs: 250, fats: 70 };
@@ -36,10 +38,9 @@ const FoodLogging = () => {
       setLoadingEntries(true);
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch(
-          `http://localhost:5000/api/food-logging?date=${dateKey}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
+        const res = await fetch(`${API_BASE}/food-logging?date=${dateKey}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         if (!res.ok) throw new Error();
         setEntries(await res.json());
       } catch {
@@ -59,9 +60,7 @@ const FoodLogging = () => {
     setSearchResults([]);
     setSelected(null);
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/food-search?query=${encodeURIComponent(query)}`
-      );
+      const res = await fetch(`${API_BASE}/food-search?query=${encodeURIComponent(query)}`);
       if (!res.ok) throw new Error();
       const data = await res.json();
       if (!data.products?.length) {
@@ -99,7 +98,7 @@ const FoodLogging = () => {
     };
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/food-logging', {
+      const res = await fetch(`${API_BASE}/food-logging`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -121,7 +120,7 @@ const FoodLogging = () => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      await fetch(`http://localhost:5000/api/food-logging/${id}`, {
+      await fetch(`${API_BASE}/food-logging/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });
