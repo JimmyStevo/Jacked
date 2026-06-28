@@ -7,10 +7,35 @@ import requests
 from typing import List, Dict, Optional, Any
 import random
 import math
+import time
 
 
 OPENFOODFACTS_API = "https://world.openfoodfacts.org/cgi/search.pl"
 OPENFOODFACTS_PRODUCT = "https://world.openfoodfacts.org/api/v0/product/{barcode}.json"
+
+# Sample fallback data for when API is unavailable
+SAMPLE_FOODS = [
+    {"name": "Chicken Breast", "brand": "Generic", "calories": 165, "protein": 31, "carbs": 0, "fat": 3.6, "category": "protein"},
+    {"name": "Brown Rice", "brand": "Generic", "calories": 112, "protein": 2.6, "carbs": 24, "fat": 0.9, "category": "grain"},
+    {"name": "Broccoli", "brand": "Generic", "calories": 34, "protein": 2.8, "carbs": 7, "fat": 0.4, "category": "vegetable"},
+    {"name": "Salmon", "brand": "Generic", "calories": 208, "protein": 20, "carbs": 0, "fat": 13, "category": "protein"},
+    {"name": "Eggs", "brand": "Generic", "calories": 155, "protein": 13, "carbs": 1.1, "fat": 11, "category": "protein"},
+    {"name": "Oatmeal", "brand": "Generic", "calories": 68, "protein": 2.4, "carbs": 12, "fat": 1.4, "category": "grain"},
+    {"name": "Greek Yogurt", "brand": "Generic", "calories": 100, "protein": 17, "carbs": 6, "fat": 0.7, "category": "dairy"},
+    {"name": "Sweet Potato", "brand": "Generic", "calories": 86, "protein": 1.6, "carbs": 20, "fat": 0.1, "category": "vegetable"},
+    {"name": "Almonds", "brand": "Generic", "calories": 164, "protein": 6, "carbs": 6, "fat": 14, "category": "snack"},
+    {"name": "Banana", "brand": "Generic", "calories": 89, "protein": 1.1, "carbs": 23, "fat": 0.3, "category": "fruit"},
+    {"name": "Avocado", "brand": "Generic", "calories": 160, "protein": 2, "carbs": 9, "fat": 15, "category": "fruit"},
+    {"name": "Tuna", "brand": "Generic", "calories": 132, "protein": 28, "carbs": 0, "fat": 1, "category": "protein"},
+    {"name": "Quinoa", "brand": "Generic", "calories": 120, "protein": 4.4, "carbs": 21, "fat": 1.9, "category": "grain"},
+    {"name": "Spinach", "brand": "Generic", "calories": 23, "protein": 2.9, "carbs": 3.6, "fat": 0.4, "category": "vegetable"},
+    {"name": "Cottage Cheese", "brand": "Generic", "calories": 98, "protein": 11, "carbs": 3.4, "fat": 4.3, "category": "dairy"},
+    {"name": "Turkey Breast", "brand": "Generic", "calories": 135, "protein": 30, "carbs": 0, "fat": 1, "category": "protein"},
+    {"name": "Whole Wheat Bread", "brand": "Generic", "calories": 247, "protein": 13, "carbs": 41, "fat": 4.2, "category": "grain"},
+    {"name": "Peanut Butter", "brand": "Generic", "calories": 188, "protein": 8, "carbs": 6, "fat": 16, "category": "snack"},
+    {"name": "Milk (2%)", "brand": "Generic", "calories": 50, "protein": 3.4, "carbs": 5, "fat": 2, "category": "dairy"},
+    {"name": "Apple", "brand": "Generic", "calories": 52, "protein": 0.3, "carbs": 14, "fat": 0.2, "category": "fruit"},
+]
 
 
 class MealPlanner:
@@ -19,8 +44,85 @@ class MealPlanner:
     def __init__(self):
         self.session = requests.Session()
         self.session.headers.update({
-            "User-Agent": "JackedApp/1.0 (Fitness Nutrition App)"
+            "User-Agent": "JackedApp/1.0 (Fitness Nutrition App; https://jacked.app)"
         })
+        self._api_available = True
+        self._last_api_check = 0
+        self._api_check_interval = 60  # Check API availability every 60 seconds
+    
+    def _check_api_availability(self) -> bool:
+        """Check if OpenFoodFacts API is available."""
+        current_time = time.time()
+        if current_time - self._last_api_check < self._api_check_interval:
+            return self._api_available
+        self._last_api_check = current_time
+        
+        try:
+            test_response = self.session.get(
+                OPENFOODFACTS_API,
+                params={"search_terms": "test", "search_simple": 1, "action": "process", "json": 1, "page_size": 1},
+                timeout=5
+            )
+            self._api_available = test_response.status_code == 200
+        except:
+            self._api_available = False
+        
+        return self._api_available
+    
+    def _search_with_retry(self, params: Dict, max_retries: int = 2) -> Optional[Dict]:
+        """Try to search with retries on failure."""
+        for attempt in range(max_retries):
+            try:
+                response = self.session.get(OPENFOODFACTS_API, params=params, timeout=15)
+                if response.status_code == 200:
+                    return response.json()
+                elif response.status_code == 503:
+                    # API temporarily unavailable, wait and retry
+                    time.sleep(1 * (attempt + 1))
+                    continue
+            except requests.RequestException:
+                if attempt < max_retries - 1:
+                    time.sleep(0.5 * (attempt + 1))
+                    continue
+        return None
+    
+    def _get_fallback_foods(self, query: str, page_size: int = 20) -> List[Dict[str, Any]]:
+        """Get fallback sample foods when API is unavailable."""
+        query_lower = query.lower()
+        
+        # Filter sample foods that match the query
+        matching_foods = [
+            f for f in SAMPLE_FOODS
+            if query_lower in f["name"].lower() or query_lower in f["category"].lower()
+        ]
+        
+        # If no matches, return random selection
+        if not matching_foods:
+            matching_foods = random.sample(SAMPLE_FOODS, min(page_size, len(SAMPLE_FOODS)))
+        
+        # Convert to normalized format
+        return [
+            {
+                "barcode": f"sample_{i}",
+                "name": f["name"],
+                "brand": f["brand"],
+                "nutrition_grade": "A",
+                "image_url": "",
+                "serving_size": "100g",
+                "categories": [f["category"]],
+                "nutrition": {
+                    "calories": f["calories"],
+                    "protein": f["protein"],
+                    "carbs": f["carbs"],
+                    "fat": f["fat"],
+                    "fiber": 2.0,
+                    "sugar": 3.0,
+                    "sodium": 50.0,
+                },
+                "_is_fallback": True
+            }
+            for i, f in enumerate(matching_foods[:page_size])
+        ]
     
     def search_foods(self, query: str, page_size: int = 20, page: int = 1) -> List[Dict[str, Any]]:
         """
@@ -45,15 +147,21 @@ class MealPlanner:
         }
         
         try:
-            response = self.session.get(OPENFOODFACTS_API, params=params, timeout=10)
-            response.raise_for_status()
-            data = response.json()
+            # Try API with retry logic
+            data = self._search_with_retry(params)
             
-            products = data.get("products", [])
-            return [self._normalize_product(p) for p in products if p.get("product_name")]
+            if data is not None:
+                products = data.get("products", [])
+                results = [self._normalize_product(p) for p in products if p.get("product_name")]
+                if results:
+                    return results
+            
+            # Fallback to sample data if API fails or returns no results
+            return self._get_fallback_foods(query, page_size)
             
         except requests.RequestException as e:
-            raise Exception(f"Failed to search foods: {str(e)}")
+            # Return fallback data on any request exception
+            return self._get_fallback_foods(query, page_size)
     
     def get_product_by_barcode(self, barcode: str) -> Optional[Dict[str, Any]]:
         """
@@ -71,15 +179,16 @@ class MealPlanner:
             response = self.session.get(url, timeout=10)
             if response.status_code == 404:
                 return None
-            response.raise_for_status()
+            if response.status_code != 200:
+                return None
             data = response.json()
             
             if data.get("status") == 1:
                 return self._normalize_product(data.get("product", {}))
             return None
             
-        except requests.RequestException as e:
-            raise Exception(f"Failed to get product: {str(e)}")
+        except requests.RequestException:
+            return None
     
     def _normalize_product(self, product: Dict) -> Dict[str, Any]:
         """Normalize product data to consistent format."""
