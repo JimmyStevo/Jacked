@@ -4,6 +4,7 @@ from pymongo import MongoClient
 from auth import auth_bp, JWT_SECRET, JWT_ALGORITHM
 from bson import ObjectId
 from datetime import datetime, timedelta
+import base64
 import jwt
 import requests as http_requests
 
@@ -147,38 +148,32 @@ def food_search():
     query = request.args.get('query', '').strip()
     if not query:
         return jsonify({"message": "Query parameter is required."}), 400
-    
+
     try:
-        url = "https://world.openfoodfacts.org/cgi/search.pl"
-        params = {
-            "search_terms": query,
-            "search_simple": 1,
-            "action": "process",
-            "json": 1,
-            "page_size": 20,
-            "fields": "code,product_name,brands,nutriments",
-        }
-        headers = {
-            #open food facts requires a description for the user agent
-            "User-Agent": "JACKED_APP/1.0 (contact@jacked.app)"
-        }
-
-        print(f"[Food Search] Querying OFF for: {query}")
-        response = http_requests.get(url, params=params, headers=headers, timeout=10)
+        response = http_requests.get(
+            "https://world.openfoodfacts.net/api/v2/search",
+            params={
+                "search_terms": query,
+                "page_size": 20,
+                "fields": "code,product_name,nutriments",
+            },
+            headers={
+                "Authorization": "Basic " + base64.b64encode(b"off:off").decode("ascii"),
+                "User-Agent": "JACKED_APP/1.0 (contact@jacked.app)",
+            },
+            timeout=10,
+        )
         response.raise_for_status()
-
         data = response.json()
-        print(f"[Food Search] Got {len(data.get('products', []))} results")
-        return jsonify(data), 200
- 
+        products = data.get("products", [])
+        print(f"[Food Search] Got {len(products)} results for: {query}")
+        return jsonify({"products": products}), 200
+
     except http_requests.Timeout:
-        print("[Food Search] ERROR: Request timed out")
-        return jsonify({"message": "Food database request timed out"}), 504
+        return jsonify({"message": "Food database request timed out."}), 504
     except http_requests.RequestException as e:
-        print(f"[Food Search] ERROR: {str(e)}")
         return jsonify({"message": f"Food database error: {str(e)}"}), 502
     except Exception as e:
-        print(f"[Food Search] UNEXPECTED ERROR: {str(e)}")
         return jsonify({"message": str(e)}), 500
     
 # ============================================
